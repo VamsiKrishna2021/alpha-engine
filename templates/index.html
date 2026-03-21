@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpha Engine — US Market Intelligence</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -697,7 +697,7 @@ async function runAnalysis(ticker) {
 
     try {
         // Try to load from scan_results.json first
-        const resp = await fetch('/static/scan_results.json');
+        const resp = await fetch('scan_results.json');
         if (!resp.ok) throw new Error('scan_results.json not found');
         const scanData = await resp.json();
 
