@@ -90,18 +90,7 @@ def generate_dashboard(results: dict = None):
         with open(dst, "w") as f:
             f.write(content)
 
-    # Render analyse page template (static shell — JS handles the rest)
-    try:
-        analyse_template = env.get_template("analyse.html")
-        analyse_html = analyse_template.render(
-            generated_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S ET"),
-        )
-        analyse_path = os.path.join(CFG.OUTPUT_DIR, "analyse.html")
-        with open(analyse_path, "w") as f:
-            f.write(analyse_html)
-        logger.info(f"Analyse page generated: {analyse_path}")
-    except Exception as e:
-        logger.warning(f"Analyse template not found: {e}")
+    # (analyse.html removed — analyser is now inline on main dashboard)
 
     # Copy scan_results.json to output for frontend access
     results_src = os.path.join(CFG.DATA_DIR, "scan_results.json")

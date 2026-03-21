@@ -126,7 +126,7 @@
             {% for stock in data.top_stocks %}
             {% set rank = loop.index %}
             {% set chg_cls = 'positive' if stock.change_pct >= 0 else 'negative' %}
-            <a class="stock-item" href="/analyse?ticker={{ stock.ticker }}">
+            <a class="stock-item" href="javascript:void(0)" onclick="goToAnalyser('{{ stock.ticker }}')">
                 <span class="stock-rank">{{ rank }}</span>
                 <div class="stock-info">
                     <div class="stock-name">{{ stock.ticker }}</div>
@@ -168,12 +168,12 @@
         <div class="stock-list">
             {% for stock in data.top_gainers %}
             {% set rank = loop.index %}
-            <div class="stock-item">
+            <div class="stock-item" onclick="goToAnalyser('{{ stock.ticker }}')" style="cursor:pointer">
                 <span class="stock-rank">{{ rank }}</span>
                 <div class="stock-info">
                     <div class="stock-name">{{ stock.ticker }}</div>
                     <div class="stock-sub">
-                        Vol: {{ "${:,.0f}M".format(stock.dollar_volume / 1e6) if stock.dollar_volume else '—' }}
+                        Vol: ${{ "%.1f"|format(stock.dollar_volume) }}M
                     </div>
                 </div>
                 <div class="stock-price">
@@ -201,12 +201,12 @@
         <div class="stock-list">
             {% for stock in data.top_losers %}
             {% set rank = loop.index %}
-            <div class="stock-item">
+            <div class="stock-item" onclick="goToAnalyser('{{ stock.ticker }}')" style="cursor:pointer">
                 <span class="stock-rank">{{ rank }}</span>
                 <div class="stock-info">
                     <div class="stock-name">{{ stock.ticker }}</div>
                     <div class="stock-sub">
-                        Vol: {{ "${:,.0f}M".format(stock.dollar_volume / 1e6) if stock.dollar_volume else '—' }}
+                        Vol: ${{ "%.1f"|format(stock.dollar_volume) }}M
                     </div>
                 </div>
                 <div class="stock-price">
@@ -333,7 +333,7 @@
             <div class="heatmap-grid">
                 {% for sector in data.sectors %}
                 {% set cell_bg = sector_color(sector.daily_chg) %}
-                <div class="heatmap-cell" style="background: {{ cell_bg }};" title="{{ sector.name }}: {{ sector.daily_chg }}% daily, {{ sector.weekly_chg }}% weekly">
+                <div class="heatmap-cell" style="background: {{ cell_bg }}; cursor:pointer;" title="Click to see {{ sector.name }} stocks" onclick="openSectorModal('{{ sector.name }}', '{{ sector.etf }}')">
                     <div class="heatmap-cell-etf">{{ sector.etf }}</div>
                     <div class="heatmap-cell-name">{{ sector.name }}</div>
                     <div class="heatmap-cell-daily">
@@ -683,7 +683,25 @@ document.getElementById('analyserTicker').addEventListener('keydown', function(e
     if (e.key === 'Enter') runAnalysis();
 });
 
+/* ===== GO TO ANALYSER (from any ticker click) ===== */
+function goToAnalyser(ticker) {
+    const input = document.getElementById('analyserTicker');
+    const section = document.querySelector('.analyser-section');
+    input.value = ticker.toUpperCase();
+    section.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => runAnalysis(ticker), 400);
+}
+
 /* ===== STOCK ANALYSER ===== */
+let _scanDataCache = null;
+async function loadScanData() {
+    if (_scanDataCache) return _scanDataCache;
+    const resp = await fetch('scan_results.json');
+    if (!resp.ok) throw new Error('scan_results.json not found');
+    _scanDataCache = await resp.json();
+    return _scanDataCache;
+}
+
 async function runAnalysis(ticker) {
     ticker = (ticker || document.getElementById('analyserTicker').value || '').trim().toUpperCase();
     if (!ticker) return;
@@ -696,31 +714,38 @@ async function runAnalysis(ticker) {
         </div>`;
 
     try {
-        // Try to load from scan_results.json first
-        const resp = await fetch('scan_results.json');
-        if (!resp.ok) throw new Error('scan_results.json not found');
-        const scanData = await resp.json();
+        const scanData = await loadScanData();
 
-        // Find the stock in the results
-        const stocks = scanData.stocks || scanData.results || [];
-        const stock = stocks.find(s =>
-            (s.ticker || s.symbol || '').toUpperCase() === ticker
-        );
+        // Search ALL stocks: top_stocks + all_actionable + all_watchlist
+        const allStocks = [
+            ...(scanData.top_stocks || []),
+            ...(scanData.all_actionable || []),
+            ...(scanData.all_watchlist || []),
+        ];
+        // Deduplicate by ticker
+        const seen = new Set();
+        const unique = allStocks.filter(s => {
+            const t = (s.ticker || '').toUpperCase();
+            if (seen.has(t)) return false;
+            seen.add(t);
+            return true;
+        });
+
+        const stock = unique.find(s => (s.ticker || '').toUpperCase() === ticker);
 
         if (!stock) {
-            throw new Error(`${ticker} not found in today's scan`);
+            throw new Error(`${ticker} not found in today's scan (${unique.length} stocks available)`);
         }
 
         renderAnalysisResult(stock);
 
     } catch (err) {
-        // Show a clean not-found message
         resultEl.innerHTML = `
             <div class="analyser-error">
                 <i class="fas fa-circle-xmark"></i>
                 <span>${err.message || 'Failed to load analysis data'}</span>
                 <small style="font-size:11px; color: var(--text-muted); margin-top:4px">
-                    Try running the scanner first to generate results
+                    Run the On-Demand Stock Analysis workflow in GitHub Actions for this ticker
                 </small>
             </div>`;
     }
@@ -728,35 +753,66 @@ async function runAnalysis(ticker) {
 
 function renderAnalysisResult(stock) {
     const resultEl = document.getElementById('analyserResult');
-    const ticker  = stock.ticker || stock.symbol || '—';
+    const ticker  = stock.ticker || '—';
     const price   = stock.price || 0;
     const chgPct  = stock.change_pct || 0;
     const score   = stock.score || 0;
     const verdict = stock.verdict || 'N/A';
-    const vClass  = stock.verdict_class || 'watchlist';
+    const vClass  = stock.verdict_class || 'badge-yellow';
     const details = stock.details || {};
 
     const chgSign = chgPct >= 0 ? '+' : '';
     const chgCls  = chgPct >= 0 ? 'positive' : 'negative';
 
-    // Build criteria checks
-    let checksHtml = '';
-    if (stock.criteria_passed && Array.isArray(stock.criteria_passed)) {
-        checksHtml = `<div class="analysis-checks-title">SEPA CRITERIA</div><div class="analysis-checks">`;
-        stock.criteria_passed.forEach(c => {
-            const pass = c.passed !== false;
-            checksHtml += `
-                <div class="check-item ${pass ? 'pass' : 'fail'}">
-                    <div class="check-header">
-                        <i class="fas ${pass ? 'fa-check' : 'fa-times'} check-icon"></i>
-                        <span class="check-name">${c.name || c.criterion || ''}</span>
-                        ${c.weight ? `<span class="check-weight">${c.weight}</span>` : ''}
+    // Verdict color class
+    let verdictBg = '#ffd74015';
+    let verdictBorder = '#ffd740';
+    if (score >= 75) { verdictBg = '#00e67615'; verdictBorder = '#00e676'; }
+    else if (score < 50) { verdictBg = '#ff525215'; verdictBorder = '#ff5252'; }
+
+    // Advice text based on score
+    let advice = '';
+    if (score >= 75) advice = 'This stock meets Minervini\'s SEPA criteria. Look for a proper entry point near a breakout pivot with volume confirmation.';
+    else if (score >= 50) advice = 'This stock is building a base. Wait for it to set up properly or look for better candidates near 52-week highs with strong relative strength.';
+    else advice = 'This stock currently does not meet Minervini\'s SEPA criteria. Either wait for it to set up properly or look for better candidates near 52-week highs with strong relative strength.';
+
+    // Build 7 criteria cards from stock.details
+    let criteriaHtml = '';
+    const criteriaNames = {
+        '52wk_high': { name: '52-Week High Proximity', icon: 'fa-arrow-up' },
+        '52wk_low': { name: '52-Week Low Distance', icon: 'fa-arrow-down' },
+        'rel_strength': { name: 'Relative Strength vs SPY', icon: 'fa-bolt' },
+        'price_action': { name: 'Intraday Price Action', icon: 'fa-chart-candlestick' },
+        'vcp': { name: 'Volatility Contraction (VCP Signal)', icon: 'fa-compress-arrows-alt' },
+        'liquidity': { name: 'Liquidity & Volume', icon: 'fa-water' },
+        'stage': { name: 'Weinstein Stage Analysis', icon: 'fa-layer-group' },
+    };
+
+    if (details && Object.keys(details).length > 0) {
+        criteriaHtml = '<div class="analysis-criteria-title">SEPA CRITERIA BREAKDOWN</div><div class="analysis-criteria-grid">';
+        for (const [key, meta] of Object.entries(criteriaNames)) {
+            const c = details[key];
+            if (!c) continue;
+            const pct = c.max > 0 ? (c.score / c.max * 100) : 0;
+            let dotColor = '#ff5252';
+            if (pct >= 80) dotColor = '#00e676';
+            else if (pct >= 40) dotColor = '#ffd740';
+
+            criteriaHtml += `
+                <div class="criterion-card">
+                    <div class="criterion-left">
+                        <span class="criterion-dot" style="background:${dotColor}"></span>
+                        <div>
+                            <div class="criterion-name">${meta.name}</div>
+                            <div class="criterion-detail">${c.detail || ''}</div>
+                        </div>
                     </div>
-                    ${c.value ? `<div class="check-value">${c.value}</div>` : ''}
-                    ${c.detail ? `<div class="check-detail">${c.detail}</div>` : ''}
+                    <div class="criterion-score-pill" style="color:${dotColor}; border-color:${dotColor}">
+                        +${c.score}/${c.max}
+                    </div>
                 </div>`;
-        });
-        checksHtml += `</div>`;
+        }
+        criteriaHtml += '</div>';
     }
 
     resultEl.innerHTML = `
@@ -764,33 +820,123 @@ function renderAnalysisResult(stock) {
             <div class="analysis-header-bar">
                 <div>
                     <div class="analysis-symbol">${ticker}</div>
-                    <div class="analysis-company">${stock.name || ''}</div>
+                    <div class="analysis-company">${stock.sector || ''} ${stock.industry ? '/ ' + stock.industry : ''}</div>
                 </div>
-                <div>
+                <div style="text-align:right">
                     <div class="analysis-ltp">$${price.toFixed(2)}</div>
                     <div class="analysis-change ${chgCls}">${chgSign}${chgPct.toFixed(2)}%</div>
                 </div>
             </div>
 
-            <div class="analysis-verdict-bar ${vClass}">
-                <div class="score-circle">
+            <div class="analysis-verdict-bar" style="background:${verdictBg}; border-left: 4px solid ${verdictBorder}">
+                <div class="score-circle" style="border-color:${verdictBorder}">
                     <span class="score-num">${score}</span>
-                    <span class="score-label">SCORE</span>
+                    <span class="score-label">/100</span>
                 </div>
                 <div>
-                    <div class="verdict-title">${verdict}</div>
+                    <div class="verdict-title" style="color:${verdictBorder}">${verdict}</div>
                     <div class="verdict-summary">
-                        Stage ${stock.stage || '?'} &nbsp;|&nbsp;
-                        RS Percentile: ${stock.rs_percentile || '?'}
-                        ${stock.avg_dollar_volume ? ` &nbsp;|&nbsp; Avg Vol: $${(stock.avg_dollar_volume/1e6).toFixed(0)}M` : ''}
+                        ${stock.criteria_passed} criteria passed &nbsp;|&nbsp;
+                        Stage: ${stock.stage || '?'} &nbsp;|&nbsp;
+                        RS Percentile: ${stock.rs_percentile || '?'}%
                     </div>
                 </div>
             </div>
 
-            ${checksHtml}
+            <div class="analysis-advice">
+                <i class="fas fa-info-circle" style="color:${verdictBorder}"></i>
+                ${advice}
+            </div>
+
+            <div class="analysis-metrics-row">
+                <div class="analysis-metric"><span class="am-label">AVG $ VOLUME</span><span class="am-value">$${stock.avg_dollar_volume ? stock.avg_dollar_volume.toFixed(0) + 'M' : 'N/A'}</span></div>
+                <div class="analysis-metric"><span class="am-label">RS PERCENTILE</span><span class="am-value">${stock.rs_percentile || 'N/A'}%</span></div>
+                <div class="analysis-metric"><span class="am-label">STAGE</span><span class="am-value">${stock.stage || 'N/A'}</span></div>
+                <div class="analysis-metric"><span class="am-label">SCORE</span><span class="am-value" style="color:${verdictBorder}">${score}/100</span></div>
+            </div>
+
+            ${criteriaHtml}
         </div>`;
 }
+
+/* ===== SECTOR HEATMAP DRILL-DOWN ===== */
+const SECTOR_TICKERS = {
+    'Technology': ['AAPL','MSFT','NVDA','GOOGL','GOOG','META','AVGO','CRM','ORCL','ADBE','AMD','INTC','CSCO','IBM','NOW','QCOM','TXN','AMAT','MU','LRCX','KLAC','MRVL','SNPS','CDNS','FTNT','PANW','CRWD','NET','PLTR','SHOP','SQ','TEAM','DDOG','ZS','HUBS','WDAY','SNOW','MDB','TTD','BILL','APP','SMCI'],
+    'Healthcare': ['UNH','JNJ','LLY','ABBV','MRK','TMO','ABT','PFE','AMGN','DHR','BMY','MDT','ISRG','GILD','VRTX','CI','ELV','SYK','BSX','ZTS','REGN','BDX','HCA','DXCM','IQV','A','EW','HOLX','IDXX','PODD','ALGN'],
+    'Financials': ['BRK','JPM','V','MA','BAC','WFC','GS','MS','SPGI','BLK','C','AXP','MMC','CB','PGR','SCHW','ICE','CME','AON','MET','AIG','TFC','USB','PNC','COF','CINF','AFL','ALL','TRV'],
+    'Consumer Disc.': ['AMZN','TSLA','HD','MCD','NKE','LOW','SBUX','TJX','BKNG','CMG','ABNB','ORLY','AZO','ROST','DHI','LEN','ULTA','POOL','DECK','YUM','DPZ','WYNN','MGM','RCL','CCL','MAR','HLT'],
+    'Consumer Staples': ['PG','KO','PEP','COST','WMT','PM','MO','MDLZ','CL','EL','KMB','GIS','SJM','HSY','K','STZ','MKC','CLX','CHD','CAG','KHC','TSN','HRL','CPB','SPC'],
+    'Energy': ['XOM','CVX','COP','SLB','EOG','MPC','PSX','VLO','PXD','OXY','DVN','HES','FANG','HAL','BKR','CTRA','OVV','APA','MRO','EQT','AR','CHRD','CVE','PBF','TRGP','KMI','WMB','OKE','ET'],
+    'Industrials': ['RTX','HON','UNP','UPS','CAT','DE','GE','GEV','BA','LMT','NOC','GD','MMM','EMR','ITW','ETN','ROK','PH','CMI','WM','RSG','NSC','CSX','FDX','ODFL','UBER','CARR','TT','IR','DAL','UAL','LUV','AAL'],
+    'Materials': ['LIN','APD','SHW','ECL','DD','FCX','NEM','NUE','STLD','CF','MOS','ALB','IFF','PPG','VMC','MLM','CE','EMN','BALL','PKG','IP','WRK','SEE','AVY'],
+    'Utilities': ['NEE','SO','DUK','AEP','D','SRE','EXC','XEL','ED','WEC','ES','AEE','DTE','CMS','PEG','AWK','FE','PPL','ATO','EVRG','NI','OGE','PNW'],
+    'Real Estate': ['PLD','AMT','EQIX','CCI','PSA','SPG','O','DLR','WELL','AVB','EQR','VICI','ARE','MAA','UDR','ESS','KIM','REG','SUI','BXP','VNO','SLG','CPT','HST','PEAK'],
+    'Communication': ['GOOGL','GOOG','META','NFLX','DIS','CMCSA','T','VZ','TMUS','CHTR','EA','TTWO','WBD','PARA','OMC','IPG','MTCH','ZM','PINS','SNAP','RBLX','SPOT','LYV','FOXA','FOX','NWSA']
+};
+
+function openSectorModal(sectorName, etf) {
+    loadScanData().then(scanData => {
+        const sectorTickers = SECTOR_TICKERS[sectorName] || [];
+        const allStocks = [
+            ...(scanData.top_stocks || []),
+            ...(scanData.all_actionable || []),
+            ...(scanData.all_watchlist || []),
+        ];
+        const seen = new Set();
+        const matches = [];
+        for (const s of allStocks) {
+            const t = (s.ticker || '').toUpperCase();
+            if (!seen.has(t) && sectorTickers.includes(t)) {
+                seen.add(t);
+                matches.push(s);
+            }
+        }
+        matches.sort((a, b) => b.score - a.score);
+
+        let rows = matches.slice(0, 20).map((s, i) => {
+            const chg = s.change_pct || 0;
+            const cls = chg >= 0 ? 'positive' : 'negative';
+            const sign = chg >= 0 ? '+' : '';
+            return `<div class="sector-stock-item" onclick="closeSectorModal(); goToAnalyser('${s.ticker}')">
+                <span class="sector-stock-rank">${i + 1}</span>
+                <span class="sector-stock-ticker">${s.ticker}</span>
+                <span class="sector-stock-score">${s.score}</span>
+                <span class="sector-stock-price">$${s.price.toFixed(2)}</span>
+                <span class="sector-stock-chg ${cls}">${sign}${chg.toFixed(2)}%</span>
+                <span class="sector-stock-stage">${s.stage || ''}</span>
+            </div>`;
+        }).join('');
+
+        if (matches.length === 0) {
+            rows = '<div style="text-align:center; padding:20px; color:var(--text-muted)">No stocks from this sector found in today\'s scan</div>';
+        }
+
+        document.getElementById('sectorModalTitle').textContent = `${sectorName} (${etf}) — Top Stocks`;
+        document.getElementById('sectorModalCount').textContent = `${matches.length} found in scan`;
+        document.getElementById('sectorModalList').innerHTML = rows;
+        document.getElementById('sectorModal').style.display = 'flex';
+    });
+}
+
+function closeSectorModal() {
+    document.getElementById('sectorModal').style.display = 'none';
+}
 </script>
+
+<!-- SECTOR MODAL -->
+<div id="sectorModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeSectorModal()">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3 id="sectorModalTitle">Sector Stocks</h3>
+            <button class="modal-close" onclick="closeSectorModal()">&times;</button>
+        </div>
+        <div class="modal-badge" id="sectorModalCount"></div>
+        <div class="sector-modal-header-row">
+            <span>#</span><span>Ticker</span><span>Score</span><span>Price</span><span>Change</span><span>Stage</span>
+        </div>
+        <div class="modal-body" id="sectorModalList"></div>
+    </div>
+</div>
 
 </body>
 </html>
