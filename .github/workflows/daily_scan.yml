@@ -1,0 +1,97 @@
+name: Daily Market Scan
+
+on:
+  schedule:
+    # 4:30 PM ET = 21:30 UTC (EST) or 20:30 UTC (EDT)
+    # Using 20:30 UTC to cover EDT (summer time)
+    - cron: '30 20 * * 1-5'
+  workflow_dispatch:  # Manual trigger
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run daily scan
+        env:
+          ACCOUNT_EQUITY: ${{ secrets.ACCOUNT_EQUITY }}
+          ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          cd $GITHUB_WORKSPACE
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          from scripts.action_board import run_daily_scan
+          from scripts.generate_dashboard import generate_dashboard
+          results = run_daily_scan()
+          generate_dashboard(results)
+          print('Scan and dashboard generation complete.')
+          "
+
+      - name: Commit data files
+        run: |
+          git config user.name "Alpha Engine Bot"
+          git config user.email "alpha-engine-bot@users.noreply.github.com"
+          git add data/ output/
+          git diff --staged --quiet || git commit -m "Daily scan $(date +%Y-%m-%d)"
+          git push
+
+  deploy:
+    needs: scan
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

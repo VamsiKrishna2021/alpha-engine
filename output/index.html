@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Engine — Initializing</title>
+    <style>
+        body {
+            background: #0d1117;
+            color: #e6edf3;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .init-box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 500px;
+        }
+        h1 { color: #00e676; font-size: 24px; margin-bottom: 12px; }
+        p { color: #8b949e; font-size: 14px; line-height: 1.6; }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+    <div class="init-box">
+        <h1>ALPHA ENGINE</h1>
+        <p class="pulse">Dashboard initializing...</p>
+        <p>Run the <strong>Daily Market Scan</strong> workflow from GitHub Actions to populate the dashboard with live market data.</p>
+        <p style="margin-top: 16px; font-size: 12px;">Go to Actions → Daily Market Scan → Run workflow</p>
+    </div>
+</body>
+</html>

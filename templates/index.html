@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Engine — US Market Monitor</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+    <div class="header-left">
+        <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="20" width="4" height="10" fill="#ef5350"/>
+            <rect x="8" y="14" width="4" height="16" fill="#ff9800"/>
+            <rect x="14" y="10" width="4" height="20" fill="#ffeb3b"/>
+            <rect x="20" y="6" width="4" height="24" fill="#66bb6a"/>
+            <rect x="26" y="2" width="4" height="28" fill="#00e676"/>
+        </svg>
+        <div>
+            <h1>ALPHA ENGINE</h1>
+            <span class="subtitle">US Market Intelligence</span>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="scan-info">
+            <span class="scan-date">{{ data.scan_date }}</span>
+            <span class="scan-time">{{ data.scan_time }}</span>
+        </div>
+        <a href="analyse.html" class="btn-analyse">Analyse Ticker</a>
+    </div>
+</header>
+
+<!-- ═══ REGIME BANNER ═══ -->
+<section class="regime-banner" style="border-color: {{ data.regime.color }}">
+    <div class="regime-left">
+        <div class="regime-score-container">
+            <div class="regime-score-ring" style="--score: {{ data.regime.regime_score }}; --color: {{ data.regime.color }}">
+                <span class="regime-score-value">{{ data.regime.regime_score }}</span>
+            </div>
+            <div class="regime-label" style="color: {{ data.regime.color }}">{{ data.regime.label }}</div>
+        </div>
+    </div>
+    <div class="regime-center">
+        <div class="regime-components">
+            {% if data.regime.components %}
+            {% for name, comp in data.regime.components.items() %}
+            <div class="component">
+                <span class="comp-name">{{ name | replace('_', ' ') | title }}</span>
+                <div class="comp-bar">
+                    <div class="comp-fill" style="width: {{ comp.score }}%; background: {{ data.regime.color }}"></div>
+                </div>
+                <span class="comp-val">{{ comp.score }}</span>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="regime-right">
+        <div class="regime-metrics">
+            <div class="metric">
+                <span class="metric-label">SPY</span>
+                <span class="metric-value">${{ "%.2f"|format(data.regime.spy_close|default(0)) }}</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">VIX</span>
+                <span class="metric-value">{{ data.regime.vix|default(0) }}</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Breadth</span>
+                <span class="metric-value">{{ data.regime.breadth_pct_20d|default(0) }}%</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Breakouts</span>
+                <span class="metric-value {% if data.regime.breakouts_likely %}text-green{% else %}text-red{% endif %}">
+                    {{ "YES" if data.regime.breakouts_likely else "NO" }}
+                </span>
+            </div>
+        </div>
+        {% if data.deployment %}
+        <div class="deployment-box">
+            <span class="deploy-label">{{ data.deployment.label }}</span>
+            <span class="deploy-detail">Risk/trade: {{ data.deployment.risk_per_trade_pct }}% (${{ data.deployment.risk_per_trade_dollar }})</span>
+            <span class="deploy-detail">Max positions: {{ data.deployment.max_positions }}</span>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ═══ BREADTH FLAGS ═══ -->
+{% if data.breadth and data.breadth.flags %}
+<section class="flags-section">
+    {% for flag in data.breadth.flags %}
+    <div class="flag-banner" style="border-color: {{ flag.color }}; background: {{ flag.color }}15">
+        <span class="flag-icon">&#9888;</span>
+        <span style="color: {{ flag.color }}">{{ flag.msg }}</span>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+<!-- ═══ MAIN GRID ═══ -->
+<div class="main-grid">
+
+    <!-- TOP STOCKS (SEPA) -->
+    <section class="card card-full">
+        <div class="card-header">
+            <h2>Top Stocks — SEPA Scan</h2>
+            <span class="card-badge">{{ data.scan_stats.total_actionable|default(0) }} Actionable</span>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ticker</th>
+                        <th>Price</th>
+                        <th>Change</th>
+                        <th>Score</th>
+                        <th>Verdict</th>
+                        <th>Stage</th>
+                        <th>RS%</th>
+                        <th>Criteria</th>
+                        <th>$ Vol (M)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in data.top_stocks %}
+                    <tr class="clickable-row" data-ticker="{{ stock.ticker }}">
+                        <td class="text-muted">{{ loop.index }}</td>
+                        <td class="ticker-cell">{{ stock.ticker }}</td>
+                        <td>${{ "%.2f"|format(stock.price) }}</td>
+                        <td class="{{ 'text-green' if stock.change_pct >= 0 else 'text-red' }}">
+                            {{ "+" if stock.change_pct >= 0 }}{{ "%.2f"|format(stock.change_pct) }}%
+                        </td>
+                        <td class="score-cell">
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: {{ stock.score }}%"></div>
+                                <span>{{ stock.score }}</span>
+                            </div>
+                        </td>
+                        <td><span class="badge {{ stock.verdict_class }}">{{ stock.verdict | truncate(20, True) }}</span></td>
+                        <td>{{ stock.stage }}</td>
+                        <td>{{ stock.rs_percentile }}</td>
+                        <td>{{ stock.criteria_passed }}</td>
+                        <td>{{ stock.avg_dollar_volume }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECTOR HEATMAP -->
+    <section class="card card-half">
+        <div class="card-header">
+            <h2>Sector Rotation</h2>
+            <span class="card-subtitle">11 SPDR Sector ETFs</span>
+        </div>
+        <div class="sector-heatmap">
+            {% for sector in data.sectors %}
+            <div class="sector-tile" style="background: {{ sector_color(sector.daily_chg) }}20; border-color: {{ sector_color(sector.daily_chg) }}">
+                <div class="sector-name">{{ sector.name }}</div>
+                <div class="sector-etf">{{ sector.etf }}</div>
+                <div class="sector-daily" style="color: {{ sector_color(sector.daily_chg) }}">
+                    {{ "+" if sector.daily_chg >= 0 }}{{ "%.2f"|format(sector.daily_chg) }}%
+                </div>
+                <div class="sector-weekly text-muted">
+                    5D: {{ "+" if sector.weekly_chg >= 0 }}{{ "%.2f"|format(sector.weekly_chg) }}%
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- GAINERS & LOSERS -->
+    <section class="card card-half">
+        <div class="card-header">
+            <h2>Top Movers</h2>
+            <span class="card-subtitle">Dollar Volume > $5M</span>
+        </div>
+        <div class="movers-grid">
+            <div class="movers-column">
+                <h3 class="text-green">Top Gainers</h3>
+                <table class="mini-table">
+                    <thead>
+                        <tr><th>Ticker</th><th>Price</th><th>Change</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for g in data.top_gainers %}
+                        <tr>
+                            <td class="ticker-cell">{{ g.ticker }}</td>
+                            <td>${{ "%.2f"|format(g.price) }}</td>
+                            <td class="text-green">+{{ "%.2f"|format(g.change_pct) }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="movers-column">
+                <h3 class="text-red">Top Losers</h3>
+                <table class="mini-table">
+                    <thead>
+                        <tr><th>Ticker</th><th>Price</th><th>Change</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for l in data.top_losers %}
+                        <tr>
+                            <td class="ticker-cell">{{ l.ticker }}</td>
+                            <td>${{ "%.2f"|format(l.price) }}</td>
+                            <td class="text-red">{{ "%.2f"|format(l.change_pct) }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- BREADTH TABLE -->
+    <section class="card card-full">
+        <div class="card-header">
+            <h2>Market Breadth History</h2>
+            <span class="card-subtitle">Last {{ data.breadth_history|length }} trading days</span>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table breadth-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Adv</th>
+                        <th>Dec</th>
+                        <th>Up 4%</th>
+                        <th>Dn 4%</th>
+                        <th>%>10D</th>
+                        <th>%>20D</th>
+                        <th>%>40D</th>
+                        <th>SPY</th>
+                        <th>SPY %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data.breadth_history | reverse %}
+                    <tr>
+                        <td>{{ row.date }}</td>
+                        <td class="text-muted">{{ row.day_of_week|default('')|truncate(3, True, '') }}</td>
+                        <td class="text-green">{{ row.adv }}</td>
+                        <td class="text-red">{{ row.dec }}</td>
+                        <td>{{ row.up4pct }}</td>
+                        <td>{{ row.dn4pct }}</td>
+                        <td class="{{ 'text-green' if row.pct_above_10d|float > 50 else 'text-red' }}">{{ row.pct_above_10d }}%</td>
+                        <td class="{{ 'highlight-yellow' if row.pct_above_20d|float < 15 else ('highlight-orange' if row.pct_above_20d|float > 70 else ('text-green' if row.pct_above_20d|float > 50 else 'text-red')) }}">
+                            {{ row.pct_above_20d }}%
+                        </td>
+                        <td class="{{ 'text-green' if row.pct_above_40d|float > 50 else 'text-red' }}">{{ row.pct_above_40d }}%</td>
+                        <td>${{ row.spy_close }}</td>
+                        <td class="{{ 'text-green' if row.spy_chg_pct|float >= 0 else 'text-red' }}">
+                            {{ "+" if row.spy_chg_pct|float >= 0 }}{{ row.spy_chg_pct }}%
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SCAN STATS -->
+    <section class="card card-full stats-bar">
+        <div class="stat-item">
+            <span class="stat-value">{{ "{:,}".format(data.universe_size|default(0)) }}</span>
+            <span class="stat-label">Universe</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">{{ "{:,}".format(data.prefiltered_size|default(0)) }}</span>
+            <span class="stat-label">Pre-filtered</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">{{ "{:,}".format(data.scanned_size|default(0)) }}</span>
+            <span class="stat-label">Scanned</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">{{ data.scan_stats.total_actionable|default(0) }}</span>
+            <span class="stat-label">Actionable</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">{{ data.scan_stats.total_watchlist|default(0) }}</span>
+            <span class="stat-label">Watchlist</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">{{ data.elapsed_minutes|default(0) }} min</span>
+            <span class="stat-label">Scan Time</span>
+        </div>
+    </section>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <span>Alpha Engine v1.0 — Generated {{ generated_at }}</span>
+    <span>Data: yfinance | NASDAQ Trader | Not financial advice</span>
+</footer>
+
+<script src="static/script.js"></script>
+</body>
+</html>

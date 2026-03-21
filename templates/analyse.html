@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Engine — Stock Analyser</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <a href="index.html" class="back-link">&larr; Dashboard</a>
+        <h1>STOCK ANALYSER</h1>
+    </div>
+</header>
+
+<!-- Search Bar -->
+<section class="analyse-search">
+    <div class="search-container">
+        <input type="text" id="ticker-input" placeholder="Enter ticker (e.g., AAPL)" autocomplete="off">
+        <button id="analyse-btn" class="btn-analyse">Analyse</button>
+    </div>
+    <p class="search-hint">Enter a ticker to get Minervini-style SEPA analysis</p>
+</section>
+
+<!-- Results (hidden until analysis runs) -->
+<div id="analysis-results" style="display: none;">
+
+    <!-- Stock Header -->
+    <section class="analyse-header">
+        <div class="analyse-title">
+            <h2 id="stock-name"></h2>
+            <span id="stock-sector" class="text-muted"></span>
+        </div>
+        <div class="analyse-price">
+            <span id="stock-price" class="price-large"></span>
+            <span id="stock-change" class="change-badge"></span>
+        </div>
+        <div class="analyse-verdict">
+            <div id="stock-score-ring" class="score-ring-large"></div>
+            <span id="stock-verdict" class="verdict-badge"></span>
+        </div>
+    </section>
+
+    <!-- Criteria Breakdown -->
+    <section class="card card-full criteria-section">
+        <div class="card-header">
+            <h2>SEPA Criteria Breakdown</h2>
+            <span id="criteria-passed" class="card-badge"></span>
+        </div>
+        <div id="criteria-list" class="criteria-grid"></div>
+    </section>
+
+    <!-- Chart -->
+    <section class="card card-full">
+        <div class="card-header">
+            <h2>Price Chart (120 Days)</h2>
+            <div class="chart-legend">
+                <span class="legend-item" style="color: #2196f3">EMA 21</span>
+                <span class="legend-item" style="color: #ff9800">EMA 50</span>
+                <span class="legend-item" style="color: #9c27b0">SMA 150</span>
+                <span class="legend-item" style="color: #ef5350">SMA 200</span>
+            </div>
+        </div>
+        <div id="price-chart" style="height: 400px;"></div>
+    </section>
+
+    <!-- Stock Info Grid -->
+    <section class="card card-full">
+        <div class="card-header">
+            <h2>Key Metrics</h2>
+        </div>
+        <div id="stock-metrics" class="metrics-grid"></div>
+    </section>
+</div>
+
+<!-- Loading State -->
+<div id="loading-state" style="display: none;">
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Analysing ticker... This may take a moment.</p>
+    </div>
+</div>
+
+<footer class="footer">
+    <span>Alpha Engine v1.0 — Not financial advice</span>
+</footer>
+
+<script src="static/script.js"></script>
+<script>
+// Single Stock Analyser Logic
+document.getElementById('analyse-btn').addEventListener('click', runAnalysis);
+document.getElementById('ticker-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') runAnalysis();
+});
+
+// Check URL params for ticker
+const urlParams = new URLSearchParams(window.location.search);
+const tickerParam = urlParams.get('ticker');
+if (tickerParam) {
+    document.getElementById('ticker-input').value = tickerParam.toUpperCase();
+    runAnalysis();
+}
+
+async function runAnalysis() {
+    const ticker = document.getElementById('ticker-input').value.trim().toUpperCase();
+    if (!ticker) return;
+
+    document.getElementById('analysis-results').style.display = 'none';
+    document.getElementById('loading-state').style.display = 'flex';
+
+    try {
+        // Try loading from pre-generated analysis_data.json first
+        let data = null;
+        try {
+            const resp = await fetch('analysis_data.json');
+            if (resp.ok) {
+                const d = await resp.json();
+                if (d.ticker === ticker) data = d;
+            }
+        } catch(e) {}
+
+        // If no pre-generated data, try scan_results.json
+        if (!data) {
+            try {
+                const resp = await fetch('scan_results.json');
+                if (resp.ok) {
+                    const results = await resp.json();
+                    const allStocks = [
+                        ...(results.top_stocks || []),
+                        ...(results.all_actionable || []),
+                        ...(results.all_watchlist || []),
+                    ];
+                    const match = allStocks.find(s => s.ticker === ticker);
+                    if (match) data = match;
+                }
+            } catch(e) {}
+        }
+
+        if (!data) {
+            alert(`Ticker "${ticker}" not found in the latest scan. Run the on-demand scan via GitHub Actions for this ticker.`);
+            document.getElementById('loading-state').style.display = 'none';
+            return;
+        }
+
+        renderAnalysis(data);
+    } catch (err) {
+        alert('Analysis failed: ' + err.message);
+    } finally {
+        document.getElementById('loading-state').style.display = 'none';
+    }
+}
+
+function renderAnalysis(data) {
+    // Header
+    document.getElementById('stock-name').textContent = `${data.ticker} — ${data.company_name || data.ticker}`;
+    document.getElementById('stock-sector').textContent = `${data.sector || ''} ${data.industry ? '/ ' + data.industry : ''}`;
+    document.getElementById('stock-price').textContent = `$${data.price}`;
+
+    const changePct = data.change_pct || 0;
+    const changeEl = document.getElementById('stock-change');
+    changeEl.textContent = `${changePct >= 0 ? '+' : ''}${changePct.toFixed(2)}%`;
+    changeEl.className = `change-badge ${changePct >= 0 ? 'text-green' : 'text-red'}`;
+
+    // Score ring
+    const scoreRing = document.getElementById('stock-score-ring');
+    scoreRing.innerHTML = `<span class="score-number">${data.score}</span><span class="score-max">/100</span>`;
+    scoreRing.style.setProperty('--score', data.score);
+
+    // Verdict
+    const verdictEl = document.getElementById('stock-verdict');
+    verdictEl.textContent = data.verdict;
+    verdictEl.className = `verdict-badge ${data.verdict_class}`;
+
+    // Criteria
+    document.getElementById('criteria-passed').textContent = `${data.criteria_passed} criteria met`;
+    const criteriaList = document.getElementById('criteria-list');
+    criteriaList.innerHTML = '';
+
+    const criteria = data.criteria || [];
+    criteria.forEach(c => {
+        const pct = (c.score / c.max) * 100;
+        criteriaList.innerHTML += `
+            <div class="criterion-card">
+                <div class="criterion-header">
+                    <span class="criterion-name">${c.name}</span>
+                    <span class="criterion-score">${c.score}/${c.max}</span>
+                </div>
+                <div class="criterion-bar">
+                    <div class="criterion-fill" style="width: ${pct}%"></div>
+                </div>
+                <p class="criterion-detail">${c.detail}</p>
+            </div>
+        `;
+    });
+
+    // Metrics
+    const metricsEl = document.getElementById('stock-metrics');
+    const metrics = [
+        {label: 'Market Cap', value: data.market_cap ? formatLargeNumber(data.market_cap) : 'N/A'},
+        {label: 'P/E Ratio', value: data.pe_ratio ? data.pe_ratio.toFixed(1) : 'N/A'},
+        {label: 'Forward P/E', value: data.forward_pe ? data.forward_pe.toFixed(1) : 'N/A'},
+        {label: 'EPS', value: data.eps ? `$${data.eps.toFixed(2)}` : 'N/A'},
+        {label: 'Beta', value: data.beta ? data.beta.toFixed(2) : 'N/A'},
+        {label: 'Div Yield', value: data.dividend_yield ? `${(data.dividend_yield * 100).toFixed(2)}%` : 'N/A'},
+        {label: 'ATR (14)', value: data.atr ? `$${data.atr} (${data.atr_pct}%)` : 'N/A'},
+        {label: 'Vol Ratio', value: data.vol_ratio ? `${data.vol_ratio}x` : 'N/A'},
+        {label: 'RS Percentile', value: data.rs_percentile ? `${data.rs_percentile}%` : 'N/A'},
+        {label: 'Stage', value: data.stage || 'N/A'},
+        {label: '52W High', value: data.fifty_two_wk_high ? `$${data.fifty_two_wk_high.toFixed(2)}` : 'N/A'},
+        {label: '52W Low', value: data.fifty_two_wk_low ? `$${data.fifty_two_wk_low.toFixed(2)}` : 'N/A'},
+    ];
+    metricsEl.innerHTML = metrics.map(m => `
+        <div class="metric-card">
+            <span class="metric-card-label">${m.label}</span>
+            <span class="metric-card-value">${m.value}</span>
+        </div>
+    `).join('');
+
+    // Chart
+    if (data.chart_data && data.chart_data.length > 0) {
+        renderChart(data);
+    }
+
+    document.getElementById('analysis-results').style.display = 'block';
+}
+
+function renderChart(data) {
+    const container = document.getElementById('price-chart');
+    container.innerHTML = '';
+
+    const chart = LightweightCharts.createChart(container, {
+        layout: {
+            background: {color: '#0d1117'},
+            textColor: '#8b949e',
+        },
+        grid: {
+            vertLines: {color: '#21262d'},
+            horzLines: {color: '#21262d'},
+        },
+        width: container.clientWidth,
+        height: 400,
+        timeScale: {borderColor: '#30363d'},
+        rightPriceScale: {borderColor: '#30363d'},
+    });
+
+    const candleSeries = chart.addCandlestickSeries({
+        upColor: '#00e676',
+        downColor: '#ef5350',
+        borderUpColor: '#00e676',
+        borderDownColor: '#ef5350',
+        wickUpColor: '#00e676',
+        wickDownColor: '#ef5350',
+    });
+
+    candleSeries.setData(data.chart_data.map(d => ({
+        time: d.date,
+        open: d.open,
+        high: d.high,
+        low: d.low,
+        close: d.close,
+    })));
+
+    // Moving averages
+    if (data.ma_data) {
+        const dates = data.chart_data.map(d => d.date);
+        const maColors = {ema21: '#2196f3', ema50: '#ff9800', sma150: '#9c27b0', sma200: '#ef5350'};
+        Object.entries(data.ma_data).forEach(([name, values]) => {
+            if (values.length > 0) {
+                const series = chart.addLineSeries({
+                    color: maColors[name],
+                    lineWidth: 1,
+                    priceLineVisible: false,
+                    lastValueVisible: false,
+                });
+                const offset = dates.length - values.length;
+                series.setData(values.map((v, i) => ({
+                    time: dates[i + offset],
+                    value: v,
+                })));
+            }
+        });
+    }
+
+    chart.timeScale().fitContent();
+    window.addEventListener('resize', () => chart.applyOptions({width: container.clientWidth}));
+}
+
+function formatLargeNumber(n) {
+    if (n >= 1e12) return `$${(n/1e12).toFixed(1)}T`;
+    if (n >= 1e9) return `$${(n/1e9).toFixed(1)}B`;
+    if (n >= 1e6) return `$${(n/1e6).toFixed(0)}M`;
+    return `$${n.toLocaleString()}`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+name: On-Demand Stock Analysis
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: 'Stock ticker to analyse (e.g., AAPL)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  analyse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Analyse ticker
+        env:
+          TICKER: ${{ inputs.ticker }}
+          ACCOUNT_EQUITY: ${{ secrets.ACCOUNT_EQUITY }}
+        run: |
+          cd $GITHUB_WORKSPACE
+          python -c "
+          import sys, os, json
+          sys.path.insert(0, '.')
+          from scripts.single_stock_analyser import analyse_single_stock
+          from scripts.generate_dashboard import generate_analyse_page
+          from scripts.utils import setup_logging, ensure_dirs
+
+          setup_logging()
+          ensure_dirs()
+
+          ticker = os.environ.get('TICKER', '').strip().upper()
+          print(f'Analysing: {ticker}')
+
+          result = analyse_single_stock(ticker)
+          if result:
+              generate_analyse_page(result)
+              # Also save to output for GitHub Pages
+              with open('output/analysis_data.json', 'w') as f:
+                  json.dump(result, f, indent=2, default=str)
+              print(f'Analysis complete: {result[\"score\"]}/100 — {result[\"verdict\"]}')
+          else:
+              print(f'Analysis failed for {ticker}')
+              sys.exit(1)
+          "
+
+      - name: Commit analysis data
+        run: |
+          git config user.name "Alpha Engine Bot"
+          git config user.email "alpha-engine-bot@users.noreply.github.com"
+          git add data/ output/
+          git diff --staged --quiet || git commit -m "Analyse ${{ inputs.ticker }} $(date +%Y-%m-%d)"
+          git push
+
+  deploy:
+    needs: analyse
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
