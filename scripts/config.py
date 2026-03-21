@@ -12,15 +12,24 @@ from typing import List
 
 
 def _env(key: str, default: str) -> str:
-    return os.getenv(key, default)
+    val = os.getenv(key, default)
+    return val if val else default
 
 
 def _env_float(key: str, default: str) -> float:
-    return float(_env(key, default))
+    val = _env(key, default)
+    try:
+        return float(val)
+    except (ValueError, TypeError):
+        return float(default)
 
 
 def _env_int(key: str, default: str) -> int:
-    return int(_env(key, default))
+    val = _env(key, default)
+    try:
+        return int(val)
+    except (ValueError, TypeError):
+        return int(default)
 
 
 # ═══════════════════════════════════════════════════════════════════
