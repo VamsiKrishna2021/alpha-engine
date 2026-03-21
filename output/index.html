@@ -3,817 +3,1657 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpha Engine — US Market Monitor</title>
+    <title>Alpha Engine — US Market Intelligence</title>
     <link rel="stylesheet" href="static/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-<!-- ═══ HEADER ═══ -->
-<header class="header">
+<!-- ═══════════════════════════════════════════════════════════
+     1. HEADER — sticky, dark gradient
+═══════════════════════════════════════════════════════════ -->
+<header class="dashboard-header">
     <div class="header-left">
-        <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect x="2" y="20" width="4" height="10" fill="#ef5350"/>
-            <rect x="8" y="14" width="4" height="16" fill="#ff9800"/>
-            <rect x="14" y="10" width="4" height="20" fill="#ffeb3b"/>
-            <rect x="20" y="6" width="4" height="24" fill="#66bb6a"/>
-            <rect x="26" y="2" width="4" height="28" fill="#00e676"/>
-        </svg>
-        <div>
-            <h1>ALPHA ENGINE</h1>
-            <span class="subtitle">US Market Intelligence</span>
+        <div class="logo-area">
+            <div class="logo-icon">
+                <svg viewBox="0 0 40 40" width="32" height="32">
+                    <rect x="4"  y="22" width="4" height="14" rx="1" fill="#00e676"/>
+                    <rect x="10" y="16" width="4" height="20" rx="1" fill="#00e676"/>
+                    <rect x="16" y="10" width="4" height="26" rx="1" fill="#00e676"/>
+                    <rect x="22" y="6"  width="4" height="30" rx="1" fill="#00e676"/>
+                    <rect x="28" y="2"  width="4" height="34" rx="1" fill="#00e676"/>
+                    <rect x="34" y="8"  width="4" height="28" rx="1" fill="#ff5252"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="logo-title">ALPHA ENGINE</h1>
+                <p class="logo-subtitle">US Market Intelligence</p>
+            </div>
         </div>
     </div>
-    <div class="header-right">
-        <div class="scan-info">
-            <span class="scan-date">2026-03-21</span>
-            <span class="scan-time">16:55:50 ET</span>
+
+    <div class="header-center">
+        <div class="market-status" id="marketStatus">
+            <span class="status-dot"></span>
+            <span class="status-text">MARKET CLOSED</span>
         </div>
-        <a href="analyse.html" class="btn-analyse">Analyse Ticker</a>
+        <div class="header-time" id="headerTime">--:--:--</div>
+    </div>
+
+    <div class="header-right">
+        <div class="quote-box" id="quoteBox">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p class="quote-text" id="quoteText">The stock market is a device for transferring money from the impatient to the patient.</p>
+            <p class="quote-author" id="quoteAuthor">— Warren Buffett</p>
+        </div>
     </div>
 </header>
 
-<!-- ═══ REGIME BANNER ═══ -->
-<section class="regime-banner" style="border-color: #ef5350">
-    <div class="regime-left">
-        <div class="regime-score-container">
-            <div class="regime-score-ring" style="--score: 24; --color: #ef5350">
-                <span class="regime-score-value">24</span>
-            </div>
-            <div class="regime-label" style="color: #ef5350">CAPITAL PRESERVATION</div>
-        </div>
-    </div>
-    <div class="regime-center">
-        <div class="regime-components">
-            
-            
-            <div class="component">
-                <span class="comp-name">Ema Alignment</span>
-                <div class="comp-bar">
-                    <div class="comp-fill" style="width: 10%; background: #ef5350"></div>
-                </div>
-                <span class="comp-val">10</span>
-            </div>
-            
-            <div class="component">
-                <span class="comp-name">Breadth</span>
-                <div class="comp-bar">
-                    <div class="comp-fill" style="width: 50%; background: #ef5350"></div>
-                </div>
-                <span class="comp-val">50</span>
-            </div>
-            
-            <div class="component">
-                <span class="comp-name">Trend Momentum</span>
-                <div class="comp-bar">
-                    <div class="comp-fill" style="width: 0%; background: #ef5350"></div>
-                </div>
-                <span class="comp-val">0</span>
-            </div>
-            
-            <div class="component">
-                <span class="comp-name">Volatility</span>
-                <div class="comp-bar">
-                    <div class="comp-fill" style="width: 40%; background: #ef5350"></div>
-                </div>
-                <span class="comp-val">40</span>
-            </div>
-            
-            <div class="component">
-                <span class="comp-name">Breadth Thrust</span>
-                <div class="comp-bar">
-                    <div class="comp-fill" style="width: 20%; background: #ef5350"></div>
-                </div>
-                <span class="comp-val">20</span>
-            </div>
-            
-            
-        </div>
-    </div>
-    <div class="regime-right">
-        <div class="regime-metrics">
-            <div class="metric">
-                <span class="metric-label">SPY</span>
-                <span class="metric-value">$648.57</span>
-            </div>
-            <div class="metric">
-                <span class="metric-label">VIX</span>
-                <span class="metric-value">26.78</span>
-            </div>
-            <div class="metric">
-                <span class="metric-label">Breadth</span>
-                <span class="metric-value">50.0%</span>
-            </div>
-            <div class="metric">
-                <span class="metric-label">Breakouts</span>
-                <span class="metric-value text-red">
-                    NO
-                </span>
+
+<!-- ═══════════════════════════════════════════════════════════
+     2. KPI STRIP — horizontal scrolling index cards
+═══════════════════════════════════════════════════════════ -->
+<section class="kpi-section">
+
+    <!-- Index KPI strip -->
+    <div class="kpi-indices-strip">
+        
+        
+        <div class="kpi-index-card down">
+            <div class="kpi-index-name">S&amp;P 500</div>
+            <div class="kpi-index-value">648.57</div>
+            <div class="kpi-index-change negative">
+                -1.43%
             </div>
         </div>
         
-        <div class="deployment-box">
-            <span class="deploy-label">CAPITAL PRESERVATION</span>
-            <span class="deploy-detail">Risk/trade: 0.25% ($125.0)</span>
-            <span class="deploy-detail">Max positions: 1</span>
+        
+        <div class="kpi-index-card down">
+            <div class="kpi-index-name">NASDAQ 100</div>
+            <div class="kpi-index-value">582.06</div>
+            <div class="kpi-index-change negative">
+                -1.85%
+            </div>
+        </div>
+        
+        
+        <div class="kpi-index-card down">
+            <div class="kpi-index-name">RUSSELL 2000</div>
+            <div class="kpi-index-value">242.22</div>
+            <div class="kpi-index-change negative">
+                -2.18%
+            </div>
+        </div>
+        
+        
+        <div class="kpi-index-card up">
+            <div class="kpi-index-name">VIX</div>
+            <div class="kpi-index-value">26.78</div>
+            <div class="kpi-index-change positive">
+                +11.31%
+            </div>
+        </div>
+        
+        
+        <div class="kpi-index-card up">
+            <div class="kpi-index-name">10Y YIELD</div>
+            <div class="kpi-index-value">4.39</div>
+            <div class="kpi-index-change positive">
+                +2.57%
+            </div>
+        </div>
+        
+        
+        <div class="kpi-index-card up">
+            <div class="kpi-index-name">US DOLLAR</div>
+            <div class="kpi-index-value">99.5</div>
+            <div class="kpi-index-change positive">
+                +0.28%
+            </div>
+        </div>
+        
+        
+        <div class="kpi-index-card down">
+            <div class="kpi-index-name">GOLD</div>
+            <div class="kpi-index-value">413.38</div>
+            <div class="kpi-index-change negative">
+                -3.06%
+            </div>
         </div>
         
     </div>
-</section>
 
-<!-- ═══ BREADTH FLAGS ═══ -->
-
-<section class="flags-section">
-    
-    <div class="flag-banner" style="border-color: #ef5350; background: #ef535015">
-        <span class="flag-icon">&#9888;</span>
-        <span style="color: #ef5350">CAPITULATION DAY</span>
+    <!-- ADV / DEC card -->
+    <div class="kpi-card adv-dec-card">
+        <div class="kpi-label">S&amp;P 500 ADV / DEC</div>
+        <div class="adv-dec-nums">
+            <span class="adv-num">384</span>
+            <span class="adv-dec-sep">/</span>
+            <span class="dec-num">1819</span>
+        </div>
+        <div class="adv-dec-ratio">
+            Ratio: 0.21
+        </div>
     </div>
+
+    <!-- Sentiment / Breakout card -->
     
+    <div class="kpi-card sentiment-card">
+        <div class="kpi-label">ARE BREAKOUTS LIKELY TO WORK?</div>
+        <div class="sentiment-indicator">
+            <div class="sentiment-icon bearish">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="sentiment-text bearish">
+                NO
+            </div>
+        </div>
+        <div class="sentiment-detail">
+            SPY vs 21 EMA:
+            
+                -3.34%
+            
+        </div>
+    </div>
+
 </section>
 
 
-<!-- ═══ MAIN GRID ═══ -->
-<div class="main-grid">
+<!-- ═══════════════════════════════════════════════════════════
+     4. THREE-COLUMN STOCK SECTION
+═══════════════════════════════════════════════════════════ -->
+<section class="three-col-section">
 
-    <!-- TOP STOCKS (SEPA) -->
-    <section class="card card-full">
+    <!-- TOP STOCKS -->
+    <div class="col-card">
+        <div class="col-header">
+            <div class="col-title">
+                <i class="fas fa-crown"></i>
+                TOP STOCKS
+            </div>
+            <span class="col-badge">SEPA</span>
+        </div>
+        <div class="stock-list">
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=DAWN">
+                <span class="stock-rank">1</span>
+                <div class="stock-info">
+                    <div class="stock-name">DAWN</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 100%"></div>
+                        </div>
+                        <span class="score-bar-val">100</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$21.44</div>
+                    <div class="stock-pct positive">
+                        +0.23%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=PTEN">
+                <span class="stock-rank">2</span>
+                <div class="stock-info">
+                    <div class="stock-name">PTEN</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 97%"></div>
+                        </div>
+                        <span class="score-bar-val">97</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$10.91</div>
+                    <div class="stock-pct positive">
+                        +1.77%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=CHRD">
+                <span class="stock-rank">3</span>
+                <div class="stock-info">
+                    <div class="stock-name">CHRD</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 95%"></div>
+                        </div>
+                        <span class="score-bar-val">95</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$131.91</div>
+                    <div class="stock-pct positive">
+                        +1.10%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=TALK">
+                <span class="stock-rank">4</span>
+                <div class="stock-info">
+                    <div class="stock-name">TALK</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 95%"></div>
+                        </div>
+                        <span class="score-bar-val">95</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$5.14</div>
+                    <div class="stock-pct positive">
+                        +0.19%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=EQNR">
+                <span class="stock-rank">5</span>
+                <div class="stock-info">
+                    <div class="stock-name">EQNR</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 94%"></div>
+                        </div>
+                        <span class="score-bar-val">94</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$41.60</div>
+                    <div class="stock-pct positive">
+                        +2.69%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=PBF">
+                <span class="stock-rank">6</span>
+                <div class="stock-info">
+                    <div class="stock-name">PBF</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 94%"></div>
+                        </div>
+                        <span class="score-bar-val">94</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$49.32</div>
+                    <div class="stock-pct positive">
+                        +5.32%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=TNGX">
+                <span class="stock-rank">7</span>
+                <div class="stock-info">
+                    <div class="stock-name">TNGX</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 94%"></div>
+                        </div>
+                        <span class="score-bar-val">94</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$19.42</div>
+                    <div class="stock-pct positive">
+                        +0.52%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=YOU">
+                <span class="stock-rank">8</span>
+                <div class="stock-info">
+                    <div class="stock-name">YOU</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 93%"></div>
+                        </div>
+                        <span class="score-bar-val">93</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$48.12</div>
+                    <div class="stock-pct negative">
+                        -1.37%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=ROST">
+                <span class="stock-rank">9</span>
+                <div class="stock-info">
+                    <div class="stock-name">ROST</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 92%"></div>
+                        </div>
+                        <span class="score-bar-val">92</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$211.19</div>
+                    <div class="stock-pct positive">
+                        +0.25%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=TNDM">
+                <span class="stock-rank">10</span>
+                <div class="stock-info">
+                    <div class="stock-name">TNDM</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 92%"></div>
+                        </div>
+                        <span class="score-bar-val">92</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$24.82</div>
+                    <div class="stock-pct positive">
+                        +0.77%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=TPH">
+                <span class="stock-rank">11</span>
+                <div class="stock-info">
+                    <div class="stock-name">TPH</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 92%"></div>
+                        </div>
+                        <span class="score-bar-val">92</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$46.62</div>
+                    <div class="stock-pct positive">
+                        +0.04%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=APA">
+                <span class="stock-rank">12</span>
+                <div class="stock-info">
+                    <div class="stock-name">APA</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 91%"></div>
+                        </div>
+                        <span class="score-bar-val">91</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$39.11</div>
+                    <div class="stock-pct positive">
+                        +2.76%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=CVE">
+                <span class="stock-rank">13</span>
+                <div class="stock-info">
+                    <div class="stock-name">CVE</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 91%"></div>
+                        </div>
+                        <span class="score-bar-val">91</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$25.06</div>
+                    <div class="stock-pct positive">
+                        +0.68%
+                    </div>
+                </div>
+            </a>
+            
+            
+            
+            <a class="stock-item" href="/analyse?ticker=ACLX">
+                <span class="stock-rank">14</span>
+                <div class="stock-info">
+                    <div class="stock-name">ACLX</div>
+                    <div class="stock-score-bar">
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" style="width: 90%"></div>
+                        </div>
+                        <span class="score-bar-val">90</span>
+                        
+                        <span class="stage-badge">SStage 2</span>
+                        
+                    </div>
+                    <div class="stock-sub">
+                        <span class="verdict-badge badge-green">ACTIONABLE — LOOK FOR ENTRY</span>
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$114.77</div>
+                    <div class="stock-pct positive">
+                        +0.38%
+                    </div>
+                </div>
+            </a>
+            
+        </div>
+    </div>
+
+    <!-- TOP 10 LIQUID GAINERS -->
+    <div class="col-card">
+        <div class="col-header">
+            <div class="col-title gainers-title">
+                <i class="fas fa-arrow-trend-up"></i>
+                TOP 10 LIQUID GAINERS
+            </div>
+            <span class="col-badge badge-green">S&amp;P 500</span>
+        </div>
+        <div class="stock-list">
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">1</span>
+                <div class="stock-info">
+                    <div class="stock-name">ANNA</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$7.07</div>
+                    <div class="stock-pct positive">
+                        +86.54%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">2</span>
+                <div class="stock-info">
+                    <div class="stock-name">WATT</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$18.04</div>
+                    <div class="stock-pct positive">
+                        +26.33%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">3</span>
+                <div class="stock-info">
+                    <div class="stock-name">PL</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$33.83</div>
+                    <div class="stock-pct positive">
+                        +25.48%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">4</span>
+                <div class="stock-info">
+                    <div class="stock-name">SEDG</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$51.73</div>
+                    <div class="stock-pct positive">
+                        +13.29%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">5</span>
+                <div class="stock-info">
+                    <div class="stock-name">VG</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$15.81</div>
+                    <div class="stock-pct positive">
+                        +10.64%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">6</span>
+                <div class="stock-info">
+                    <div class="stock-name">SCHL</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$37.25</div>
+                    <div class="stock-pct positive">
+                        +8.79%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">7</span>
+                <div class="stock-info">
+                    <div class="stock-name">SM</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$30.04</div>
+                    <div class="stock-pct positive">
+                        +8.25%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">8</span>
+                <div class="stock-info">
+                    <div class="stock-name">NSP</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$24.47</div>
+                    <div class="stock-pct positive">
+                        +7.70%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">9</span>
+                <div class="stock-info">
+                    <div class="stock-name">VXX</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$35.97</div>
+                    <div class="stock-pct positive">
+                        +6.51%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">10</span>
+                <div class="stock-info">
+                    <div class="stock-name">ARX</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$12.95</div>
+                    <div class="stock-pct positive">
+                        +6.32%
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- TOP 10 LIQUID LOSERS -->
+    <div class="col-card">
+        <div class="col-header">
+            <div class="col-title losers-title">
+                <i class="fas fa-arrow-trend-down"></i>
+                TOP 10 LIQUID LOSERS
+            </div>
+            <span class="col-badge badge-red">S&amp;P 500</span>
+        </div>
+        <div class="stock-list">
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">1</span>
+                <div class="stock-info">
+                    <div class="stock-name">SMCI</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$20.53</div>
+                    <div class="stock-pct negative">
+                        -33.32%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">2</span>
+                <div class="stock-info">
+                    <div class="stock-name">UMAC</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$14.87</div>
+                    <div class="stock-pct negative">
+                        -20.05%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">3</span>
+                <div class="stock-info">
+                    <div class="stock-name">VNDA</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$7.12</div>
+                    <div class="stock-pct negative">
+                        -16.92%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">4</span>
+                <div class="stock-info">
+                    <div class="stock-name">ACXP</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$5.60</div>
+                    <div class="stock-pct negative">
+                        -15.54%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">5</span>
+                <div class="stock-info">
+                    <div class="stock-name">ALOY</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$12.09</div>
+                    <div class="stock-pct negative">
+                        -14.74%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">6</span>
+                <div class="stock-info">
+                    <div class="stock-name">TE</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$6.60</div>
+                    <div class="stock-pct negative">
+                        -14.40%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">7</span>
+                <div class="stock-info">
+                    <div class="stock-name">OSS</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$8.82</div>
+                    <div class="stock-pct negative">
+                        -14.12%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">8</span>
+                <div class="stock-info">
+                    <div class="stock-name">AAOI</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$87.54</div>
+                    <div class="stock-pct negative">
+                        -14.11%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">9</span>
+                <div class="stock-info">
+                    <div class="stock-name">DPRO</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$5.66</div>
+                    <div class="stock-pct negative">
+                        -13.46%
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stock-item">
+                <span class="stock-rank">10</span>
+                <div class="stock-info">
+                    <div class="stock-name">VICR</div>
+                    <div class="stock-sub">
+                        Vol: $0M
+                    </div>
+                </div>
+                <div class="stock-price">
+                    <div class="stock-ltp">$164.54</div>
+                    <div class="stock-pct negative">
+                        -13.46%
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     5. BOTTOM ROW — Regime | Heatmap | Breadth
+═══════════════════════════════════════════════════════════ -->
+<section class="bottom-section">
+
+    <!-- REGIME DETECTOR -->
+    <div class="bottom-card">
         <div class="card-header">
-            <h2>Top Stocks — SEPA Scan</h2>
-            <span class="card-badge">214 Actionable</span>
+            <h3><i class="fas fa-chart-pie"></i> REGIME DETECTOR</h3>
         </div>
-        <div class="table-wrapper">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Ticker</th>
-                        <th>Price</th>
-                        <th>Change</th>
-                        <th>Score</th>
-                        <th>Verdict</th>
-                        <th>Stage</th>
-                        <th>RS%</th>
-                        <th>Criteria</th>
-                        <th>$ Vol (M)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <tr class="clickable-row" data-ticker="DAWN">
-                        <td class="text-muted">1</td>
-                        <td class="ticker-cell">DAWN</td>
-                        <td>$21.44</td>
-                        <td class="text-green">
-                            +0.23%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 100%"></div>
-                                <span>100</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>99.2</td>
-                        <td>7/7</td>
-                        <td>108.1</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="PTEN">
-                        <td class="text-muted">2</td>
-                        <td class="ticker-cell">PTEN</td>
-                        <td>$10.91</td>
-                        <td class="text-green">
-                            +1.77%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 97%"></div>
-                                <span>97</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>97.0</td>
-                        <td>7/7</td>
-                        <td>122.7</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="CHRD">
-                        <td class="text-muted">3</td>
-                        <td class="ticker-cell">CHRD</td>
-                        <td>$131.91</td>
-                        <td class="text-green">
-                            +1.10%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 95%"></div>
-                                <span>95</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>84.0</td>
-                        <td>7/7</td>
-                        <td>197.1</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="TALK">
-                        <td class="text-muted">4</td>
-                        <td class="ticker-cell">TALK</td>
-                        <td>$5.14</td>
-                        <td class="text-green">
-                            +0.19%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 95%"></div>
-                                <span>95</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>96.6</td>
-                        <td>7/7</td>
-                        <td>46.9</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="EQNR">
-                        <td class="text-muted">5</td>
-                        <td class="ticker-cell">EQNR</td>
-                        <td>$41.60</td>
-                        <td class="text-green">
-                            +2.69%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 94%"></div>
-                                <span>94</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>94.7</td>
-                        <td>7/7</td>
-                        <td>474.8</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="PBF">
-                        <td class="text-muted">6</td>
-                        <td class="ticker-cell">PBF</td>
-                        <td>$49.32</td>
-                        <td class="text-green">
-                            +5.32%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 94%"></div>
-                                <span>94</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>93.1</td>
-                        <td>7/7</td>
-                        <td>198.8</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="TNGX">
-                        <td class="text-muted">7</td>
-                        <td class="ticker-cell">TNGX</td>
-                        <td>$19.42</td>
-                        <td class="text-green">
-                            +0.52%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 94%"></div>
-                                <span>94</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>98.0</td>
-                        <td>7/7</td>
-                        <td>69.1</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="YOU">
-                        <td class="text-muted">8</td>
-                        <td class="ticker-cell">YOU</td>
-                        <td>$48.12</td>
-                        <td class="text-red">
-                            -1.37%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 93%"></div>
-                                <span>93</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>81.0</td>
-                        <td>7/7</td>
-                        <td>52.9</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="ROST">
-                        <td class="text-muted">9</td>
-                        <td class="ticker-cell">ROST</td>
-                        <td>$211.19</td>
-                        <td class="text-green">
-                            +0.25%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 92%"></div>
-                                <span>92</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>87.8</td>
-                        <td>7/7</td>
-                        <td>522.2</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="TNDM">
-                        <td class="text-muted">10</td>
-                        <td class="ticker-cell">TNDM</td>
-                        <td>$24.82</td>
-                        <td class="text-green">
-                            +0.77%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 92%"></div>
-                                <span>92</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>96.4</td>
-                        <td>7/7</td>
-                        <td>58.6</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="TPH">
-                        <td class="text-muted">11</td>
-                        <td class="ticker-cell">TPH</td>
-                        <td>$46.62</td>
-                        <td class="text-green">
-                            +0.04%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 92%"></div>
-                                <span>92</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>84.8</td>
-                        <td>7/7</td>
-                        <td>126.8</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="APA">
-                        <td class="text-muted">12</td>
-                        <td class="ticker-cell">APA</td>
-                        <td>$39.11</td>
-                        <td class="text-green">
-                            +2.76%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 91%"></div>
-                                <span>91</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>93.4</td>
-                        <td>7/7</td>
-                        <td>444.8</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="CVE">
-                        <td class="text-muted">13</td>
-                        <td class="ticker-cell">CVE</td>
-                        <td>$25.06</td>
-                        <td class="text-green">
-                            +0.68%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 91%"></div>
-                                <span>91</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>88.8</td>
-                        <td>7/7</td>
-                        <td>432.4</td>
-                    </tr>
-                    
-                    <tr class="clickable-row" data-ticker="ACLX">
-                        <td class="text-muted">14</td>
-                        <td class="ticker-cell">ACLX</td>
-                        <td>$114.77</td>
-                        <td class="text-green">
-                            +0.38%
-                        </td>
-                        <td class="score-cell">
-                            <div class="score-bar">
-                                <div class="score-fill" style="width: 90%"></div>
-                                <span>90</span>
-                            </div>
-                        </td>
-                        <td><span class="badge badge-green">ACTIONABLE — LOOK...</span></td>
-                        <td>Stage 2</td>
-                        <td>88.6</td>
-                        <td>6/7</td>
-                        <td>185.5</td>
-                    </tr>
-                    
-                </tbody>
-            </table>
+        <div class="regime-body">
+            <!-- Score ring + label -->
+            
+            
+            
+            
+            <div class="regime-ring-container">
+                <div class="regime-ring">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle class="regime-ring-bg" cx="40" cy="40" r="36"/>
+                        <circle class="regime-ring-fill"
+                                cx="40" cy="40" r="36"
+                                stroke="#ef5350"
+                                stroke-dasharray="226"
+                                stroke-dashoffset="171.76"/>
+                    </svg>
+                    <div class="regime-ring-text">
+                        <span class="regime-ring-score" style="color: #ef5350">24</span>
+                        <span class="regime-ring-label">SCORE</span>
+                    </div>
+                </div>
+                <div class="regime-info">
+                    <div class="regime-label-text" style="color: #ef5350">CAPITAL PRESERVATION</div>
+                    <div style="margin-top: 6px">
+                        <span class="regime-breakout-pill no">
+                            <i class="fas fa-times"></i>
+                            Breakouts UNLIKELY
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component bars -->
+            
+            <div class="regime-components">
+                
+                <div class="comp-row">
+                    <span class="comp-name">ema alignment</span>
+                    <div class="comp-bar">
+                        <div class="comp-fill" style="width: 10%; background: #ef5350"></div>
+                    </div>
+                    <span class="comp-val">10</span>
+                </div>
+                
+                <div class="comp-row">
+                    <span class="comp-name">breadth</span>
+                    <div class="comp-bar">
+                        <div class="comp-fill" style="width: 50%; background: #ef5350"></div>
+                    </div>
+                    <span class="comp-val">50</span>
+                </div>
+                
+                <div class="comp-row">
+                    <span class="comp-name">trend momentum</span>
+                    <div class="comp-bar">
+                        <div class="comp-fill" style="width: 0%; background: #ef5350"></div>
+                    </div>
+                    <span class="comp-val">0</span>
+                </div>
+                
+                <div class="comp-row">
+                    <span class="comp-name">volatility</span>
+                    <div class="comp-bar">
+                        <div class="comp-fill" style="width: 40%; background: #ef5350"></div>
+                    </div>
+                    <span class="comp-val">40</span>
+                </div>
+                
+                <div class="comp-row">
+                    <span class="comp-name">breadth thrust</span>
+                    <div class="comp-bar">
+                        <div class="comp-fill" style="width: 20%; background: #ef5350"></div>
+                    </div>
+                    <span class="comp-val">20</span>
+                </div>
+                
+            </div>
+            
+
+            <!-- Regime stats row -->
+            <div class="regime-stats-row">
+                <div class="regime-stat">
+                    <div class="regime-stat-label">SPY</div>
+                    <div class="regime-stat-value">$648.57</div>
+                </div>
+                <div class="regime-stat">
+                    <div class="regime-stat-label">VIX</div>
+                    <div class="regime-stat-value">26.8</div>
+                </div>
+                <div class="regime-stat">
+                    <div class="regime-stat-label">Breadth</div>
+                    <div class="regime-stat-value">50%</div>
+                </div>
+                <div class="regime-stat">
+                    <div class="regime-stat-label">ROC 10D</div>
+                    <div class="regime-stat-value">-3.3%</div>
+                </div>
+                <div class="regime-stat">
+                    <div class="regime-stat-label">vs 50 EMA</div>
+                    <div class="regime-stat-value">-4.18%</div>
+                </div>
+                <div class="regime-stat">
+                    <div class="regime-stat-label">vs 200 EMA</div>
+                    <div class="regime-stat-value">-0.79%</div>
+                </div>
+            </div>
+
+            <!-- Deployment box -->
+            
+            <div class="deployment-box">
+                <span class="deploy-label">CAPITAL PRESERVATION</span>
+                <span class="deploy-detail">Risk/trade: 0.25% ($125.0)</span>
+                <span class="deploy-detail">Max positions: 1 &nbsp;|&nbsp; Equity deployed: 10.0%</span>
+                
+                <span class="deploy-advice">Preserve capital. Cash is a position. Wait for regime improvement.</span>
+                
+            </div>
+            
         </div>
-    </section>
+    </div>
 
     <!-- SECTOR HEATMAP -->
-    <section class="card card-half">
+    <div class="bottom-card">
         <div class="card-header">
-            <h2>Sector Rotation</h2>
-            <span class="card-subtitle">11 SPDR Sector ETFs</span>
+            <h3><i class="fas fa-th"></i> SECTOR HEATMAP</h3>
         </div>
-        <div class="sector-heatmap">
-            
-            <div class="sector-tile" style="background: #9e9e9e20; border-color: #9e9e9e">
-                <div class="sector-name">Financials</div>
-                <div class="sector-etf">XLF</div>
-                <div class="sector-daily" style="color: #9e9e9e">
-                    +0.18%
+        <div class="heatmap-body">
+            <div class="heatmap-grid">
+                
+                
+                <div class="heatmap-cell" style="background: #9e9e9e;" title="Financials: 0.18% daily, 0.39% weekly">
+                    <div class="heatmap-cell-etf">XLF</div>
+                    <div class="heatmap-cell-name">Financials</div>
+                    <div class="heatmap-cell-daily">
+                        +0.18%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: +0.4%
+                    </div>
                 </div>
-                <div class="sector-weekly text-muted">
-                    5D: +0.39%
+                
+                
+                <div class="heatmap-cell" style="background: #9e9e9e;" title="Energy: -0.08% daily, 2.79% weekly">
+                    <div class="heatmap-cell-etf">XLE</div>
+                    <div class="heatmap-cell-name">Energy</div>
+                    <div class="heatmap-cell-daily">
+                        -0.08%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: +2.8%
+                    </div>
                 </div>
+                
+                
+                <div class="heatmap-cell" style="background: #ef9a9a;" title="Communication: -0.8% daily, -1.94% weekly">
+                    <div class="heatmap-cell-etf">XLC</div>
+                    <div class="heatmap-cell-name">Communication</div>
+                    <div class="heatmap-cell-daily">
+                        -0.80%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -1.9%
+                    </div>
+                </div>
+                
+                
+                <div class="heatmap-cell" style="background: #ef9a9a;" title="Consumer Staples: -0.83% daily, -4.07% weekly">
+                    <div class="heatmap-cell-etf">XLP</div>
+                    <div class="heatmap-cell-name">Consumer Staples</div>
+                    <div class="heatmap-cell-daily">
+                        -0.83%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -4.1%
+                    </div>
+                </div>
+                
+                
+                <div class="heatmap-cell" style="background: #ef9a9a;" title="Healthcare: -0.87% daily, -2.98% weekly">
+                    <div class="heatmap-cell-etf">XLV</div>
+                    <div class="heatmap-cell-name">Healthcare</div>
+                    <div class="heatmap-cell-daily">
+                        -0.87%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -3.0%
+                    </div>
+                </div>
+                
+                
+                <div class="heatmap-cell" style="background: #ef5350;" title="Industrials: -1.46% daily, -1.81% weekly">
+                    <div class="heatmap-cell-etf">XLI</div>
+                    <div class="heatmap-cell-name">Industrials</div>
+                    <div class="heatmap-cell-daily">
+                        -1.46%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -1.8%
+                    </div>
+                </div>
+                
+                
+                <div class="heatmap-cell" style="background: #ef5350;" title="Materials: -1.59% daily, -4.49% weekly">
+                    <div class="heatmap-cell-etf">XLB</div>
+                    <div class="heatmap-cell-name">Materials</div>
+                    <div class="heatmap-cell-daily">
+                        -1.59%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -4.5%
+                    </div>
+                </div>
+                
+                
+                <div class="heatmap-cell" style="background: #ef5350;" title="Consumer Disc.: -1.79% daily, -2.81% weekly">
+                    <div class="heatmap-cell-etf">XLY</div>
+                    <div class="heatmap-cell-name">Consumer Disc.</div>
+                    <div class="heatmap-cell-daily">
+                        -1.79%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -2.8%
+                    </div>
+                </div>
+                
+                
+                <div class="heatmap-cell" style="background: #c62828;" title="Technology: -2.27% daily, -1.1% weekly">
+                    <div class="heatmap-cell-etf">XLK</div>
+                    <div class="heatmap-cell-name">Technology</div>
+                    <div class="heatmap-cell-daily">
+                        -2.27%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -1.1%
+                    </div>
+                </div>
+                
+                
+                <div class="heatmap-cell" style="background: #c62828;" title="Real Estate: -3.17% daily, -3.93% weekly">
+                    <div class="heatmap-cell-etf">XLRE</div>
+                    <div class="heatmap-cell-name">Real Estate</div>
+                    <div class="heatmap-cell-daily">
+                        -3.17%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -3.9%
+                    </div>
+                </div>
+                
+                
+                <div class="heatmap-cell" style="background: #c62828;" title="Utilities: -4.06% daily, -4.92% weekly">
+                    <div class="heatmap-cell-etf">XLU</div>
+                    <div class="heatmap-cell-name">Utilities</div>
+                    <div class="heatmap-cell-daily">
+                        -4.06%
+                    </div>
+                    <div class="heatmap-cell-weekly">
+                        Wk: -4.9%
+                    </div>
+                </div>
+                
             </div>
-            
-            <div class="sector-tile" style="background: #9e9e9e20; border-color: #9e9e9e">
-                <div class="sector-name">Energy</div>
-                <div class="sector-etf">XLE</div>
-                <div class="sector-daily" style="color: #9e9e9e">
-                    -0.08%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: +2.79%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #ef9a9a20; border-color: #ef9a9a">
-                <div class="sector-name">Communication</div>
-                <div class="sector-etf">XLC</div>
-                <div class="sector-daily" style="color: #ef9a9a">
-                    -0.80%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -1.94%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #ef9a9a20; border-color: #ef9a9a">
-                <div class="sector-name">Consumer Staples</div>
-                <div class="sector-etf">XLP</div>
-                <div class="sector-daily" style="color: #ef9a9a">
-                    -0.83%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -4.07%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #ef9a9a20; border-color: #ef9a9a">
-                <div class="sector-name">Healthcare</div>
-                <div class="sector-etf">XLV</div>
-                <div class="sector-daily" style="color: #ef9a9a">
-                    -0.87%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -2.98%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #ef535020; border-color: #ef5350">
-                <div class="sector-name">Industrials</div>
-                <div class="sector-etf">XLI</div>
-                <div class="sector-daily" style="color: #ef5350">
-                    -1.46%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -1.81%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #ef535020; border-color: #ef5350">
-                <div class="sector-name">Materials</div>
-                <div class="sector-etf">XLB</div>
-                <div class="sector-daily" style="color: #ef5350">
-                    -1.59%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -4.49%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #ef535020; border-color: #ef5350">
-                <div class="sector-name">Consumer Disc.</div>
-                <div class="sector-etf">XLY</div>
-                <div class="sector-daily" style="color: #ef5350">
-                    -1.79%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -2.81%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #c6282820; border-color: #c62828">
-                <div class="sector-name">Technology</div>
-                <div class="sector-etf">XLK</div>
-                <div class="sector-daily" style="color: #c62828">
-                    -2.27%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -1.10%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #c6282820; border-color: #c62828">
-                <div class="sector-name">Real Estate</div>
-                <div class="sector-etf">XLRE</div>
-                <div class="sector-daily" style="color: #c62828">
-                    -3.17%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -3.93%
-                </div>
-            </div>
-            
-            <div class="sector-tile" style="background: #c6282820; border-color: #c62828">
-                <div class="sector-name">Utilities</div>
-                <div class="sector-etf">XLU</div>
-                <div class="sector-daily" style="color: #c62828">
-                    -4.06%
-                </div>
-                <div class="sector-weekly text-muted">
-                    5D: -4.92%
-                </div>
-            </div>
-            
         </div>
-    </section>
+    </div>
 
-    <!-- GAINERS & LOSERS -->
-    <section class="card card-half">
+    <!-- MARKET BREADTH FLAGS + STATS -->
+    <div class="bottom-card">
         <div class="card-header">
-            <h2>Top Movers</h2>
-            <span class="card-subtitle">Dollar Volume > $5M</span>
+            <h3><i class="fas fa-chart-bar"></i> MARKET BREADTH</h3>
         </div>
-        <div class="movers-grid">
-            <div class="movers-column">
-                <h3 class="text-green">Top Gainers</h3>
-                <table class="mini-table">
-                    <thead>
-                        <tr><th>Ticker</th><th>Price</th><th>Change</th></tr>
-                    </thead>
-                    <tbody>
-                        
-                        <tr>
-                            <td class="ticker-cell">ANNA</td>
-                            <td>$7.07</td>
-                            <td class="text-green">+86.54%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">WATT</td>
-                            <td>$18.04</td>
-                            <td class="text-green">+26.33%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">PL</td>
-                            <td>$33.83</td>
-                            <td class="text-green">+25.48%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">SEDG</td>
-                            <td>$51.73</td>
-                            <td class="text-green">+13.29%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">VG</td>
-                            <td>$15.81</td>
-                            <td class="text-green">+10.64%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">SCHL</td>
-                            <td>$37.25</td>
-                            <td class="text-green">+8.79%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">SM</td>
-                            <td>$30.04</td>
-                            <td class="text-green">+8.25%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">NSP</td>
-                            <td>$24.47</td>
-                            <td class="text-green">+7.70%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">VXX</td>
-                            <td>$35.97</td>
-                            <td class="text-green">+6.51%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">ARX</td>
-                            <td>$12.95</td>
-                            <td class="text-green">+6.32%</td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+        <div class="breadth-body">
+            <!-- Flags -->
+            
+            <div class="flags-list">
+                
+                <div class="flag-banner" style="border-color: #ef5350; background: #ef535018; color: #ef5350">
+                    <span class="flag-icon">
+                        <i class="fas fa-triangle-exclamation"></i>
+                    </span>
+                    <span>CAPITULATION DAY</span>
+                </div>
+                
             </div>
-            <div class="movers-column">
-                <h3 class="text-red">Top Losers</h3>
-                <table class="mini-table">
-                    <thead>
-                        <tr><th>Ticker</th><th>Price</th><th>Change</th></tr>
-                    </thead>
-                    <tbody>
-                        
-                        <tr>
-                            <td class="ticker-cell">SMCI</td>
-                            <td>$20.53</td>
-                            <td class="text-red">-33.32%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">UMAC</td>
-                            <td>$14.87</td>
-                            <td class="text-red">-20.05%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">VNDA</td>
-                            <td>$7.12</td>
-                            <td class="text-red">-16.92%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">ACXP</td>
-                            <td>$5.60</td>
-                            <td class="text-red">-15.54%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">ALOY</td>
-                            <td>$12.09</td>
-                            <td class="text-red">-14.74%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">TE</td>
-                            <td>$6.60</td>
-                            <td class="text-red">-14.40%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">OSS</td>
-                            <td>$8.82</td>
-                            <td class="text-red">-14.12%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">AAOI</td>
-                            <td>$87.54</td>
-                            <td class="text-red">-14.11%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">DPRO</td>
-                            <td>$5.66</td>
-                            <td class="text-red">-13.46%</td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="ticker-cell">VICR</td>
-                            <td>$164.54</td>
-                            <td class="text-red">-13.46%</td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+            
 
-    <!-- BREADTH TABLE -->
-    <section class="card card-full">
-        <div class="card-header">
-            <h2>Market Breadth History</h2>
-            <span class="card-subtitle">Last 1 trading days</span>
+            <!-- Stats grid -->
+            
+            <div class="breadth-stats-grid">
+                <div class="breadth-stat-item">
+                    <span class="breadth-stat-label">% Above 20D MA</span>
+                    <span class="breadth-stat-value bad">
+                        18%
+                    </span>
+                </div>
+                <div class="breadth-stat-item">
+                    <span class="breadth-stat-label">% Above 40D MA</span>
+                    <span class="breadth-stat-value bad">
+                        21%
+                    </span>
+                </div>
+                <div class="breadth-stat-item">
+                    <span class="breadth-stat-label">Up &gt;4%</span>
+                    <span class="breadth-stat-value good">
+                        26
+                    </span>
+                </div>
+                <div class="breadth-stat-item">
+                    <span class="breadth-stat-label">Down &gt;4%</span>
+                    <span class="breadth-stat-value bad">
+                        373
+                    </span>
+                </div>
+                <div class="breadth-stat-item">
+                    <span class="breadth-stat-label">% Above 10D</span>
+                    <span class="breadth-stat-value bad">
+                        20%
+                    </span>
+                </div>
+                <div class="breadth-stat-item">
+                    <span class="breadth-stat-label">SPY Chg</span>
+                    <span class="breadth-stat-value bad">
+                        -1.43%
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="table-wrapper">
-            <table class="data-table breadth-table">
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     6. BREADTH HISTORY TABLE
+═══════════════════════════════════════════════════════════ -->
+<section class="breadth-history-section">
+    <div class="breadth-history-card">
+        <div class="card-header">
+            <h3><i class="fas fa-table"></i> BREADTH HISTORY</h3>
+            <span style="font-size:11px; color: var(--text-muted)">Last 15 sessions</span>
+        </div>
+        <div class="breadth-table-scroll">
+            <table class="breadth-table">
                 <thead>
                     <tr>
                         <th>Date</th>
                         <th>Day</th>
                         <th>Adv</th>
                         <th>Dec</th>
-                        <th>Up 4%</th>
-                        <th>Dn 4%</th>
-                        <th>%>10D</th>
-                        <th>%>20D</th>
-                        <th>%>40D</th>
+                        <th>Up &gt;4%</th>
+                        <th>Dn &gt;4%</th>
+                        <th>%&gt;10D</th>
+                        <th>%&gt;20D</th>
+                        <th>%&gt;40D</th>
                         <th>SPY</th>
-                        <th>SPY %</th>
+                        <th>SPY Chg%</th>
                     </tr>
                 </thead>
                 <tbody>
                     
-                    <tr>
+                    
+                    
+                    
+                    
+                    
+                    <tr class="bh-row-bad">
                         <td>2026-03-21</td>
-                        <td class="text-muted">Saturday</td>
-                        <td class="text-green">384</td>
-                        <td class="text-red">1819</td>
-                        <td>26</td>
-                        <td>373</td>
-                        <td class="text-red">20.1%</td>
-                        <td class="text-red">
-                            17.7%
-                        </td>
-                        <td class="text-red">20.8%</td>
+                        <td>Saturday</td>
+                        <td class="bh-cell-green">384</td>
+                        <td class="bh-cell-red">1819</td>
+                        <td class="bh-cell-green">26</td>
+                        <td class="bh-cell-red">373</td>
+                        <td>20%</td>
+                        <td>18%</td>
+                        <td>21%</td>
                         <td>$648.57</td>
-                        <td class="text-red">
+                        <td class="bh-cell-red">
                             -1.43%
                         </td>
                     </tr>
                     
+                    
+                    
+                    
+                    
+                    <tr class="bh-row-bad">
+                        <td>2026-03-21</td>
+                        <td>Saturday</td>
+                        <td class="bh-cell-green">384</td>
+                        <td class="bh-cell-red">1819</td>
+                        <td class="bh-cell-green">26</td>
+                        <td class="bh-cell-red">373</td>
+                        <td>20%</td>
+                        <td>18%</td>
+                        <td>21%</td>
+                        <td>$648.57</td>
+                        <td class="bh-cell-red">
+                            -1.43%
+                        </td>
+                    </tr>
+                    
+                    
                 </tbody>
             </table>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- SCAN STATS -->
-    <section class="card card-full stats-bar">
-        <div class="stat-item">
-            <span class="stat-value">6,547</span>
-            <span class="stat-label">Universe</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-value">2,224</span>
-            <span class="stat-label">Pre-filtered</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-value">2,203</span>
-            <span class="stat-label">Scanned</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-value">214</span>
-            <span class="stat-label">Actionable</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-value">642</span>
-            <span class="stat-label">Watchlist</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-value">17.0 min</span>
-            <span class="stat-label">Scan Time</span>
-        </div>
-    </section>
 
+<!-- ═══════════════════════════════════════════════════════════
+     7. STOCK ANALYSER — inline on same page
+═══════════════════════════════════════════════════════════ -->
+<section class="analyser-section" id="analyser">
+    <div class="analyser-card">
+        <div class="card-header">
+            <h3>
+                <i class="fas fa-microscope"></i>
+                STOCK ANALYSER
+                <span class="analyser-badge">MINERVINI SEPA</span>
+            </h3>
+        </div>
+        <div class="analyser-content">
+            <div class="analyser-input-area">
+                <div class="analyser-search">
+                    <input type="text"
+                           id="analyserTicker"
+                           class="analyser-input"
+                           placeholder="Enter US ticker — e.g. AAPL, NVDA, TSLA"
+                           autocomplete="off"
+                           spellcheck="false">
+                    <button id="analyserBtn" class="analyser-btn" onclick="runAnalysis()">
+                        <i class="fas fa-search"></i> ANALYSE
+                    </button>
+                </div>
+                <div class="analyser-quick-picks">
+                    <span class="quick-pick" data-ticker="AAPL">AAPL</span>
+                    <span class="quick-pick" data-ticker="MSFT">MSFT</span>
+                    <span class="quick-pick" data-ticker="NVDA">NVDA</span>
+                    <span class="quick-pick" data-ticker="TSLA">TSLA</span>
+                    <span class="quick-pick" data-ticker="AMZN">AMZN</span>
+                </div>
+            </div>
+            <div class="analyser-result" id="analyserResult">
+                <div class="analyser-placeholder">
+                    <i class="fas fa-chart-line"></i>
+                    <p>Enter a ticker to get Minervini-style SEPA analysis</p>
+                    <div class="analyser-method-summary">
+                        <div class="method-item"><span class="method-check">1</span> Trend Template (Price vs 50/150/200 SMA)</div>
+                        <div class="method-item"><span class="method-check">2</span> 52-Week High Proximity</div>
+                        <div class="method-item"><span class="method-check">3</span> Relative Strength vs S&amp;P 500</div>
+                        <div class="method-item"><span class="method-check">4</span> Volume Pattern Analysis</div>
+                        <div class="method-item"><span class="method-check">5</span> Stage Analysis (Weinstein)</div>
+                        <div class="method-item"><span class="method-check">6</span> Breakout Readiness Score</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     8. SCAN STATS FOOTER BAR
+═══════════════════════════════════════════════════════════ -->
+<div class="scan-stats-bar">
+    
+    <div class="scan-stat-item">
+        <span class="scan-stat-label">Actionable</span>
+        <span class="scan-stat-value green">214</span>
+    </div>
+    <div class="scan-stats-sep"></div>
+    <div class="scan-stat-item">
+        <span class="scan-stat-label">Watchlist</span>
+        <span class="scan-stat-value gold">642</span>
+    </div>
+    <div class="scan-stats-sep"></div>
+    <div class="scan-stat-item">
+        <span class="scan-stat-label">Avoid</span>
+        <span class="scan-stat-value red">1347</span>
+    </div>
+    <div class="scan-stats-sep"></div>
+    
+    <div class="scan-stat-item">
+        <span class="scan-stat-label">Scan Date</span>
+        <span class="scan-stat-value">2026-03-21</span>
+    </div>
+    <div class="scan-stats-sep"></div>
+    <div class="scan-stat-item">
+        <span class="scan-stat-label">Scan Time</span>
+        <span class="scan-stat-value">17:42:31 ET</span>
+    </div>
 </div>
 
-<!-- ═══ FOOTER ═══ -->
-<footer class="footer">
-    <span>Alpha Engine v1.0 — Generated 2026-03-21 16:55:50 ET</span>
-    <span>Data: yfinance | NASDAQ Trader | Not financial advice</span>
+
+<!-- ═══════════════════════════════════════════════════════════
+     9. FOOTER
+═══════════════════════════════════════════════════════════ -->
+<footer class="dashboard-footer">
+    <div class="footer-left">
+        <span>Alpha Engine &copy; 2026</span>
+        <span style="opacity:0.3; margin: 0 8px">|</span>
+        <span>Generated: 2026-03-21 17:42:31 ET</span>
+    </div>
+    <div class="footer-right">
+        <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" class="footer-link">
+            Created with Perplexity Computer
+        </a>
+    </div>
 </footer>
 
-<script src="static/script.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+/* ===== CLOCK & MARKET STATUS ===== */
+(function() {
+    const MARKET_OPEN_ET  = { h: 9,  m: 30 };
+    const MARKET_CLOSE_ET = { h: 16, m: 0  };
+
+    function getEasternTime() {
+        const now = new Date();
+        const etStr = now.toLocaleString('en-US', { timeZone: 'America/New_York' });
+        return new Date(etStr);
+    }
+
+    function updateClock() {
+        const et = getEasternTime();
+        const h = et.getHours(), m = et.getMinutes(), s = et.getSeconds();
+        const day = et.getDay(); // 0=Sun, 6=Sat
+        const isWeekday = day >= 1 && day <= 5;
+        const isOpenTime = (h > MARKET_OPEN_ET.h || (h === MARKET_OPEN_ET.h && m >= MARKET_OPEN_ET.m)) &&
+                           (h < MARKET_CLOSE_ET.h);
+        const isOpen = isWeekday && isOpenTime;
+
+        const pad = n => String(n).padStart(2, '0');
+        document.getElementById('headerTime').textContent =
+            `${pad(h)}:${pad(m)}:${pad(s)} ET`;
+
+        const statusEl = document.getElementById('marketStatus');
+        const textEl = statusEl.querySelector('.status-text');
+        if (isOpen) {
+            statusEl.classList.add('open');
+            textEl.textContent = 'MARKET OPEN';
+        } else {
+            statusEl.classList.remove('open');
+            textEl.textContent = 'MARKET CLOSED';
+        }
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+})();
+
+/* ===== ROTATING TRADING QUOTES ===== */
+(function() {
+    const quotes = [
+        { text: "The stock market is a device for transferring money from the impatient to the patient.", author: "Warren Buffett" },
+        { text: "In the short run, the market is a voting machine; in the long run, it's a weighing machine.", author: "Benjamin Graham" },
+        { text: "The trend is your friend until the end when it bends.", author: "Ed Seykota" },
+        { text: "Cut losses short and let profits run.", author: "Market Wisdom" },
+        { text: "Risk comes from not knowing what you're doing.", author: "Warren Buffett" },
+        { text: "The elements of good trading are: cutting losses, cutting losses, and cutting losses.", author: "Ed Seykota" },
+        { text: "I'm always thinking about losing money as opposed to making money.", author: "Paul Tudor Jones" },
+        { text: "Price is what you pay. Value is what you get.", author: "Warren Buffett" },
+        { text: "The market can stay irrational longer than you can stay solvent.", author: "John Maynard Keynes" },
+        { text: "Big money is made in the stock market by being on the right side of the major moves.", author: "Martin Zweig" },
+        { text: "I believe in analysis and not forecasting.", author: "Nicolas Darvas" },
+        { text: "If you are not willing to own a stock for ten years, do not even think about owning it for ten minutes.", author: "Warren Buffett" },
+    ];
+
+    let idx = Math.floor(Math.random() * quotes.length);
+
+    function setQuote() {
+        const q = quotes[idx];
+        const textEl = document.getElementById('quoteText');
+        const authorEl = document.getElementById('quoteAuthor');
+        if (textEl && authorEl) {
+            textEl.style.opacity = '0';
+            authorEl.style.opacity = '0';
+            setTimeout(() => {
+                textEl.textContent = q.text;
+                authorEl.textContent = '— ' + q.author;
+                textEl.style.transition = 'opacity 0.5s';
+                authorEl.style.transition = 'opacity 0.5s';
+                textEl.style.opacity = '1';
+                authorEl.style.opacity = '1';
+            }, 400);
+        }
+        idx = (idx + 1) % quotes.length;
+    }
+
+    setQuote();
+    setInterval(setQuote, 12000);
+})();
+
+/* ===== QUICK PICK TICKERS ===== */
+document.querySelectorAll('.quick-pick').forEach(el => {
+    el.addEventListener('click', function() {
+        const ticker = this.dataset.ticker;
+        document.getElementById('analyserTicker').value = ticker;
+        runAnalysis(ticker);
+    });
+});
+
+document.getElementById('analyserTicker').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') runAnalysis();
+});
+
+/* ===== STOCK ANALYSER ===== */
+async function runAnalysis(ticker) {
+    ticker = (ticker || document.getElementById('analyserTicker').value || '').trim().toUpperCase();
+    if (!ticker) return;
+
+    const resultEl = document.getElementById('analyserResult');
+    resultEl.innerHTML = `
+        <div class="analyser-loading">
+            <div class="spinner"></div>
+            <span>Analysing <strong>${ticker}</strong>...</span>
+        </div>`;
+
+    try {
+        // Try to load from scan_results.json first
+        const resp = await fetch('scan_results.json');
+        if (!resp.ok) throw new Error('scan_results.json not found');
+        const scanData = await resp.json();
+
+        // Find the stock in the results
+        const stocks = scanData.stocks || scanData.results || [];
+        const stock = stocks.find(s =>
+            (s.ticker || s.symbol || '').toUpperCase() === ticker
+        );
+
+        if (!stock) {
+            throw new Error(`${ticker} not found in today's scan`);
+        }
+
+        renderAnalysisResult(stock);
+
+    } catch (err) {
+        // Show a clean not-found message
+        resultEl.innerHTML = `
+            <div class="analyser-error">
+                <i class="fas fa-circle-xmark"></i>
+                <span>${err.message || 'Failed to load analysis data'}</span>
+                <small style="font-size:11px; color: var(--text-muted); margin-top:4px">
+                    Try running the scanner first to generate results
+                </small>
+            </div>`;
+    }
+}
+
+function renderAnalysisResult(stock) {
+    const resultEl = document.getElementById('analyserResult');
+    const ticker  = stock.ticker || stock.symbol || '—';
+    const price   = stock.price || 0;
+    const chgPct  = stock.change_pct || 0;
+    const score   = stock.score || 0;
+    const verdict = stock.verdict || 'N/A';
+    const vClass  = stock.verdict_class || 'watchlist';
+    const details = stock.details || {};
+
+    const chgSign = chgPct >= 0 ? '+' : '';
+    const chgCls  = chgPct >= 0 ? 'positive' : 'negative';
+
+    // Build criteria checks
+    let checksHtml = '';
+    if (stock.criteria_passed && Array.isArray(stock.criteria_passed)) {
+        checksHtml = `<div class="analysis-checks-title">SEPA CRITERIA</div><div class="analysis-checks">`;
+        stock.criteria_passed.forEach(c => {
+            const pass = c.passed !== false;
+            checksHtml += `
+                <div class="check-item ${pass ? 'pass' : 'fail'}">
+                    <div class="check-header">
+                        <i class="fas ${pass ? 'fa-check' : 'fa-times'} check-icon"></i>
+                        <span class="check-name">${c.name || c.criterion || ''}</span>
+                        ${c.weight ? `<span class="check-weight">${c.weight}</span>` : ''}
+                    </div>
+                    ${c.value ? `<div class="check-value">${c.value}</div>` : ''}
+                    ${c.detail ? `<div class="check-detail">${c.detail}</div>` : ''}
+                </div>`;
+        });
+        checksHtml += `</div>`;
+    }
+
+    resultEl.innerHTML = `
+        <div class="analysis-result">
+            <div class="analysis-header-bar">
+                <div>
+                    <div class="analysis-symbol">${ticker}</div>
+                    <div class="analysis-company">${stock.name || ''}</div>
+                </div>
+                <div>
+                    <div class="analysis-ltp">$${price.toFixed(2)}</div>
+                    <div class="analysis-change ${chgCls}">${chgSign}${chgPct.toFixed(2)}%</div>
+                </div>
+            </div>
+
+            <div class="analysis-verdict-bar ${vClass}">
+                <div class="score-circle">
+                    <span class="score-num">${score}</span>
+                    <span class="score-label">SCORE</span>
+                </div>
+                <div>
+                    <div class="verdict-title">${verdict}</div>
+                    <div class="verdict-summary">
+                        Stage ${stock.stage || '?'} &nbsp;|&nbsp;
+                        RS Percentile: ${stock.rs_percentile || '?'}
+                        ${stock.avg_dollar_volume ? ` &nbsp;|&nbsp; Avg Vol: $${(stock.avg_dollar_volume/1e6).toFixed(0)}M` : ''}
+                    </div>
+                </div>
+            </div>
+
+            ${checksHtml}
+        </div>`;
+}
+</script>
+
 </body>
 </html>

@@ -1,10 +1,54 @@
 {
   "scan_date": "2026-03-21",
-  "scan_time": "16:55:50 ET",
-  "elapsed_minutes": 17.0,
+  "scan_time": "17:42:31 ET",
+  "elapsed_minutes": 10.5,
   "universe_size": 6547,
   "prefiltered_size": 2224,
   "scanned_size": 2203,
+  "macro_kpis": [
+    {
+      "ticker": "SPY",
+      "name": "S&P 500",
+      "value": 648.57,
+      "change_pct": -1.43
+    },
+    {
+      "ticker": "QQQ",
+      "name": "NASDAQ 100",
+      "value": 582.06,
+      "change_pct": -1.85
+    },
+    {
+      "ticker": "IWM",
+      "name": "RUSSELL 2000",
+      "value": 242.22,
+      "change_pct": -2.18
+    },
+    {
+      "ticker": "^VIX",
+      "name": "VIX",
+      "value": 26.78,
+      "change_pct": 11.31
+    },
+    {
+      "ticker": "^TNX",
+      "name": "10Y YIELD",
+      "value": 4.39,
+      "change_pct": 2.57
+    },
+    {
+      "ticker": "DX-Y.NYB",
+      "name": "US DOLLAR",
+      "value": 99.5,
+      "change_pct": 0.28
+    },
+    {
+      "ticker": "GLD",
+      "name": "GOLD",
+      "value": 413.38,
+      "change_pct": -3.06
+    }
+  ],
   "regime": {
     "regime_score": 24,
     "label": "CAPITAL PRESERVATION",
@@ -15,8 +59,8 @@
     "spy_vs_50ema": -4.18,
     "spy_vs_200ema": -0.79,
     "ema21": 670.9492044621454,
-    "ema50": 676.8791696745805,
-    "ema200": 653.7476879379891,
+    "ema50": 676.8791696720941,
+    "ema200": 653.7476830124507,
     "vix": 26.78,
     "breadth_pct_20d": 50.0,
     "roc_10d": -3.28,
@@ -67,6 +111,19 @@
     ]
   },
   "breadth_history": [
+    {
+      "date": "2026-03-21",
+      "day_of_week": "Saturday",
+      "adv": 384,
+      "dec": 1819,
+      "up4pct": 26,
+      "dn4pct": 373,
+      "pct_above_10d": 20.1,
+      "pct_above_20d": 17.7,
+      "pct_above_40d": 20.8,
+      "spy_close": 648.57,
+      "spy_chg_pct": -1.43
+    },
     {
       "date": "2026-03-21",
       "day_of_week": "Saturday",
