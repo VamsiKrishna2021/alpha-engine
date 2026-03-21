@@ -26,7 +26,45 @@ from scripts.sector_rotation import calculate_sector_rotation
 from scripts.sepa_scanner import scan_universe, get_top_gainers_losers
 from scripts.capital_allocator import get_deployment_model
 
+import yfinance as yf
+import pandas as pd
+
 logger = logging.getLogger("alpha_engine")
+
+
+def fetch_macro_kpis() -> list:
+    """Fetch macro KPI data: SPY, QQQ, IWM, VIX, 10Y, DXY, Gold."""
+    kpis = [
+        {"ticker": "SPY", "name": "S&P 500"},
+        {"ticker": "QQQ", "name": "NASDAQ 100"},
+        {"ticker": "IWM", "name": "RUSSELL 2000"},
+        {"ticker": "^VIX", "name": "VIX"},
+        {"ticker": "^TNX", "name": "10Y YIELD"},
+        {"ticker": "DX-Y.NYB", "name": "US DOLLAR"},
+        {"ticker": "GLD", "name": "GOLD"},
+    ]
+    results = []
+    for kpi in kpis:
+        try:
+            data = yf.download(kpi["ticker"], period="5d", auto_adjust=True, progress=False)
+            if isinstance(data.columns, pd.MultiIndex):
+                data.columns = data.columns.droplevel(1)
+            if not data.empty and len(data) >= 2:
+                last = float(data["Close"].iloc[-1])
+                prev = float(data["Close"].iloc[-2])
+                chg = (last - prev) / prev * 100
+                results.append({
+                    "ticker": kpi["ticker"],
+                    "name": kpi["name"],
+                    "value": round(last, 2),
+                    "change_pct": round(chg, 2),
+                })
+            else:
+                results.append({"ticker": kpi["ticker"], "name": kpi["name"], "value": 0, "change_pct": 0})
+        except Exception as e:
+            logger.warning(f"Macro KPI {kpi['ticker']}: {e}")
+            results.append({"ticker": kpi["ticker"], "name": kpi["name"], "value": 0, "change_pct": 0})
+    return results
 
 
 def run_daily_scan() -> dict:
@@ -95,7 +133,12 @@ def run_daily_scan() -> dict:
     deployment = get_deployment_model(regime["regime_score"])
     logger.info(f"Deployment: {deployment['label']} — Risk/trade: {deployment['risk_per_trade_pct']}%")
 
-    # ── Step 9: Compile Results ───────────────────────────────────
+    # ── Step 9: Macro KPIs ────────────────────────────────────────
+    logger.info("─── STEP 9: Macro KPIs ───")
+    macro_kpis = fetch_macro_kpis()
+    logger.info(f"Macro KPIs: {len(macro_kpis)} fetched")
+
+    # ── Step 10: Compile Results ──────────────────────────────────
     elapsed = round((time.time() - start_time) / 60, 1)
     logger.info(f"─── SCAN COMPLETE in {elapsed} minutes ───")
 
@@ -106,6 +149,7 @@ def run_daily_scan() -> dict:
         "universe_size": len(universe),
         "prefiltered_size": len(filtered_tickers),
         "scanned_size": len(history_cache),
+        "macro_kpis": macro_kpis,
         "regime": regime,
         "breadth": breadth,
         "breadth_history": breadth_history,
