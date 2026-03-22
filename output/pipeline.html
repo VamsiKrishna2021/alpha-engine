@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Trading Agent — Pipeline View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary: #0a0e17;
+  --bg-card: #141824;
+  --bg-card-hover: #1a2030;
+  --bg-surface: #111520;
+  --border: #1e2538;
+  --border-light: #2a3352;
+  --text-primary: #e8eaf0;
+  --text-secondary: #8892a8;
+  --text-muted: #5a6480;
+  --accent: #6c5ce7;
+  --accent-dim: rgba(108, 92, 231, 0.15);
+  --green: #00e676;
+  --green-dim: rgba(0, 230, 118, 0.12);
+  --red: #ff5252;
+  --red-dim: rgba(255, 82, 82, 0.12);
+  --blue: #448aff;
+  --blue-dim: rgba(68, 138, 255, 0.12);
+  --yellow: #ffab40;
+  --yellow-dim: rgba(255, 171, 64, 0.12);
+  --orange: #ff9100;
+  --font-text: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-text);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ═══════════════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════════════ */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ═══════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════ */
+.header {
+  background: linear-gradient(180deg, rgba(108,92,231,0.08) 0%, var(--bg-primary) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0 16px;
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, #6c5ce7, #a78bfa, #00e676);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.badge-regime {
+  background: var(--yellow-dim);
+  color: var(--yellow);
+  border: 1px solid rgba(255, 171, 64, 0.25);
+}
+
+.badge-regime.bullish { background: var(--green-dim); color: var(--green); border-color: rgba(0,230,118,0.25); }
+.badge-regime.bearish { background: var(--red-dim); color: var(--red); border-color: rgba(255,82,82,0.25); }
+
+.badge-mode {
+  background: var(--accent-dim);
+  color: #a78bfa;
+  border: 1px solid rgba(108, 92, 231, 0.25);
+  text-transform: uppercase;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Budget Bar */
+.budget-bar-container {
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.budget-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.budget-track {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.budget-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #a78bfa);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* ═══════════════════════════════════════════════════
+   PIPELINE FUNNEL
+   ═══════════════════════════════════════════════════ */
+#funnel-section {
+  padding: 28px 0 20px;
+}
+
+.funnel {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+
+.funnel-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.funnel-stage:hover { transform: translateY(-2px); }
+
+.funnel-bar {
+  height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  transition: all 0.3s ease;
+  width: 100%;
+  min-width: 60px;
+}
+
+.funnel-bar:hover { filter: brightness(1.15); }
+
+.funnel-stage-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.funnel-arrow {
+  font-size: 18px;
+  color: var(--text-muted);
+  padding: 0 6px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 14px;
+}
+
+.funnel-s1 .funnel-bar { background: linear-gradient(135deg, #6c5ce7, #5a4bd6); }
+.funnel-s2 .funnel-bar { background: linear-gradient(135deg, #448aff, #3478e8); }
+.funnel-s3 .funnel-bar { background: linear-gradient(135deg, #ffab40, #e69530); }
+.funnel-s4 .funnel-bar { background: linear-gradient(135deg, #00e676, #00c864); }
+
+/* ═══════════════════════════════════════════════════
+   TABS
+   ═══════════════════════════════════════════════════ */
+.tabs-container {
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: var(--bg-primary);
+  padding-top: 4px;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  user-select: none;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: var(--font-text);
+}
+
+.tab:hover { color: var(--text-secondary); }
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--border);
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-left: 8px;
+  color: var(--text-secondary);
+}
+
+.tab.active .tab-count {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════
+   TIER PANELS
+   ═══════════════════════════════════════════════════ */
+.tier-panel { display: none; }
+.tier-panel.active { display: block; }
+
+/* ═══════════════════════════════════════════════════
+   TABLE STYLES (Tier 1, 2, 3)
+   ═══════════════════════════════════════════════════ */
+.table-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 8px 14px 8px 36px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: var(--font-text);
+  width: 280px;
+  max-width: 100%;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.search-box:focus { border-color: var(--accent); }
+
+.search-wrap {
+  position: relative;
+}
+
+.search-wrap::before {
+  content: '🔍';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.result-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.data-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.data-table thead th {
+  background: var(--bg-surface);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
+}
+
+.data-table thead th:hover { color: var(--text-primary); }
+
+.data-table thead th .sort-arrow {
+  margin-left: 4px;
+  font-size: 10px;
+  opacity: 0.4;
+}
+
+.data-table thead th.sorted-asc .sort-arrow,
+.data-table thead th.sorted-desc .sort-arrow {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.data-table tbody tr:hover { background: var(--bg-card-hover); }
+.data-table tbody tr:last-child { border-bottom: none; }
+
+.data-table tbody td {
+  padding: 10px 14px;
+  white-space: nowrap;
+}
+
+.ticker-link {
+  color: var(--blue);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 13px;
+  transition: color 0.15s;
+}
+
+.ticker-link:hover { color: #82b1ff; text-decoration: underline; }
+
+.mono { font-family: var(--font-mono); font-size: 12px; }
+.green { color: var(--green); }
+.red { color: var(--red); }
+.blue { color: var(--blue); }
+.yellow { color: var(--yellow); }
+.muted { color: var(--text-muted); }
+
+/* SEPA Bar */
+.sepa-bar-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sepa-bar-track {
+  width: 80px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sepa-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.sepa-bar-fill.high { background: var(--green); }
+.sepa-bar-fill.mid { background: var(--yellow); }
+.sepa-bar-fill.low { background: var(--red); }
+
+.sepa-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 28px;
+}
+
+/* LLM Score Bar */
+.llm-bar-track {
+  width: 60px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.llm-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+/* Badges in tables */
+.badge-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.badge-leader { background: var(--yellow-dim); color: var(--yellow); }
+.badge-priority-high { background: var(--green-dim); color: var(--green); }
+.badge-priority-medium { background: var(--blue-dim); color: var(--blue); }
+.badge-priority-low { background: rgba(255,255,255,0.06); color: var(--text-secondary); }
+
+/* Conviction dots */
+.conviction-dots {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.conviction-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-light);
+}
+
+.conviction-dot.filled { background: var(--accent); }
+
+/* ═══════════════════════════════════════════════════
+   TIER 4 CARDS
+   ═══════════════════════════════════════════════════ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stock-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.stock-card:hover {
+  border-color: var(--border-light);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-ticker-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-ticker {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.card-name {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.card-sector-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  background: var(--accent-dim);
+  color: #a78bfa;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.card-signal-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.signal-badge {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+
+.signal-strong-buy { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,230,118,0.3); }
+.signal-buy { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,230,118,0.2); }
+.signal-speculative-buy { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(255,171,64,0.2); }
+.signal-sell, .signal-skip { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,82,82,0.2); }
+
+/* Scores section */
+.card-scores {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.score-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  width: 36px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.score-track {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.score-fill.sepa { background: linear-gradient(90deg, var(--green), #66ffa6); }
+.score-fill.rs { background: linear-gradient(90deg, var(--blue), #82b1ff); }
+
+.score-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 52px;
+  text-align: right;
+}
+
+/* Levels */
+.card-levels {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+}
+
+.level-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.level-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.level-value {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.level-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+/* Position */
+.card-position {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.pos-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pos-icon { font-size: 14px; }
+
+.pos-label { color: var(--text-muted); }
+
+.pos-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Thesis */
+.card-thesis {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.thesis-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.thesis-row {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.thesis-bull, .thesis-bear {
+  flex: 1;
+  min-width: 180px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  line-height: 1.5;
+}
+
+.thesis-bull {
+  background: var(--green-dim);
+  color: rgba(0, 230, 118, 0.85);
+  border-left: 3px solid var(--green);
+}
+
+.thesis-bear {
+  background: var(--red-dim);
+  color: rgba(255, 82, 82, 0.85);
+  border-left: 3px solid var(--red);
+}
+
+.thesis-prefix {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Card Actions */
+.card-actions {
+  padding: 14px 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.card-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-family: var(--font-text);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.card-btn:hover { background: var(--bg-card-hover); border-color: var(--border-light); }
+
+.card-btn-tv { border-color: rgba(0, 230, 118, 0.3); }
+.card-btn-tv:hover { background: var(--green-dim); border-color: rgba(0, 230, 118, 0.5); }
+
+.card-btn-copy.copied {
+  background: var(--green-dim);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* ═══════════════════════════════════════════════════
+   PORTFOLIO SUMMARY
+   ═══════════════════════════════════════════════════ */
+.portfolio-summary {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-top: 8px;
+  margin-bottom: 32px;
+}
+
+.portfolio-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.portfolio-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.portfolio-stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.portfolio-stat-value {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.portfolio-stat-sub {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+/* Sector bars */
+.sector-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sector-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sector-bar-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 160px;
+  font-weight: 500;
+}
+
+.sector-bar-track {
+  flex: 1;
+  height: 10px;
+  background: var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.sector-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.6s ease;
+}
+
+.sector-bar-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 52px;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+.sector-color-energy { background: linear-gradient(90deg, #ff9100, #ffab40); }
+.sector-color-consumer { background: linear-gradient(90deg, #6c5ce7, #a78bfa); }
+.sector-color-healthcare { background: linear-gradient(90deg, #00e676, #66ffa6); }
+.sector-color-realestate { background: linear-gradient(90deg, #448aff, #82b1ff); }
+.sector-color-utilities { background: linear-gradient(90deg, #ffab40, #ffd180); }
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  margin-top: 20px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-costs {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-cost-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer-cost-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.footer-cost-value {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.footer-disclaimer {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.footer-link {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-link:hover { color: #a78bfa; text-decoration: underline; }
+
+.footer-attr {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.footer-attr a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.footer-attr a:hover { text-decoration: underline; }
+
+/* ═══════════════════════════════════════════════════
+   LOADING / EMPTY STATES
+   ═══════════════════════════════════════════════════ */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .container { padding: 0 12px; }
+
+  .header-inner { flex-direction: column; align-items: flex-start; }
+
+  .header-title { font-size: 14px; }
+
+  .funnel { flex-direction: column; gap: 8px; }
+  .funnel-stage { width: 100%; }
+  .funnel-bar { height: 38px; font-size: 16px; }
+  .funnel-arrow { display: none; }
+
+  .tabs-container { top: 0; }
+  .tab { padding: 10px 14px; font-size: 12px; }
+
+  .cards-grid { grid-template-columns: 1fr; }
+
+  .search-box { width: 100%; }
+
+  .card-levels { grid-template-columns: 1fr; gap: 6px; }
+  .card-position { grid-template-columns: 1fr; }
+
+  .portfolio-grid { grid-template-columns: 1fr 1fr; }
+
+  .footer-inner { flex-direction: column; }
+  .footer-links { align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .header-meta { gap: 6px; }
+  .badge { font-size: 10px; padding: 3px 8px; }
+  .portfolio-stat-value { font-size: 20px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   TOAST
+   ═══════════════════════════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--green);
+  color: var(--green);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-title">🤖 AI TRADING AGENT — PIPELINE VIEW</div>
+      <div class="header-meta">
+        <span class="timestamp" id="hdr-timestamp">--</span>
+        <span class="badge badge-regime" id="hdr-regime">--</span>
+        <span class="badge badge-mode" id="hdr-mode">--</span>
+      </div>
+    </div>
+    <div class="budget-bar-container">
+      <span class="budget-label" id="hdr-budget-label">$0.00 / $30.00</span>
+      <div class="budget-track">
+        <div class="budget-fill" id="hdr-budget-fill" style="width: 0%"></div>
+      </div>
+      <span class="budget-label" id="hdr-calls-label">0 calls</span>
+    </div>
+  </div>
+</header>
+
+<!-- FUNNEL -->
+<section id="funnel-section">
+  <div class="container">
+    <div class="funnel" id="funnel-vis"></div>
+  </div>
+</section>
+
+<!-- TABS -->
+<nav class="tabs-container">
+  <div class="container">
+    <div class="tabs" id="tier-tabs">
+      <button class="tab" data-tier="1">TIER 1<span class="tab-count" id="tab-count-1">0</span></button>
+      <button class="tab" data-tier="2">TIER 2<span class="tab-count" id="tab-count-2">0</span></button>
+      <button class="tab" data-tier="3">TIER 3<span class="tab-count" id="tab-count-3">0</span></button>
+      <button class="tab active" data-tier="4">TIER 4<span class="tab-count" id="tab-count-4">0</span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<main class="container">
+
+  <!-- TIER 1 -->
+  <div class="tier-panel" id="tier-1-panel">
+    <div class="table-controls">
+      <div class="search-wrap">
+        <input type="text" class="search-box" id="search-t1" placeholder="Search ticker, name, sector...">
+      </div>
+      <span class="result-count" id="count-t1"></span>
+    </div>
+    <div class="data-table-wrap">
+      <table class="data-table" id="table-t1">
+        <thead>
+          <tr>
+            <th data-sort="rank">Rank <span class="sort-arrow">▲</span></th>
+            <th data-sort="ticker">Ticker <span class="sort-arrow">▲</span></th>
+            <th data-sort="sepa_score">SEPA Score <span class="sort-arrow">▲</span></th>
+            <th data-sort="stage">Stage <span class="sort-arrow">▲</span></th>
+            <th data-sort="rs_percentile">RS% <span class="sort-arrow">▲</span></th>
+            <th data-sort="price">Price <span class="sort-arrow">▲</span></th>
+            <th data-sort="change_pct">Change% <span class="sort-arrow">▲</span></th>
+            <th data-sort="sector">Sector <span class="sort-arrow">▲</span></th>
+            <th data-sort="criteria_passed">Criteria <span class="sort-arrow">▲</span></th>
+            <th data-sort="volume">Volume <span class="sort-arrow">▲</span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody-t1"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TIER 2 -->
+  <div class="tier-panel" id="tier-2-panel">
+    <div class="table-controls">
+      <div class="search-wrap">
+        <input type="text" class="search-box" id="search-t2" placeholder="Search ticker, name, sector...">
+      </div>
+      <span class="result-count" id="count-t2"></span>
+    </div>
+    <div class="data-table-wrap">
+      <table class="data-table" id="table-t2">
+        <thead>
+          <tr>
+            <th data-sort="rank">Rank <span class="sort-arrow">▲</span></th>
+            <th data-sort="ticker">Ticker <span class="sort-arrow">▲</span></th>
+            <th data-sort="sepa_score">SEPA Score <span class="sort-arrow">▲</span></th>
+            <th data-sort="stage">Stage <span class="sort-arrow">▲</span></th>
+            <th data-sort="rs_percentile">RS% <span class="sort-arrow">▲</span></th>
+            <th data-sort="price">Price <span class="sort-arrow">▲</span></th>
+            <th data-sort="change_pct">Change% <span class="sort-arrow">▲</span></th>
+            <th data-sort="sector">Sector <span class="sort-arrow">▲</span></th>
+            <th>Badges <span class="sort-arrow"></span></th>
+            <th data-sort="volume">Volume <span class="sort-arrow">▲</span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody-t2"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TIER 3 -->
+  <div class="tier-panel" id="tier-3-panel">
+    <div class="data-table-wrap">
+      <table class="data-table" id="table-t3">
+        <thead>
+          <tr>
+            <th data-sort="rank">Rank <span class="sort-arrow">▲</span></th>
+            <th data-sort="ticker">Ticker <span class="sort-arrow">▲</span></th>
+            <th data-sort="llm_score">LLM Score <span class="sort-arrow">▲</span></th>
+            <th data-sort="sepa_score">SEPA <span class="sort-arrow">▲</span></th>
+            <th data-sort="entry">Entry <span class="sort-arrow">▲</span></th>
+            <th data-sort="stop">Stop <span class="sort-arrow">▲</span></th>
+            <th data-sort="target">Target <span class="sort-arrow">▲</span></th>
+            <th>Reason</th>
+            <th data-sort="conviction">Conviction <span class="sort-arrow">▲</span></th>
+            <th>Badges</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-t3"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TIER 4 -->
+  <div class="tier-panel active" id="tier-4-panel">
+    <div class="cards-grid" id="cards-t4"></div>
+    <div id="portfolio-summary"></div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-costs" id="footer-costs"></div>
+      <div class="footer-links">
+        <span class="footer-disclaimer">📋 Paper trading only. Not financial advice.</span>
+        <a href="index.html" class="footer-link">← Back to Alpha Engine Dashboard</a>
+        <span class="footer-attr">
+          <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════════════ */
+let DATA = null;
+let sortState = {};
+let refreshTimer = null;
+
+/* ═══════════════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════════════ */
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const tvLink = ticker => `https://www.tradingview.com/chart/?symbol=${ticker}`;
+const fmt = (n, d=2) => n != null ? Number(n).toFixed(d) : '--';
+const fmtK = n => {
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';
+  return String(n);
+};
+
+function sepaClass(score) {
+  if (score >= 85) return 'high';
+  if (score >= 60) return 'mid';
+  return 'low';
+}
+
+function sepaColor(score) {
+  if (score >= 85) return 'var(--green)';
+  if (score >= 60) return 'var(--yellow)';
+  return 'var(--red)';
+}
+
+function convictionDots(n, max=5) {
+  let html = '<span class="conviction-dots">';
+  for (let i = 0; i < max; i++) {
+    html += `<span class="conviction-dot ${i < n ? 'filled' : ''}"></span>`;
+  }
+  return html + '</span>';
+}
+
+function signalClass(signal) {
+  const s = (signal || '').toUpperCase();
+  if (s.includes('STRONG BUY')) return 'signal-strong-buy';
+  if (s.includes('SPECULATIVE')) return 'signal-speculative-buy';
+  if (s.includes('BUY')) return 'signal-buy';
+  if (s.includes('SELL')) return 'signal-sell';
+  return 'signal-skip';
+}
+
+function changeColor(val) {
+  if (val > 0) return 'green';
+  if (val < 0) return 'red';
+  return 'muted';
+}
+
+function showToast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function copyLevels(stock) {
+  const text = `${stock.ticker} | Entry: $${fmt(stock.entry)} | Stop: $${fmt(stock.stop)} | T1: $${fmt(stock.t1)} | T2: $${fmt(stock.t2)}`;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('✓ Levels copied to clipboard');
+  }).catch(() => {
+    showToast('Copy failed — check permissions');
+  });
+}
+
+/* ═══════════════════════════════════════════════════
+   RENDER HEADER
+   ═══════════════════════════════════════════════════ */
+function renderHeader() {
+  if (!DATA) return;
+
+  // Timestamp
+  const ts = new Date(DATA.timestamp);
+  const opts = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+  $('#hdr-timestamp').textContent = ts.toLocaleDateString('en-US', opts);
+
+  // Regime
+  const r = DATA.regime;
+  const regimeEl = $('#hdr-regime');
+  regimeEl.textContent = `⚡ ${r.label} (${r.score})`;
+  regimeEl.className = 'badge badge-regime';
+  if (r.score >= 60) regimeEl.classList.add('bullish');
+  else if (r.score <= 30) regimeEl.classList.add('bearish');
+
+  // Mode
+  $('#hdr-mode').textContent = `📊 ${DATA.trading_mode}`;
+
+  // Budget
+  const b = DATA.budget;
+  const pct = (b.spent / b.limit * 100).toFixed(1);
+  $('#hdr-budget-label').textContent = `$${fmt(b.spent)} / $${fmt(b.limit, 2)}`;
+  $('#hdr-budget-fill').style.width = pct + '%';
+  $('#hdr-calls-label').textContent = `${b.calls} calls`;
+}
+
+/* ═══════════════════════════════════════════════════
+   RENDER FUNNEL
+   ═══════════════════════════════════════════════════ */
+function renderFunnel() {
+  if (!DATA) return;
+  const f = DATA.funnel;
+  const stages = [
+    { count: f.tier1, label: 'Actionable', cls: 'funnel-s1', tier: 1 },
+    { count: f.tier2, label: 'Filtered', cls: 'funnel-s2', tier: 2 },
+    { count: f.tier3, label: 'Ranked', cls: 'funnel-s3', tier: 3 },
+    { count: f.tier4, label: 'BUY', cls: 'funnel-s4', tier: 4 },
+  ];
+
+  const max = f.tier1;
+  let html = '';
+
+  stages.forEach((s, i) => {
+    const widthPct = Math.max(12, (s.count / max) * 100);
+    if (i > 0) html += '<span class="funnel-arrow">→</span>';
+    html += `
+      <div class="funnel-stage ${s.cls}" style="flex: ${widthPct}" onclick="switchTab(${s.tier})">
+        <div class="funnel-bar">${s.count}</div>
+        <span class="funnel-stage-label">${s.label}</span>
+      </div>`;
+  });
+
+  $('#funnel-vis').innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════════════
+   TAB SWITCHING
+   ═══════════════════════════════════════════════════ */
+function switchTab(tier) {
+  $$('.tab').forEach(t => t.classList.toggle('active', t.dataset.tier == tier));
+  $$('.tier-panel').forEach(p => p.classList.toggle('active', p.id === `tier-${tier}-panel`));
+
+  // Scroll to content
+  const panel = $(`#tier-${tier}-panel`);
+  if (panel) {
+    setTimeout(() => {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+}
+
+$$('.tab').forEach(t => {
+  t.addEventListener('click', () => switchTab(t.dataset.tier));
+});
+
+/* ═══════════════════════════════════════════════════
+   SORTING
+   ═══════════════════════════════════════════════════ */
+function setupSorting(tableId, dataKey, renderFn) {
+  const table = $(`#${tableId}`);
+  if (!table) return;
+
+  table.querySelectorAll('thead th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.sort;
+      const stateKey = tableId + '_' + col;
+      const dir = sortState[stateKey] === 'asc' ? 'desc' : 'asc';
+
+      // Reset all headers in this table
+      table.querySelectorAll('thead th').forEach(h => {
+        h.classList.remove('sorted-asc', 'sorted-desc');
+      });
+      th.classList.add(dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+      sortState[stateKey] = dir;
+
+      const data = DATA[dataKey];
+      data.sort((a, b) => {
+        let va = a[col], vb = b[col];
+        if (typeof va === 'string') va = va.toLowerCase();
+        if (typeof vb === 'string') vb = vb.toLowerCase();
+        if (va < vb) return dir === 'asc' ? -1 : 1;
+        if (va > vb) return dir === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      renderFn(data);
+    });
+  });
+}
+
+/* ═══════════════════════════════════════════════════
+   SEARCH / FILTER
+   ═══════════════════════════════════════════════════ */
+function setupSearch(inputId, dataKey, renderFn, countId) {
+  const input = $(`#${inputId}`);
+  if (!input) return;
+
+  input.addEventListener('input', () => {
+    const q = input.value.toLowerCase().trim();
+    const data = DATA[dataKey];
+
+    if (!q) {
+      renderFn(data);
+      $(`#${countId}`).textContent = `${data.length} results`;
+      return;
+    }
+
+    const filtered = data.filter(row =>
+      (row.ticker || '').toLowerCase().includes(q) ||
+      (row.name || '').toLowerCase().includes(q) ||
+      (row.sector || '').toLowerCase().includes(q)
+    );
+
+    renderFn(filtered);
+    $(`#${countId}`).textContent = `${filtered.length} of ${data.length} results`;
+  });
+}
+
+/* ═══════════════════════════════════════════════════
+   TIER 1 RENDER
+   ═══════════════════════════════════════════════════ */
+function renderTier1(data) {
+  const tbody = $('#tbody-t1');
+  tbody.innerHTML = data.map(row => `
+    <tr>
+      <td class="mono muted">${row.rank}</td>
+      <td><a href="${tvLink(row.ticker)}" target="_blank" class="ticker-link">${row.ticker}</a></td>
+      <td>
+        <div class="sepa-bar-cell">
+          <div class="sepa-bar-track"><div class="sepa-bar-fill ${sepaClass(row.sepa_score)}" style="width:${row.sepa_score}%"></div></div>
+          <span class="sepa-val" style="color:${sepaColor(row.sepa_score)}">${row.sepa_score}</span>
+        </div>
+      </td>
+      <td class="mono">${row.stage}</td>
+      <td class="mono">${row.rs_percentile}%</td>
+      <td class="mono">$${fmt(row.price)}</td>
+      <td class="mono ${changeColor(row.change_pct)}">${row.change_pct > 0 ? '+' : ''}${fmt(row.change_pct, 1)}%</td>
+      <td>${row.sector}</td>
+      <td class="mono">${row.criteria_passed}/14</td>
+      <td class="mono muted">${fmtK(row.volume)}</td>
+    </tr>
+  `).join('');
+}
+
+/* ═══════════════════════════════════════════════════
+   TIER 2 RENDER
+   ═══════════════════════════════════════════════════ */
+function renderTier2(data) {
+  const tbody = $('#tbody-t2');
+  tbody.innerHTML = data.map(row => {
+    let badges = '';
+    if (row.in_leading_sector) badges += '<span class="badge-sm badge-leader">⭐ Sector Leader</span> ';
+    if (row.tradebot_priority) badges += '<span class="badge-sm badge-priority-high">🤖 Priority</span>';
+    return `
+      <tr>
+        <td class="mono muted">${row.rank}</td>
+        <td><a href="${tvLink(row.ticker)}" target="_blank" class="ticker-link">${row.ticker}</a></td>
+        <td>
+          <div class="sepa-bar-cell">
+            <div class="sepa-bar-track"><div class="sepa-bar-fill ${sepaClass(row.sepa_score)}" style="width:${row.sepa_score}%"></div></div>
+            <span class="sepa-val" style="color:${sepaColor(row.sepa_score)}">${row.sepa_score}</span>
+          </div>
+        </td>
+        <td class="mono">${row.stage}</td>
+        <td class="mono">${row.rs_percentile}%</td>
+        <td class="mono">$${fmt(row.price)}</td>
+        <td class="mono ${changeColor(row.change_pct)}">${row.change_pct > 0 ? '+' : ''}${fmt(row.change_pct, 1)}%</td>
+        <td>${row.sector}</td>
+        <td>${badges || '<span class="muted">—</span>'}</td>
+        <td class="mono muted">${fmtK(row.volume)}</td>
+      </tr>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════
+   TIER 3 RENDER
+   ═══════════════════════════════════════════════════ */
+function renderTier3(data) {
+  const tbody = $('#tbody-t3');
+  tbody.innerHTML = data.map(row => {
+    const prioClass = row.priority === 'HIGH' ? 'badge-priority-high' : row.priority === 'MEDIUM' ? 'badge-priority-medium' : 'badge-priority-low';
+    let badges = `<span class="badge-sm ${prioClass}">${row.priority}</span> `;
+    if (row.sector_leader) badges += '<span class="badge-sm badge-leader">⭐</span>';
+    return `
+      <tr>
+        <td class="mono muted">${row.rank}</td>
+        <td><a href="${tvLink(row.ticker)}" target="_blank" class="ticker-link">${row.ticker}</a></td>
+        <td>
+          <div class="sepa-bar-cell">
+            <div class="llm-bar-track"><div class="llm-bar-fill" style="width:${row.llm_score * 10}%"></div></div>
+            <span class="sepa-val" style="color:var(--accent)">${fmt(row.llm_score, 1)}</span>
+          </div>
+        </td>
+        <td class="mono">${row.sepa_score}</td>
+        <td class="mono green">$${fmt(row.entry)}</td>
+        <td class="mono red">$${fmt(row.stop)}</td>
+        <td class="mono blue">$${fmt(row.target)}</td>
+        <td style="white-space:normal;max-width:280px;font-size:12px;color:var(--text-secondary)">${row.reason}</td>
+        <td>${convictionDots(row.conviction)}</td>
+        <td>${badges}</td>
+      </tr>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════
+   TIER 4 RENDER
+   ═══════════════════════════════════════════════════ */
+function renderTier4(data) {
+  const grid = $('#cards-t4');
+  grid.innerHTML = data.map((s, idx) => {
+    const stopPct = ((s.stop - s.entry) / s.entry * 100).toFixed(1);
+    return `
+    <div class="stock-card">
+      <div class="card-header">
+        <div class="card-ticker-group">
+          <div class="card-ticker">${s.ticker} <span class="card-sector-tag">${s.sector}</span></div>
+          <div class="card-name">${s.name}</div>
+        </div>
+        <div class="card-signal-group">
+          <span class="signal-badge ${signalClass(s.signal)}">${s.signal}</span>
+          ${convictionDots(s.conviction)}
+        </div>
+      </div>
+
+      <div class="card-scores">
+        <div class="score-row">
+          <span class="score-label">SEPA</span>
+          <div class="score-track"><div class="score-fill sepa" style="width:${s.sepa_score}%"></div></div>
+          <span class="score-value green">${s.sepa_score}/100</span>
+        </div>
+        <div class="score-row">
+          <span class="score-label">RS</span>
+          <div class="score-track"><div class="score-fill rs" style="width:${s.rs_percentile}%"></div></div>
+          <span class="score-value blue">${s.rs_percentile}%</span>
+        </div>
+      </div>
+
+      <div class="card-levels">
+        <div class="level-item">
+          <span class="level-label">Entry</span>
+          <span class="level-value green">$${fmt(s.entry)}</span>
+        </div>
+        <div class="level-item">
+          <span class="level-label">Stop</span>
+          <span class="level-value red">$${fmt(s.stop)} <span class="level-sub">(${stopPct}%)</span></span>
+        </div>
+        <div class="level-item">
+          <span class="level-label">T1</span>
+          <span class="level-value blue">$${fmt(s.t1)}</span>
+        </div>
+        <div class="level-item">
+          <span class="level-label">T2</span>
+          <span class="level-value blue">$${fmt(s.t2)}</span>
+        </div>
+        <div class="level-item">
+          <span class="level-label">R:R T1</span>
+          <span class="level-value">${fmt(s.rr1, 1)}x</span>
+        </div>
+        <div class="level-item">
+          <span class="level-label">R:R T2</span>
+          <span class="level-value">${fmt(s.rr2, 1)}x</span>
+        </div>
+      </div>
+
+      <div class="card-position">
+        <div class="pos-item">
+          <span class="pos-icon">💰</span>
+          <span class="pos-label">Shares:</span>
+          <span class="pos-value">${s.shares}</span>
+        </div>
+        <div class="pos-item">
+          <span class="pos-icon">⚠️</span>
+          <span class="pos-label">Risk:</span>
+          <span class="pos-value red">$${fmt(s.risk_dollars)}</span>
+        </div>
+        <div class="pos-item">
+          <span class="pos-icon">📊</span>
+          <span class="pos-label">Position:</span>
+          <span class="pos-value">$${fmt(s.position_value, 0)}</span>
+        </div>
+        <div class="pos-item">
+          <span class="pos-icon">🎯</span>
+          <span class="pos-label">Account:</span>
+          <span class="pos-value">${fmt(s.position_pct, 1)}%</span>
+        </div>
+        <div class="pos-item" style="grid-column: span 2">
+          <span class="pos-icon">📉</span>
+          <span class="pos-label">Regime adj:</span>
+          <span class="pos-value yellow">${s.regime_adjustment}x</span>
+        </div>
+      </div>
+
+      <div class="card-thesis">
+        <div class="thesis-text">💡 ${s.thesis_summary}</div>
+        <div class="thesis-row">
+          <div class="thesis-bull"><span class="thesis-prefix">🐂 Bull:</span> ${s.bull_summary}</div>
+          <div class="thesis-bear"><span class="thesis-prefix">🐻 Bear:</span> ${s.bear_summary}</div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="card-btn card-btn-tv" onclick="window.open('${tvLink(s.ticker)}','_blank')">📺 Open in TradingView</button>
+        <button class="card-btn card-btn-copy" id="copy-btn-${idx}" onclick="copyLevelsBtn(${idx})">📋 Copy Levels</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Store data for copy
+  window._tier4Data = data;
+}
+
+function copyLevelsBtn(idx) {
+  const s = window._tier4Data[idx];
+  if (!s) return;
+  copyLevels(s);
+  const btn = $(`#copy-btn-${idx}`);
+  if (btn) {
+    btn.classList.add('copied');
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = '📋 Copy Levels';
+    }, 2000);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   PORTFOLIO SUMMARY
+   ═══════════════════════════════════════════════════ */
+function renderPortfolio() {
+  const ps = DATA.portfolio_summary;
+  if (!ps) return;
+
+  const sectorColors = {
+    'Energy': 'sector-color-energy',
+    'Consumer Discretionary': 'sector-color-consumer',
+    'Healthcare': 'sector-color-healthcare',
+    'Real Estate': 'sector-color-realestate',
+    'Utilities': 'sector-color-utilities'
+  };
+
+  const sectorBars = ps.sector_breakdown.map(s => `
+    <div class="sector-bar-row">
+      <span class="sector-bar-label">${s.sector} (${s.count})</span>
+      <div class="sector-bar-track">
+        <div class="sector-bar-fill ${sectorColors[s.sector] || 'sector-color-energy'}" style="width:${s.pct}%"></div>
+      </div>
+      <span class="sector-bar-value">${fmt(s.pct, 1)}%</span>
+    </div>
+  `).join('');
+
+  $('#portfolio-summary').innerHTML = `
+    <div class="portfolio-summary">
+      <div class="portfolio-title">📊 Portfolio Summary</div>
+      <div class="portfolio-grid">
+        <div class="portfolio-stat">
+          <span class="portfolio-stat-label">Capital to Deploy</span>
+          <span class="portfolio-stat-value green">$${fmt(ps.total_capital, 0)}</span>
+          <span class="portfolio-stat-sub">${fmt(ps.total_capital_pct, 1)}% of $${fmt(ps.account_value, 0)}</span>
+        </div>
+        <div class="portfolio-stat">
+          <span class="portfolio-stat-label">Total Risk</span>
+          <span class="portfolio-stat-value red">$${fmt(ps.total_risk, 0)}</span>
+          <span class="portfolio-stat-sub">${fmt(ps.max_drawdown_pct, 1)}% max drawdown</span>
+        </div>
+        <div class="portfolio-stat">
+          <span class="portfolio-stat-label">Positions</span>
+          <span class="portfolio-stat-value">${ps.num_positions}</span>
+          <span class="portfolio-stat-sub">Across ${ps.sector_breakdown.length} sectors</span>
+        </div>
+        <div class="portfolio-stat">
+          <span class="portfolio-stat-label">Account Value</span>
+          <span class="portfolio-stat-value">$${fmt(ps.account_value, 0)}</span>
+          <span class="portfolio-stat-sub">Paper trading</span>
+        </div>
+      </div>
+      <div class="portfolio-title" style="font-size:12px;margin-bottom:12px">Sector Allocation</div>
+      <div class="sector-bars">${sectorBars}</div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════ */
+function renderFooter() {
+  const c = DATA.costs;
+  if (!c) return;
+
+  $('#footer-costs').innerHTML = `
+    <div class="footer-cost-item">
+      <span class="footer-cost-label">Monthly Spend</span>
+      <span class="footer-cost-value">$${fmt(c.monthly_spend)}</span>
+    </div>
+    <div class="footer-cost-item">
+      <span class="footer-cost-label">Today</span>
+      <span class="footer-cost-value">$${fmt(c.today_spend)}</span>
+    </div>
+    <div class="footer-cost-item">
+      <span class="footer-cost-label">Total Calls</span>
+      <span class="footer-cost-value">${c.total_calls}</span>
+    </div>
+    <div class="footer-cost-item">
+      <span class="footer-cost-label">Today's Calls</span>
+      <span class="footer-cost-value">${c.today_calls}</span>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════
+   DATA LOADING
+   ═══════════════════════════════════════════════════ */
+async function loadData() {
+  try {
+    const resp = await fetch('pipeline_data.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('Fetch failed');
+    DATA = await resp.json();
+    renderAll();
+  } catch (err) {
+    console.error('Failed to load pipeline data:', err);
+  }
+}
+
+function renderAll() {
+  if (!DATA) return;
+
+  renderHeader();
+  renderFunnel();
+
+  // Update tab counts
+  $('#tab-count-1').textContent = DATA.tier1 ? DATA.tier1.length : 0;
+  $('#tab-count-2').textContent = DATA.tier2 ? DATA.tier2.length : 0;
+  $('#tab-count-3').textContent = DATA.tier3 ? DATA.tier3.length : 0;
+  $('#tab-count-4').textContent = DATA.tier4 ? DATA.tier4.length : 0;
+
+  // Render tables
+  if (DATA.tier1) {
+    renderTier1(DATA.tier1);
+    $('#count-t1').textContent = `${DATA.tier1.length} results`;
+  }
+  if (DATA.tier2) {
+    renderTier2(DATA.tier2);
+    $('#count-t2').textContent = `${DATA.tier2.length} results`;
+  }
+  if (DATA.tier3) renderTier3(DATA.tier3);
+  if (DATA.tier4) renderTier4(DATA.tier4);
+
+  renderPortfolio();
+  renderFooter();
+}
+
+/* ═══════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+
+  // Setup sorting for each table
+  setupSorting('table-t1', 'tier1', renderTier1);
+  setupSorting('table-t2', 'tier2', renderTier2);
+  setupSorting('table-t3', 'tier3', renderTier3);
+
+  // Setup search/filter
+  setupSearch('search-t1', 'tier1', renderTier1, 'count-t1');
+  setupSearch('search-t2', 'tier2', renderTier2, 'count-t2');
+
+  // Auto-refresh every 60 seconds
+  refreshTimer = setInterval(loadData, 60000);
+});
+</script>
+
+</body>
+</html>
