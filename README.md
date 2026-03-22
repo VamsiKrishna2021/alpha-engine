@@ -2,21 +2,77 @@
 
 # ⚡ ALPHA ENGINE
 
-### US Market Monitor & SEPA Decision Engine
+### US Market Monitor & SEPA Decision Engine + AI Trading Agent
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automated-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/VamsiKrishna2021/alpha-engine/actions)
 [![GitHub Pages](https://img.shields.io/badge/Dashboard-Live-00e676?style=for-the-badge&logo=github&logoColor=white)](https://vamsikrishna2021.github.io/alpha-engine/)
+[![AI Pipeline](https://img.shields.io/badge/AI_Pipeline-Live-6c5ce7?style=for-the-badge&logo=openai&logoColor=white)](https://vamsikrishna2021.github.io/alpha-engine/pipeline.html)
 [![Tests](https://img.shields.io/badge/Tests-111_Passing-4caf50?style=for-the-badge&logo=pytest&logoColor=white)](#-test-coverage)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-**Scans 6,500+ US stocks daily · Scores them 0-100 using Minervini's SEPA criteria · Detects market regime · Zero cost infrastructure**
+**Scans 6,500+ US stocks daily · Scores them 0-100 using Minervini's SEPA criteria · AI-powered 10-agent debate for final trade decisions · Zero to $30/mo infrastructure**
 
-[**Live Dashboard →**](https://vamsikrishna2021.github.io/alpha-engine/) · [Report Bug](https://github.com/VamsiKrishna2021/alpha-engine/issues) · [Request Feature](https://github.com/VamsiKrishna2021/alpha-engine/issues)
+[**Live Dashboard →**](https://vamsikrishna2021.github.io/alpha-engine/) · [**AI Pipeline View →**](https://vamsikrishna2021.github.io/alpha-engine/pipeline.html) · [Report Bug](https://github.com/VamsiKrishna2021/alpha-engine/issues) · [Request Feature](https://github.com/VamsiKrishna2021/alpha-engine/issues)
 
 ---
 
 </div>
+
+## 🧠 System Overview
+
+This project is the data engine behind a **3-repo trading system** that combines quantitative screening with AI reasoning:
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        COMPLETE TRADING SYSTEM                               │
+│                                                                              │
+│  ┌─────────────────┐   ┌─────────────────┐   ┌──────────────────────────┐  │
+│  │  ALPHA ENGINE    │   │   TRADE-BOT     │   │   AI TRADING AGENT       │  │
+│  │  (this repo)     │   │   (private)     │   │   (private)              │  │
+│  │                  │   │                  │   │                          │  │
+│  │  6,500+ stocks   │   │  6 strategies   │   │  4-tier AI pipeline      │  │
+│  │  SEPA scoring    │   │  Position sizing│   │  10-agent LLM debate     │  │
+│  │  Regime detect   │   │  Entry/SL/T1/T2│   │  Capital allocation      │  │
+│  │  Sector rotation │   │  Risk mgmt     │   │  TradingView + alerts    │  │
+│  │  Market breadth  │   │  Telegram/Email │   │  Pipeline dashboard      │  │
+│  │                  │   │                  │   │                          │  │
+│  │  Runs: 4:30PM ET │   │  Runs: Sun 6PM │   │  Runs: Mon-Fri 4:30PM   │  │
+│  └────────┬─────────┘   └────────┬────────┘   └──────────┬───────────────┘  │
+│           │                       │                       │                  │
+│           └───────────────────────┴───────────────────────┘                  │
+│                                   │                                          │
+│                      ┌────────────▼──────────────┐                          │
+│                      │     TWO DASHBOARDS         │                          │
+│                      │  Market Overview (index)    │                          │
+│                      │  AI Pipeline (pipeline)     │                          │
+│                      └───────────────────────────┘                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🖥️ Live Dashboards
+
+### 📊 Market Overview Dashboard
+**[vamsikrishna2021.github.io/alpha-engine/](https://vamsikrishna2021.github.io/alpha-engine/)**
+
+Daily market intelligence: regime score, SEPA top stocks, sector heatmap, breadth metrics, capital allocation model, single stock analyser.
+
+### 🤖 AI Pipeline Dashboard
+**[vamsikrishna2021.github.io/alpha-engine/pipeline.html](https://vamsikrishna2021.github.io/alpha-engine/pipeline.html)**
+
+AI trading agent results across all 4 tiers:
+- **Pipeline funnel**: 214 → 22 → 8 → 5 stocks (visual)
+- **Tier 1**: Full actionable universe, sortable, searchable
+- **Tier 2**: Filtered candidates with sector leader & priority badges
+- **Tier 3**: LLM-ranked stocks with entry/stop/target suggestions
+- **Tier 4**: Full AI analysis cards — SEPA bars, trade levels, R:R, position sizing, AI thesis, bull vs bear summaries, conviction meter
+- **Every ticker**: Clickable link → opens directly in TradingView
+- **Copy Levels**: One-click copy entry/SL/T1/T2 for quick order entry
+- Auto-refreshes every 60 seconds
+
+---
 
 ## 🏗️ Architecture
 
@@ -37,11 +93,68 @@
 │                                                                              │  Dashboard    │    │
 │                                                                              └──────────────┘    │
 └────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                            │
+                                            ▼ scan_results.json
+┌────────────────────────────── AI TRADING AGENT (runs after Alpha Engine) ──────────────────────────┐
+│                                                                                                    │
+│   ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐                   │
+│   │ TIER 1   │───▸│ TIER 2   │───▸│ TIER 3   │───▸│ TIER 4   │───▸│ OUTPUT   │                   │
+│   │Alpha Eng.│    │Smart Filt│    │LLM Rank  │    │10-Agent  │    │Telegram  │                   │
+│   │214 stocks│    │SEPA+RS+  │    │gpt-4o-   │    │ Debate   │    │Email     │                   │
+│   │+ TradeBot│    │Sector    │    │mini batch │    │Bull/Bear │    │Dashboard │                   │
+│   │3 picks   │    │22 stocks │    │8 ranked  │    │Risk Mgmt │    │TradingView│                  │
+│   └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘                   │
+│                                                                                                    │
+│   Budget: $30/mo │ Cost tracker │ Auto-throttle │ 89 tests passing                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## ✨ Features
+## 🤖 AI Trading Agent — 4-Tier Pipeline
+
+The AI layer (separate private repo) reads this repo's `scan_results.json` and processes it through 4 tiers:
+
+| Tier | What | Stocks | Cost |
+|------|------|--------|------|
+| **Tier 1** | Alpha Engine actionable (SEPA ≥ 75) + Trade-bot picks | ~214 | Free |
+| **Tier 2** | Smart filter: SEPA ≥ 85, RS ≥ 70%, leading sectors, regime-aware | ~15-25 | Free |
+| **Tier 3** | LLM batch ranking (gpt-4o-mini scores 1-10 with entry/stop/target) | ~5-10 | ~$0.01 |
+| **Tier 4** | TradingAgents 10-agent debate: 4 analysts + bull/bear + risk team | ~3-5 | ~$0.15/stock |
+
+### TradingAgents Debate Structure
+```
+Market Analyst ──┐
+Social Analyst ──┤
+News Analyst ────┤──▸ Bull Researcher ◄──▸ Bear Researcher ──▸ Research Manager
+Fund. Analyst ───┘         (debate rounds)                         │
+                                                                    ▼
+                                                                  Trader
+                                                                    │
+                                          Aggressive ◄──▸ Conservative ◄──▸ Neutral
+                                                   (risk debate rounds)
+                                                            │
+                                                            ▼
+                                                      Risk Manager
+                                                     BUY / SELL / HOLD
+```
+
+### Output Channels
+- **Telegram**: Real-time alert with signals, position sizing, thesis
+- **Email**: Bloomberg-style HTML report with stock cards
+- **Pipeline Dashboard**: Interactive tier-by-tier view with TradingView links
+- **TradingView**: Pine Script indicator with entry/SL/T1/T2 levels + alert conditions
+- **Journal**: CSV paper trade log with outcome tracking
+
+### Cost Control
+- Monthly budget: $30 (auto-scales with account size)
+- Auto-throttle at 90%, hard stop at 100%
+- First full run cost: $0.05
+- Account scaling: $10K→$30/mo, $25K→$75/mo, $50K→$150/mo
+
+---
+
+## ✨ Alpha Engine Features
 
 <table>
 <tr>
@@ -176,7 +289,11 @@ alpha-engine/
 │   └── script.js               # ⚡ Frontend interactivity
 ├── tests/                      # ✅ 111 unit tests
 ├── data/                       # 💾 Persistent CSV/JSON data
-├── output/                     # 📤 Generated HTML (deployed)
+├── output/
+│   ├── index.html              # 📊 Market Overview dashboard
+│   ├── pipeline.html           # 🤖 AI Pipeline dashboard
+│   ├── pipeline_data.json      # 📦 AI agent tier data (auto-updated)
+│   └── scan_results.json       # 📦 Daily scan results
 ├── requirements.txt
 └── README.md
 ```
@@ -213,30 +330,6 @@ PYTHONPATH=. python -m pytest tests/ -v
 
 ---
 
-## ⚙️ Configuration
-
-All thresholds in `scripts/config.py` — override via environment variables:
-
-```python
-# Regime thresholds
-REGIME_FULL_OFFENSE = 80    # Score 80+ → aggressive
-REGIME_SELECTIVE = 50        # 50-79 → selective
-REGIME_DEFENSIVE = 30        # 30-49 → defensive
-
-# Position sizing
-MAX_POSITION_PCT = 0.08      # 8% of equity per position
-MAX_SECTOR_PCT = 0.30        # 30% max in one sector
-RISK_PER_TRADE_FULL = 0.01   # 1% risk in full offense
-TIME_STOP_DAYS = 15           # Exit if no progress
-
-# Universe pre-filter
-PREFILTER_MIN_PRICE = 5.0     # $5 minimum
-PREFILTER_MIN_VOLUME = 500000 # 500K minimum avg volume
-ACCOUNT_EQUITY = 50000        # Default account size
-```
-
----
-
 ## 🔄 GitHub Actions Workflows
 
 | Workflow | Trigger | Duration | What It Does |
@@ -244,6 +337,16 @@ ACCOUNT_EQUITY = 50000        # Default account size
 | `daily_scan.yml` | 4:30 PM ET Mon-Fri + manual | ~10-18 min | Full universe scan + dashboard deploy |
 | `on_demand_scan.yml` | Manual (ticker input) | ~2 min | Single stock SEPA analysis |
 | `deploy_dashboard.yml` | On push to output/ | ~20 sec | Deploy HTML to GitHub Pages |
+
+---
+
+## 🔗 Related Repos
+
+| Repo | Visibility | Purpose |
+|------|-----------|---------|
+| **alpha-engine** (this) | Public | Market data engine + dashboards |
+| **trade-bot** | Private | 6-strategy screener, position sizing, risk management |
+| **ai-trading-agent** | Private | 4-tier AI pipeline with TradingAgents 10-agent debate |
 
 ---
 
@@ -255,7 +358,7 @@ This is a **personal research tool**. Not financial advice. All investment decis
 
 <div align="center">
 
-**Built by [Vamsi Madhabattula](https://github.com/VamsiKrishna2021)** · Alpha Engine v1.0 · March 2026
+**Built by [Vamsi Madhabattula](https://github.com/VamsiKrishna2021)** · Alpha Engine v1.1 · March 2026
 
 MIT License
 
