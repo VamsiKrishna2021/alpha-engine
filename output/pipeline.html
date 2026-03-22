@@ -368,10 +368,13 @@ body {
 
 .data-table-wrap {
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: 70vh;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--bg-card);
 }
+.data-table thead { position: sticky; top: 0; z-index: 10; background: var(--bg-card); }
 
 .data-table {
   width: 100%;
@@ -1428,6 +1431,8 @@ function setupSearch(inputId, dataKey, renderFn, countId) {
    TIER 1 RENDER
    ═══════════════════════════════════════════════════ */
 function renderTier1(data) {
+  const countEl = document.getElementById('count-t1');
+  if (countEl) countEl.textContent = `Showing ${data.length} stocks`;
   const tbody = $('#tbody-t1');
   tbody.innerHTML = data.map(row => `
     <tr>
@@ -1454,6 +1459,8 @@ function renderTier1(data) {
    TIER 2 RENDER
    ═══════════════════════════════════════════════════ */
 function renderTier2(data) {
+  const countEl = document.getElementById('count-t2');
+  if (countEl) countEl.textContent = `Showing ${data.length} stocks`;
   const tbody = $('#tbody-t2');
   tbody.innerHTML = data.map(row => {
     let badges = '';
@@ -1484,6 +1491,8 @@ function renderTier2(data) {
    TIER 3 RENDER
    ═══════════════════════════════════════════════════ */
 function renderTier3(data) {
+  const countEl = document.getElementById('count-t3');
+  if (countEl) countEl.textContent = `Showing ${data.length} stocks`;
   const tbody = $('#tbody-t3');
   tbody.innerHTML = data.map(row => {
     const prioClass = row.priority === 'HIGH' ? 'badge-priority-high' : row.priority === 'MEDIUM' ? 'badge-priority-medium' : 'badge-priority-low';
