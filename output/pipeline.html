@@ -1431,6 +1431,7 @@ function setupSearch(inputId, dataKey, renderFn, countId) {
    TIER 1 RENDER
    ═══════════════════════════════════════════════════ */
 function renderTier1(data) {
+  data = data.map((row, i) => ({...row, rank: i+1, sepa_score: row.sepa_score || row.score, volume: row.volume || row.avg_dollar_volume, sector: row.sector || ""}));
   const countEl = document.getElementById('count-t1');
   if (countEl) countEl.textContent = `Showing ${data.length} stocks`;
   const tbody = $('#tbody-t1');
@@ -1449,7 +1450,7 @@ function renderTier1(data) {
       <td class="mono">$${fmt(row.price)}</td>
       <td class="mono ${changeColor(row.change_pct)}">${row.change_pct > 0 ? '+' : ''}${fmt(row.change_pct, 1)}%</td>
       <td>${row.sector}</td>
-      <td class="mono">${row.criteria_passed}/14</td>
+      <td class="mono">${row.criteria_passed}</td>
       <td class="mono muted">${fmtK(row.volume)}</td>
     </tr>
   `).join('');
@@ -1459,6 +1460,7 @@ function renderTier1(data) {
    TIER 2 RENDER
    ═══════════════════════════════════════════════════ */
 function renderTier2(data) {
+  data = data.map((row, i) => ({...row, rank: i+1, sepa_score: row.sepa_score || row.score, volume: row.volume || row.avg_dollar_volume, sector: row.sector || "", change_pct: row.change_pct || 0}));
   const countEl = document.getElementById('count-t2');
   if (countEl) countEl.textContent = `Showing ${data.length} stocks`;
   const tbody = $('#tbody-t2');
@@ -1491,6 +1493,7 @@ function renderTier2(data) {
    TIER 3 RENDER
    ═══════════════════════════════════════════════════ */
 function renderTier3(data) {
+  data = data.map((row, i) => ({...row, rank: i+1, sepa_score: row.sepa_score || row.score, llm_score: row.llm_score || row.tier3_score || 0, entry: row.entry || row.entry_suggestion || 0, stop: row.stop || row.stop_suggestion || 0, target: row.target || row.target_suggestion || 0, reason: row.reason || row.tier3_reason || "", conviction: row.conviction || row.tier3_conviction || 0}));
   const countEl = document.getElementById('count-t3');
   if (countEl) countEl.textContent = `Showing ${data.length} stocks`;
   const tbody = $('#tbody-t3');
