@@ -336,7 +336,7 @@ PYTHONPATH=. python -m pytest tests/ -v
 |----------|---------|----------|-------------|
 | `daily_scan.yml` | 4:30 PM ET Mon-Fri + manual | ~10-18 min | Full universe scan + dashboard deploy |
 | `on_demand_scan.yml` | Manual (ticker input) | ~2 min | Single stock SEPA analysis |
-| `deploy_dashboard.yml` | On push to output/ | ~20 sec | Deploy HTML to GitHub Pages |
+| `deploy_dashboard.yml` | On push to output | ~20 sec | Deploy HTML to GitHub Pages |
 
 ---
 
