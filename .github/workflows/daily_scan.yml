@@ -2,9 +2,9 @@ name: Daily Market Scan
 
 on:
   schedule:
-        # 3:30 PM CDT = 20:30 UTC (Sun-Fri); supports Sunday AI agent pipeline
+    # 3:30 PM CDT = 20:30 UTC (Sun-Fri); supports Sunday AI agent pipeline
     # Using 20:30 UTC to cover EDT (summer time)
-        - cron: '30 20 * * 0-5'
+    - cron: '30 20 * * 0-5'
   workflow_dispatch:  # Manual trigger
 
 permissions:
