@@ -1,6 +1,6 @@
 {
   "scan_date": "2026-03-30",
-  "scan_time": "21:14:50 ET",
+  "scan_time": "22:16:56 ET",
   "elapsed_minutes": 8.4,
   "universe_size": 6534,
   "prefiltered_size": 2110,
@@ -39,8 +39,8 @@
     {
       "ticker": "DX-Y.NYB",
       "name": "US DOLLAR",
-      "value": 100.5,
-      "change_pct": 0.35
+      "value": 100.49,
+      "change_pct": 0.34
     },
     {
       "ticker": "GLD",
@@ -58,13 +58,13 @@
     "spy_vs_21ema": -4.17,
     "spy_vs_50ema": -5.7,
     "spy_vs_200ema": -3.21,
-    "ema21": 659.4693742911794,
-    "ema50": 670.1749448315396,
-    "ema200": 652.9077273555841,
+    "ema21": 659.4693742911447,
+    "ema50": 670.1749448099935,
+    "ema200": 652.9077275845389,
     "vix": 30.61,
     "breadth_pct_20d": 50.0,
     "roc_10d": -5.28,
-    "thrust_days_ago": 4,
+    "thrust_days_ago": 5,
     "components": {
       "ema_alignment": {
         "score": 10,
@@ -227,6 +227,19 @@
       "pct_above_40d": 22.9,
       "spy_close": 634.09,
       "spy_chg_pct": -1.71
+    },
+    {
+      "date": "2026-03-30",
+      "day_of_week": "Monday",
+      "adv": 958,
+      "dec": 1127,
+      "up4pct": 43,
+      "dn4pct": 249,
+      "pct_above_10d": 29.2,
+      "pct_above_20d": 23.4,
+      "pct_above_40d": 22.4,
+      "spy_close": 631.97,
+      "spy_chg_pct": -0.33
     },
     {
       "date": "2026-03-30",
