@@ -1,10 +1,10 @@
 {
-  "scan_date": "2026-04-03",
-  "scan_time": "21:20:08 ET",
-  "elapsed_minutes": 17.2,
+  "scan_date": "2026-04-05",
+  "scan_time": "21:07:02 ET",
+  "elapsed_minutes": 7.5,
   "universe_size": 6528,
-  "prefiltered_size": 2173,
-  "scanned_size": 2145,
+  "prefiltered_size": 2175,
+  "scanned_size": 2147,
   "macro_kpis": [
     {
       "ticker": "SPY",
@@ -39,8 +39,8 @@
     {
       "ticker": "DX-Y.NYB",
       "name": "US DOLLAR",
-      "value": 100.19,
-      "change_pct": 0.16
+      "value": 100.03,
+      "change_pct": 0.38
     },
     {
       "ticker": "GLD",
@@ -58,13 +58,13 @@
     "spy_vs_21ema": -0.35,
     "spy_vs_50ema": -1.87,
     "spy_vs_200ema": 0.73,
-    "ema21": 658.1030863835161,
-    "ema50": 668.3306647175028,
-    "ema200": 651.1063437166194,
+    "ema21": 658.1030863780082,
+    "ema50": 668.3306646526677,
+    "ema200": 651.1063446377867,
     "vix": 23.87,
     "breadth_pct_20d": 50.0,
     "roc_10d": -0.33,
-    "thrust_days_ago": 2,
+    "thrust_days_ago": 3,
     "components": {
       "ema_alignment": {
         "score": 40,
@@ -89,35 +89,22 @@
     }
   },
   "breadth": {
-    "date": "2026-04-03",
-    "day_of_week": "Friday",
-    "adv": 1295,
-    "dec": 850,
+    "date": "2026-04-05",
+    "day_of_week": "Sunday",
+    "adv": 1296,
+    "dec": 851,
     "ad_ratio": 1.52,
     "up4pct": 160,
     "dn4pct": 40,
     "pct_above_10d": 71.4,
-    "pct_above_20d": 57.2,
+    "pct_above_20d": 57.1,
     "pct_above_40d": 35.6,
     "spy_close": 655.83,
     "spy_chg_pct": 0.09,
-    "total_stocks": 2145,
+    "total_stocks": 2147,
     "flags": []
   },
   "breadth_history": [
-    {
-      "date": "2026-03-21",
-      "day_of_week": "Saturday",
-      "adv": 384,
-      "dec": 1819,
-      "up4pct": 26,
-      "dn4pct": 373,
-      "pct_above_10d": 20.1,
-      "pct_above_20d": 17.7,
-      "pct_above_40d": 20.8,
-      "spy_close": 648.57,
-      "spy_chg_pct": -1.43
-    },
     {
       "date": "2026-03-21",
       "day_of_week": "Saturday",
@@ -296,6 +283,19 @@
       "dn4pct": 40,
       "pct_above_10d": 71.4,
       "pct_above_20d": 57.2,
+      "pct_above_40d": 35.6,
+      "spy_close": 655.83,
+      "spy_chg_pct": 0.09
+    },
+    {
+      "date": "2026-04-05",
+      "day_of_week": "Sunday",
+      "adv": 1296,
+      "dec": 851,
+      "up4pct": 160,
+      "dn4pct": 40,
+      "pct_above_10d": 71.4,
+      "pct_above_20d": 57.1,
       "pct_above_40d": 35.6,
       "spy_close": 655.83,
       "spy_chg_pct": 0.09
@@ -512,7 +512,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 94.0,
+      "rs_percentile": 93.9,
       "avg_dollar_volume": 38.9,
       "details": {
         "52wk_high": {
@@ -561,7 +561,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 91.3,
+      "rs_percentile": 91.2,
       "avg_dollar_volume": 78.9,
       "details": {
         "52wk_high": {
@@ -806,7 +806,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.6,
+      "rs_percentile": 92.5,
       "avg_dollar_volume": 42.5,
       "details": {
         "52wk_high": {
@@ -855,7 +855,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 83.8,
+      "rs_percentile": 83.7,
       "avg_dollar_volume": 67.1,
       "details": {
         "52wk_high": {
@@ -1200,7 +1200,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 94.0,
+      "rs_percentile": 93.9,
       "avg_dollar_volume": 38.9,
       "details": {
         "52wk_high": {
@@ -1249,7 +1249,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 91.3,
+      "rs_percentile": 91.2,
       "avg_dollar_volume": 78.9,
       "details": {
         "52wk_high": {
@@ -1494,7 +1494,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.6,
+      "rs_percentile": 92.5,
       "avg_dollar_volume": 42.5,
       "details": {
         "52wk_high": {
@@ -1543,7 +1543,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 83.8,
+      "rs_percentile": 83.7,
       "avg_dollar_volume": 67.1,
       "details": {
         "52wk_high": {
@@ -2621,7 +2621,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.6,
+      "rs_percentile": 88.5,
       "avg_dollar_volume": 96.9,
       "details": {
         "52wk_high": {
@@ -2670,7 +2670,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 97.2,
+      "rs_percentile": 97.3,
       "avg_dollar_volume": 197.3,
       "details": {
         "52wk_high": {
@@ -3307,7 +3307,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 94.5,
+      "rs_percentile": 94.6,
       "avg_dollar_volume": 76.7,
       "details": {
         "52wk_high": {
@@ -3356,7 +3356,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 68.3,
+      "rs_percentile": 68.2,
       "avg_dollar_volume": 169.7,
       "details": {
         "52wk_high": {
@@ -3405,7 +3405,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 93.1,
+      "rs_percentile": 93.0,
       "avg_dollar_volume": 30.6,
       "details": {
         "52wk_high": {
@@ -3552,7 +3552,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 90.3,
+      "rs_percentile": 90.2,
       "avg_dollar_volume": 352.0,
       "details": {
         "52wk_high": {
@@ -3846,7 +3846,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 91.9,
+      "rs_percentile": 91.8,
       "avg_dollar_volume": 1106.6,
       "details": {
         "52wk_high": {
@@ -3993,7 +3993,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 93.0,
+      "rs_percentile": 92.9,
       "avg_dollar_volume": 1389.3,
       "details": {
         "52wk_high": {
@@ -4042,7 +4042,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 94.2,
+      "rs_percentile": 94.1,
       "avg_dollar_volume": 140.8,
       "details": {
         "52wk_high": {
@@ -4140,7 +4140,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 64.7,
+      "rs_percentile": 64.6,
       "avg_dollar_volume": 37.5,
       "details": {
         "52wk_high": {
@@ -4287,7 +4287,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 89.3,
+      "rs_percentile": 89.2,
       "avg_dollar_volume": 151.3,
       "details": {
         "52wk_high": {
@@ -4385,7 +4385,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 87.2,
+      "rs_percentile": 87.1,
       "avg_dollar_volume": 31.3,
       "details": {
         "52wk_high": {
@@ -4434,7 +4434,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 81.1,
+      "rs_percentile": 81.0,
       "avg_dollar_volume": 120.7,
       "details": {
         "52wk_high": {
@@ -4532,7 +4532,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 84.5,
+      "rs_percentile": 84.4,
       "avg_dollar_volume": 45.5,
       "details": {
         "52wk_high": {
@@ -4581,7 +4581,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 84.0,
+      "rs_percentile": 83.9,
       "avg_dollar_volume": 131.2,
       "details": {
         "52wk_high": {
@@ -4826,7 +4826,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 78.4,
+      "rs_percentile": 78.3,
       "avg_dollar_volume": 317.7,
       "details": {
         "52wk_high": {
@@ -5218,7 +5218,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 93.5,
+      "rs_percentile": 93.4,
       "avg_dollar_volume": 74.1,
       "details": {
         "52wk_high": {
@@ -5267,7 +5267,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 93.6,
+      "rs_percentile": 93.5,
       "avg_dollar_volume": 43.6,
       "details": {
         "52wk_high": {
@@ -5708,7 +5708,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 84.1,
+      "rs_percentile": 84.0,
       "avg_dollar_volume": 1036.6,
       "details": {
         "52wk_high": {
@@ -5757,7 +5757,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 90.2,
+      "rs_percentile": 90.1,
       "avg_dollar_volume": 133.6,
       "details": {
         "52wk_high": {
@@ -5855,7 +5855,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 93.4,
+      "rs_percentile": 93.3,
       "avg_dollar_volume": 16.8,
       "details": {
         "52wk_high": {
@@ -6100,7 +6100,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 82.7,
+      "rs_percentile": 82.6,
       "avg_dollar_volume": 94.7,
       "details": {
         "52wk_high": {
@@ -6198,7 +6198,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 97.9,
+      "rs_percentile": 98.0,
       "avg_dollar_volume": 1649.0,
       "details": {
         "52wk_high": {
@@ -6247,7 +6247,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 83.2,
+      "rs_percentile": 83.1,
       "avg_dollar_volume": 415.2,
       "details": {
         "52wk_high": {
@@ -6296,7 +6296,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.0,
+      "rs_percentile": 91.9,
       "avg_dollar_volume": 64.6,
       "details": {
         "52wk_high": {
@@ -6394,7 +6394,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 93.8,
+      "rs_percentile": 93.7,
       "avg_dollar_volume": 23.9,
       "details": {
         "52wk_high": {
@@ -6459,7 +6459,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 86%"
+          "detail": "RS Percentile: 85%"
         },
         "price_action": {
           "score": 10,
@@ -6492,7 +6492,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.8,
+      "rs_percentile": 88.7,
       "avg_dollar_volume": 22.4,
       "details": {
         "52wk_high": {
@@ -7227,7 +7227,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 81.8,
+      "rs_percentile": 81.7,
       "avg_dollar_volume": 1200.7,
       "details": {
         "52wk_high": {
@@ -7472,7 +7472,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 70.3,
+      "rs_percentile": 70.2,
       "avg_dollar_volume": 40.9,
       "details": {
         "52wk_high": {
@@ -7766,7 +7766,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 86.8,
+      "rs_percentile": 86.7,
       "avg_dollar_volume": 20.5,
       "details": {
         "52wk_high": {
@@ -7815,7 +7815,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 91.7,
+      "rs_percentile": 91.6,
       "avg_dollar_volume": 152.0,
       "details": {
         "52wk_high": {
@@ -7962,7 +7962,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 86.0,
+      "rs_percentile": 85.9,
       "avg_dollar_volume": 739.7,
       "details": {
         "52wk_high": {
@@ -8011,7 +8011,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.1,
+      "rs_percentile": 92.0,
       "avg_dollar_volume": 108.6,
       "details": {
         "52wk_high": {
@@ -8060,7 +8060,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 80.6,
+      "rs_percentile": 80.5,
       "avg_dollar_volume": 33.9,
       "details": {
         "52wk_high": {
@@ -8109,7 +8109,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.4,
+      "rs_percentile": 92.3,
       "avg_dollar_volume": 64.0,
       "details": {
         "52wk_high": {
@@ -8501,7 +8501,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 89.4,
+      "rs_percentile": 89.3,
       "avg_dollar_volume": 36.9,
       "details": {
         "52wk_high": {
@@ -8550,7 +8550,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 81.4,
+      "rs_percentile": 81.3,
       "avg_dollar_volume": 21.6,
       "details": {
         "52wk_high": {
@@ -8991,7 +8991,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 68.8,
+      "rs_percentile": 68.7,
       "avg_dollar_volume": 205.4,
       "details": {
         "52wk_high": {
@@ -9040,7 +9040,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.9,
+      "rs_percentile": 92.8,
       "avg_dollar_volume": 34.0,
       "details": {
         "52wk_high": {
@@ -9138,7 +9138,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.1,
+      "rs_percentile": 88.0,
       "avg_dollar_volume": 26.9,
       "details": {
         "52wk_high": {
@@ -9187,7 +9187,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 84.8,
+      "rs_percentile": 84.7,
       "avg_dollar_volume": 259.2,
       "details": {
         "52wk_high": {
@@ -9448,7 +9448,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 81%"
+          "detail": "RS Percentile: 80%"
         },
         "price_action": {
           "score": 7,
@@ -9481,7 +9481,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 93.7,
+      "rs_percentile": 93.6,
       "avg_dollar_volume": 239.7,
       "details": {
         "52wk_high": {
@@ -9611,6 +9611,55 @@
           "score": 15,
           "max": 15,
           "detail": "Excellent \u2014 institutional ($77M/day)"
+        },
+        "stage": {
+          "score": 20,
+          "max": 20,
+          "detail": "Uptrend \u2014 price > rising 150 SMA"
+        }
+      }
+    },
+    {
+      "ticker": "POWL",
+      "price": 182.6,
+      "change_pct": -1.13,
+      "score": 82,
+      "verdict": "ACTIONABLE \u2014 LOOK FOR ENTRY",
+      "verdict_class": "badge-green",
+      "criteria_passed": "6/7",
+      "stage": "Stage 2",
+      "rs_percentile": 94.5,
+      "avg_dollar_volume": 99.7,
+      "details": {
+        "52wk_high": {
+          "score": 10,
+          "max": 15,
+          "detail": "7.6% below 52WH"
+        },
+        "52wk_low": {
+          "score": 15,
+          "max": 15,
+          "detail": "245% above 52WL"
+        },
+        "rel_strength": {
+          "score": 15,
+          "max": 15,
+          "detail": "RS Percentile: 94%"
+        },
+        "price_action": {
+          "score": 7,
+          "max": 10,
+          "detail": "Bullish close (upper half)"
+        },
+        "vcp": {
+          "score": 0,
+          "max": 10,
+          "detail": "Expanding range (120.2% of avg)"
+        },
+        "liquidity": {
+          "score": 15,
+          "max": 15,
+          "detail": "Excellent \u2014 institutional ($142M/day)"
         },
         "stage": {
           "score": 20,
@@ -9971,7 +10020,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 87.6,
+      "rs_percentile": 87.5,
       "avg_dollar_volume": 227.1,
       "details": {
         "52wk_high": {
@@ -10069,7 +10118,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 87.9,
+      "rs_percentile": 87.8,
       "avg_dollar_volume": 3.5,
       "details": {
         "52wk_high": {
@@ -10314,7 +10363,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 80.4,
+      "rs_percentile": 80.3,
       "avg_dollar_volume": 52.4,
       "details": {
         "52wk_high": {
@@ -10363,7 +10412,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.7,
+      "rs_percentile": 88.6,
       "avg_dollar_volume": 147.6,
       "details": {
         "52wk_high": {
@@ -10412,7 +10461,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 85.2,
+      "rs_percentile": 85.1,
       "avg_dollar_volume": 23.0,
       "details": {
         "52wk_high": {
@@ -10559,7 +10608,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 84.7,
+      "rs_percentile": 84.6,
       "avg_dollar_volume": 29.0,
       "details": {
         "52wk_high": {
@@ -10755,7 +10804,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 83.9,
+      "rs_percentile": 83.8,
       "avg_dollar_volume": 14.9,
       "details": {
         "52wk_high": {
@@ -10951,7 +11000,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 89.9,
+      "rs_percentile": 89.8,
       "avg_dollar_volume": 1389.2,
       "details": {
         "52wk_high": {
@@ -11212,7 +11261,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 83%"
+          "detail": "RS Percentile: 82%"
         },
         "price_action": {
           "score": 10,
@@ -11343,7 +11392,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 73.1,
+      "rs_percentile": 73.0,
       "avg_dollar_volume": 53.0,
       "details": {
         "52wk_high": {
@@ -11392,7 +11441,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 79.2,
+      "rs_percentile": 79.1,
       "avg_dollar_volume": 474.0,
       "details": {
         "52wk_high": {
@@ -11539,7 +11588,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 90.8,
+      "rs_percentile": 90.7,
       "avg_dollar_volume": 9.1,
       "details": {
         "52wk_high": {
@@ -11637,7 +11686,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 94.1,
+      "rs_percentile": 94.0,
       "avg_dollar_volume": 385.2,
       "details": {
         "52wk_high": {
@@ -11882,7 +11931,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 85.5,
+      "rs_percentile": 85.4,
       "avg_dollar_volume": 69.7,
       "details": {
         "52wk_high": {
@@ -11980,7 +12029,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 91.5,
+      "rs_percentile": 91.4,
       "avg_dollar_volume": 159.7,
       "details": {
         "52wk_high": {
@@ -12029,7 +12078,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.2,
+      "rs_percentile": 88.1,
       "avg_dollar_volume": 150.6,
       "details": {
         "52wk_high": {
@@ -12176,7 +12225,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 94.3,
+      "rs_percentile": 94.2,
       "avg_dollar_volume": 30.1,
       "details": {
         "52wk_high": {
@@ -12323,7 +12372,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 94.5,
+      "rs_percentile": 94.4,
       "avg_dollar_volume": 84.4,
       "details": {
         "52wk_high": {
@@ -12421,7 +12470,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 82.0,
+      "rs_percentile": 81.9,
       "avg_dollar_volume": 70.3,
       "details": {
         "52wk_high": {
@@ -12470,7 +12519,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.0,
+      "rs_percentile": 87.9,
       "avg_dollar_volume": 34.7,
       "details": {
         "52wk_high": {
@@ -13156,7 +13205,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 85.8,
+      "rs_percentile": 85.7,
       "avg_dollar_volume": 26.4,
       "details": {
         "52wk_high": {
@@ -13499,7 +13548,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 91.6,
+      "rs_percentile": 91.5,
       "avg_dollar_volume": 400.1,
       "details": {
         "52wk_high": {
@@ -13858,7 +13907,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 94%"
+          "detail": "RS Percentile: 95%"
         },
         "price_action": {
           "score": 10,
@@ -14234,7 +14283,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 60.7,
+      "rs_percentile": 60.6,
       "avg_dollar_volume": 89.2,
       "details": {
         "52wk_high": {
@@ -14283,7 +14332,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 94.4,
+      "rs_percentile": 94.3,
       "avg_dollar_volume": 349.1,
       "details": {
         "52wk_high": {
@@ -14381,7 +14430,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 74.9,
+      "rs_percentile": 74.8,
       "avg_dollar_volume": 115.8,
       "details": {
         "52wk_high": {
@@ -14430,7 +14479,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 83.3,
+      "rs_percentile": 83.2,
       "avg_dollar_volume": 164.2,
       "details": {
         "52wk_high": {
@@ -14773,7 +14822,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.8,
+      "rs_percentile": 92.7,
       "avg_dollar_volume": 759.2,
       "details": {
         "52wk_high": {
@@ -15116,7 +15165,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 80.5,
+      "rs_percentile": 80.4,
       "avg_dollar_volume": 284.9,
       "details": {
         "52wk_high": {
@@ -15165,7 +15214,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 69.5,
+      "rs_percentile": 69.4,
       "avg_dollar_volume": 32.4,
       "details": {
         "52wk_high": {
@@ -15263,7 +15312,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 89.0,
+      "rs_percentile": 88.9,
       "avg_dollar_volume": 15.5,
       "details": {
         "52wk_high": {
@@ -15475,7 +15524,7 @@
         "rel_strength": {
           "score": 10,
           "max": 15,
-          "detail": "RS Percentile: 70%"
+          "detail": "RS Percentile: 69%"
         },
         "price_action": {
           "score": 10,
@@ -15508,7 +15557,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 70.9,
+      "rs_percentile": 70.8,
       "avg_dollar_volume": 203.8,
       "details": {
         "52wk_high": {
@@ -15704,7 +15753,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 72.9,
+      "rs_percentile": 72.8,
       "avg_dollar_volume": 248.7,
       "details": {
         "52wk_high": {
@@ -15753,7 +15802,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.7,
+      "rs_percentile": 92.6,
       "avg_dollar_volume": 45.1,
       "details": {
         "52wk_high": {
@@ -15851,7 +15900,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 90.9,
+      "rs_percentile": 90.8,
       "avg_dollar_volume": 131.1,
       "details": {
         "52wk_high": {
@@ -15949,7 +15998,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 83.1,
+      "rs_percentile": 83.0,
       "avg_dollar_volume": 75.0,
       "details": {
         "52wk_high": {
@@ -16145,7 +16194,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 82.1,
+      "rs_percentile": 82.0,
       "avg_dollar_volume": 13.0,
       "details": {
         "52wk_high": {
@@ -16243,7 +16292,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 86.6,
+      "rs_percentile": 86.5,
       "avg_dollar_volume": 354.5,
       "details": {
         "52wk_high": {
@@ -16390,7 +16439,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 79.7,
+      "rs_percentile": 79.6,
       "avg_dollar_volume": 250.7,
       "details": {
         "52wk_high": {
@@ -16439,7 +16488,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 87.4,
+      "rs_percentile": 87.3,
       "avg_dollar_volume": 50.1,
       "details": {
         "52wk_high": {
@@ -16488,7 +16537,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 86.5,
+      "rs_percentile": 86.4,
       "avg_dollar_volume": 27.7,
       "details": {
         "52wk_high": {
@@ -16537,7 +16586,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 68.1,
+      "rs_percentile": 68.0,
       "avg_dollar_volume": 164.0,
       "details": {
         "52wk_high": {
@@ -17027,7 +17076,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 89.2,
+      "rs_percentile": 89.1,
       "avg_dollar_volume": 102.2,
       "details": {
         "52wk_high": {
@@ -17076,7 +17125,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 74.4,
+      "rs_percentile": 74.3,
       "avg_dollar_volume": 19.5,
       "details": {
         "52wk_high": {
@@ -17125,7 +17174,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 73.6,
+      "rs_percentile": 73.5,
       "avg_dollar_volume": 10308.1,
       "details": {
         "52wk_high": {
@@ -17223,7 +17272,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 86.7,
+      "rs_percentile": 86.6,
       "avg_dollar_volume": 127.8,
       "details": {
         "52wk_high": {
@@ -17337,7 +17386,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 90%"
+          "detail": "RS Percentile: 89%"
         },
         "price_action": {
           "score": 7,
@@ -17370,7 +17419,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 77.1,
+      "rs_percentile": 77.0,
       "avg_dollar_volume": 247.8,
       "details": {
         "52wk_high": {
@@ -17517,7 +17566,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 81.3,
+      "rs_percentile": 81.2,
       "avg_dollar_volume": 10.6,
       "details": {
         "52wk_high": {
@@ -17762,7 +17811,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 85.1,
+      "rs_percentile": 85.0,
       "avg_dollar_volume": 51.1,
       "details": {
         "52wk_high": {
@@ -17876,7 +17925,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 94%"
+          "detail": "RS Percentile: 93%"
         },
         "price_action": {
           "score": 7,
@@ -18105,7 +18154,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 91.4,
+      "rs_percentile": 91.3,
       "avg_dollar_volume": 15.9,
       "details": {
         "52wk_high": {
@@ -18186,55 +18235,6 @@
           "score": 15,
           "max": 15,
           "detail": "Excellent \u2014 institutional ($232M/day)"
-        },
-        "stage": {
-          "score": 20,
-          "max": 20,
-          "detail": "Uptrend \u2014 price > rising 150 SMA"
-        }
-      }
-    },
-    {
-      "ticker": "WTRG",
-      "price": 41.08,
-      "change_pct": 1.08,
-      "score": 77,
-      "verdict": "ACTIONABLE \u2014 LOOK FOR ENTRY",
-      "verdict_class": "badge-green",
-      "criteria_passed": "6/7",
-      "stage": "Stage 2",
-      "rs_percentile": 60.0,
-      "avg_dollar_volume": 58.3,
-      "details": {
-        "52wk_high": {
-          "score": 15,
-          "max": 15,
-          "detail": "Within 1.4% of 52WH"
-        },
-        "52wk_low": {
-          "score": 0,
-          "max": 15,
-          "detail": "Only 15% above 52WL"
-        },
-        "rel_strength": {
-          "score": 10,
-          "max": 15,
-          "detail": "RS Percentile: 60%"
-        },
-        "price_action": {
-          "score": 7,
-          "max": 10,
-          "detail": "Bullish close (upper half)"
-        },
-        "vcp": {
-          "score": 10,
-          "max": 10,
-          "detail": "Tight range \u2014 VCP signal (48.2% of avg)"
-        },
-        "liquidity": {
-          "score": 15,
-          "max": 15,
-          "detail": "Excellent \u2014 institutional ($106M/day)"
         },
         "stage": {
           "score": 20,
@@ -18350,7 +18350,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 62.8,
+      "rs_percentile": 62.7,
       "avg_dollar_volume": 89.5,
       "details": {
         "52wk_high": {
@@ -18448,7 +18448,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.3,
+      "rs_percentile": 88.2,
       "avg_dollar_volume": 12.4,
       "details": {
         "52wk_high": {
@@ -18742,7 +18742,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 82.5,
+      "rs_percentile": 82.4,
       "avg_dollar_volume": 171.5,
       "details": {
         "52wk_high": {
@@ -18987,7 +18987,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 79.3,
+      "rs_percentile": 79.2,
       "avg_dollar_volume": 8346.7,
       "details": {
         "52wk_high": {
@@ -19134,7 +19134,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 75.2,
+      "rs_percentile": 75.1,
       "avg_dollar_volume": 139.7,
       "details": {
         "52wk_high": {
@@ -19771,7 +19771,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.5,
+      "rs_percentile": 88.4,
       "avg_dollar_volume": 147.0,
       "details": {
         "52wk_high": {
@@ -20016,7 +20016,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 86.1,
+      "rs_percentile": 86.0,
       "avg_dollar_volume": 1356.9,
       "details": {
         "52wk_high": {
@@ -20065,7 +20065,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 91.0,
+      "rs_percentile": 90.9,
       "avg_dollar_volume": 346.7,
       "details": {
         "52wk_high": {
@@ -20310,7 +20310,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 72.3,
+      "rs_percentile": 72.2,
       "avg_dollar_volume": 115.9,
       "details": {
         "52wk_high": {
@@ -20457,7 +20457,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 87.3,
+      "rs_percentile": 87.2,
       "avg_dollar_volume": 808.0,
       "details": {
         "52wk_high": {
@@ -20506,7 +20506,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 88.9,
+      "rs_percentile": 88.8,
       "avg_dollar_volume": 34.1,
       "details": {
         "52wk_high": {
@@ -20718,7 +20718,7 @@
         "rel_strength": {
           "score": 10,
           "max": 15,
-          "detail": "RS Percentile: 72%"
+          "detail": "RS Percentile: 71%"
         },
         "price_action": {
           "score": 10,
@@ -21535,7 +21535,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 82.8,
+      "rs_percentile": 82.7,
       "avg_dollar_volume": 22.0,
       "details": {
         "52wk_high": {
@@ -21633,7 +21633,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 90.0,
+      "rs_percentile": 89.9,
       "avg_dollar_volume": 145.3,
       "details": {
         "52wk_high": {
@@ -21731,7 +21731,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 81.2,
+      "rs_percentile": 81.1,
       "avg_dollar_volume": 9.2,
       "details": {
         "52wk_high": {
@@ -22613,7 +22613,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 82.6,
+      "rs_percentile": 82.5,
       "avg_dollar_volume": 34.5,
       "details": {
         "52wk_high": {
@@ -22662,7 +22662,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 87.5,
+      "rs_percentile": 87.4,
       "avg_dollar_volume": 31.0,
       "details": {
         "52wk_high": {
@@ -22711,7 +22711,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 86.2,
+      "rs_percentile": 86.1,
       "avg_dollar_volume": 9.5,
       "details": {
         "52wk_high": {
@@ -22760,7 +22760,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 90.1,
+      "rs_percentile": 90.0,
       "avg_dollar_volume": 9.3,
       "details": {
         "52wk_high": {
@@ -22956,7 +22956,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 89.5,
+      "rs_percentile": 89.4,
       "avg_dollar_volume": 415.4,
       "details": {
         "52wk_high": {
@@ -23103,7 +23103,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 83.4,
+      "rs_percentile": 83.3,
       "avg_dollar_volume": 8.2,
       "details": {
         "52wk_high": {
@@ -23168,7 +23168,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 92%"
+          "detail": "RS Percentile: 91%"
         },
         "price_action": {
           "score": 10,
@@ -23348,7 +23348,7 @@
       "verdict_class": "badge-green",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 90.7,
+      "rs_percentile": 90.6,
       "avg_dollar_volume": 218.3,
       "details": {
         "52wk_high": {
@@ -23399,7 +23399,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 74.3,
+      "rs_percentile": 74.2,
       "avg_dollar_volume": 61.4,
       "details": {
         "52wk_high": {
@@ -23709,7 +23709,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 88%"
+          "detail": "RS Percentile: 87%"
         },
         "price_action": {
           "score": 0,
@@ -23938,7 +23938,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 61.4,
+      "rs_percentile": 61.3,
       "avg_dollar_volume": 62.3,
       "details": {
         "52wk_high": {
@@ -24232,7 +24232,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 86.9,
+      "rs_percentile": 86.8,
       "avg_dollar_volume": 48.1,
       "details": {
         "52wk_high": {
@@ -24379,7 +24379,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 75.9,
+      "rs_percentile": 75.8,
       "avg_dollar_volume": 94.8,
       "details": {
         "52wk_high": {
@@ -24428,7 +24428,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 85.4,
+      "rs_percentile": 85.3,
       "avg_dollar_volume": 8.4,
       "details": {
         "52wk_high": {
@@ -24869,7 +24869,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 93.3,
+      "rs_percentile": 93.2,
       "avg_dollar_volume": 40.0,
       "details": {
         "52wk_high": {
@@ -25032,7 +25032,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 87%"
+          "detail": "RS Percentile: 86%"
         },
         "price_action": {
           "score": 3,
@@ -25114,7 +25114,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.2,
+      "rs_percentile": 92.1,
       "avg_dollar_volume": 7.4,
       "details": {
         "52wk_high": {
@@ -25555,7 +25555,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 79.0,
+      "rs_percentile": 78.9,
       "avg_dollar_volume": 5.8,
       "details": {
         "52wk_high": {
@@ -25604,7 +25604,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 80.7,
+      "rs_percentile": 80.6,
       "avg_dollar_volume": 41.8,
       "details": {
         "52wk_high": {
@@ -25849,7 +25849,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 71.6,
+      "rs_percentile": 71.5,
       "avg_dollar_volume": 131.1,
       "details": {
         "52wk_high": {
@@ -26045,7 +26045,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 76.4,
+      "rs_percentile": 76.3,
       "avg_dollar_volume": 210.9,
       "details": {
         "52wk_high": {
@@ -26192,7 +26192,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 66.8,
+      "rs_percentile": 66.7,
       "avg_dollar_volume": 35.8,
       "details": {
         "52wk_high": {
@@ -26453,7 +26453,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 89%"
+          "detail": "RS Percentile: 88%"
         },
         "price_action": {
           "score": 7,
@@ -26584,7 +26584,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 73.7,
+      "rs_percentile": 73.6,
       "avg_dollar_volume": 106.7,
       "details": {
         "52wk_high": {
@@ -26682,7 +26682,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 74.2,
+      "rs_percentile": 74.1,
       "avg_dollar_volume": 435.0,
       "details": {
         "52wk_high": {
@@ -26829,7 +26829,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 77.0,
+      "rs_percentile": 76.9,
       "avg_dollar_volume": 49.0,
       "details": {
         "52wk_high": {
@@ -26976,7 +26976,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 69.7,
+      "rs_percentile": 69.6,
       "avg_dollar_volume": 453.1,
       "details": {
         "52wk_high": {
@@ -27466,7 +27466,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 76.3,
+      "rs_percentile": 76.2,
       "avg_dollar_volume": 138.0,
       "details": {
         "52wk_high": {
@@ -27515,7 +27515,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 76.6,
+      "rs_percentile": 76.5,
       "avg_dollar_volume": 85.5,
       "details": {
         "52wk_high": {
@@ -27776,7 +27776,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 91%"
+          "detail": "RS Percentile: 90%"
         },
         "price_action": {
           "score": 7,
@@ -27841,6 +27841,55 @@
           "score": 15,
           "max": 15,
           "detail": "Excellent \u2014 institutional ($1595M/day)"
+        },
+        "stage": {
+          "score": 20,
+          "max": 20,
+          "detail": "Uptrend \u2014 price > rising 150 SMA"
+        }
+      }
+    },
+    {
+      "ticker": "WTRG",
+      "price": 41.08,
+      "change_pct": 1.08,
+      "score": 72,
+      "verdict": "WATCHLIST \u2014 WAIT FOR SETUP",
+      "verdict_class": "badge-yellow",
+      "criteria_passed": "6/7",
+      "stage": "Stage 2",
+      "rs_percentile": 60.0,
+      "avg_dollar_volume": 58.3,
+      "details": {
+        "52wk_high": {
+          "score": 15,
+          "max": 15,
+          "detail": "Within 1.4% of 52WH"
+        },
+        "52wk_low": {
+          "score": 0,
+          "max": 15,
+          "detail": "Only 15% above 52WL"
+        },
+        "rel_strength": {
+          "score": 5,
+          "max": 15,
+          "detail": "RS Percentile: 60%"
+        },
+        "price_action": {
+          "score": 7,
+          "max": 10,
+          "detail": "Bullish close (upper half)"
+        },
+        "vcp": {
+          "score": 10,
+          "max": 10,
+          "detail": "Tight range \u2014 VCP signal (48.2% of avg)"
+        },
+        "liquidity": {
+          "score": 15,
+          "max": 15,
+          "detail": "Excellent \u2014 institutional ($106M/day)"
         },
         "stage": {
           "score": 20,
@@ -28299,7 +28348,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 79.9,
+      "rs_percentile": 79.8,
       "avg_dollar_volume": 38.8,
       "details": {
         "52wk_high": {
@@ -28593,7 +28642,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 69.6,
+      "rs_percentile": 69.5,
       "avg_dollar_volume": 58.9,
       "details": {
         "52wk_high": {
@@ -29279,7 +29328,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 89.7,
+      "rs_percentile": 89.6,
       "avg_dollar_volume": 676.3,
       "details": {
         "52wk_high": {
@@ -29622,7 +29671,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 92.3,
+      "rs_percentile": 92.2,
       "avg_dollar_volume": 12.6,
       "details": {
         "52wk_high": {
@@ -30014,7 +30063,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 68.2,
+      "rs_percentile": 68.1,
       "avg_dollar_volume": 102.2,
       "details": {
         "52wk_high": {
@@ -30112,7 +30161,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 90.6,
+      "rs_percentile": 90.5,
       "avg_dollar_volume": 27.9,
       "details": {
         "52wk_high": {
@@ -30357,7 +30406,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 82.4,
+      "rs_percentile": 82.3,
       "avg_dollar_volume": 85.5,
       "details": {
         "52wk_high": {
@@ -30553,7 +30602,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 71.0,
+      "rs_percentile": 70.9,
       "avg_dollar_volume": 12.7,
       "details": {
         "52wk_high": {
@@ -30896,7 +30945,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 64.8,
+      "rs_percentile": 64.7,
       "avg_dollar_volume": 65.3,
       "details": {
         "52wk_high": {
@@ -31141,7 +31190,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 59.3,
+      "rs_percentile": 59.2,
       "avg_dollar_volume": 106.5,
       "details": {
         "52wk_high": {
@@ -31582,7 +31631,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 81.9,
+      "rs_percentile": 81.8,
       "avg_dollar_volume": 690.0,
       "details": {
         "52wk_high": {
@@ -31778,7 +31827,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 85.3,
+      "rs_percentile": 85.2,
       "avg_dollar_volume": 6.7,
       "details": {
         "52wk_high": {
@@ -31827,7 +31876,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 74.5,
+      "rs_percentile": 74.4,
       "avg_dollar_volume": 31.3,
       "details": {
         "52wk_high": {
@@ -32219,7 +32268,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 75.0,
+      "rs_percentile": 74.9,
       "avg_dollar_volume": 24.0,
       "details": {
         "52wk_high": {
@@ -32415,7 +32464,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 75.8,
+      "rs_percentile": 75.7,
       "avg_dollar_volume": 221.3,
       "details": {
         "52wk_high": {
@@ -32807,7 +32856,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 78.5,
+      "rs_percentile": 78.4,
       "avg_dollar_volume": 20.9,
       "details": {
         "52wk_high": {
@@ -32954,7 +33003,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 60.6,
+      "rs_percentile": 60.5,
       "avg_dollar_volume": 57.2,
       "details": {
         "52wk_high": {
@@ -33493,7 +33542,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 68.9,
+      "rs_percentile": 68.8,
       "avg_dollar_volume": 310.8,
       "details": {
         "52wk_high": {
@@ -33885,7 +33934,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "7/7",
       "stage": "Stage 2",
-      "rs_percentile": 67.5,
+      "rs_percentile": 67.4,
       "avg_dollar_volume": 57.9,
       "details": {
         "52wk_high": {
@@ -34130,7 +34179,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 72.2,
+      "rs_percentile": 72.1,
       "avg_dollar_volume": 475.0,
       "details": {
         "52wk_high": {
@@ -34326,7 +34375,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 73.8,
+      "rs_percentile": 73.7,
       "avg_dollar_volume": 916.7,
       "details": {
         "52wk_high": {
@@ -34391,7 +34440,7 @@
         "rel_strength": {
           "score": 10,
           "max": 15,
-          "detail": "RS Percentile: 79%"
+          "detail": "RS Percentile: 78%"
         },
         "price_action": {
           "score": 0,
@@ -34701,55 +34750,6 @@
           "score": 10,
           "max": 15,
           "detail": "Good ($41M/day)"
-        },
-        "stage": {
-          "score": 20,
-          "max": 20,
-          "detail": "Uptrend \u2014 price > rising 150 SMA"
-        }
-      }
-    },
-    {
-      "ticker": "VIV",
-      "price": 16.03,
-      "change_pct": -0.93,
-      "score": 69,
-      "verdict": "WATCHLIST \u2014 WAIT FOR SETUP",
-      "verdict_class": "badge-yellow",
-      "criteria_passed": "6/7",
-      "stage": "Stage 2",
-      "rs_percentile": 80.0,
-      "avg_dollar_volume": 12.4,
-      "details": {
-        "52wk_high": {
-          "score": 10,
-          "max": 15,
-          "detail": "5.1% below 52WH"
-        },
-        "52wk_low": {
-          "score": 10,
-          "max": 15,
-          "detail": "97% above 52WL"
-        },
-        "rel_strength": {
-          "score": 15,
-          "max": 15,
-          "detail": "RS Percentile: 80%"
-        },
-        "price_action": {
-          "score": 0,
-          "max": 10,
-          "detail": "Weak close (lower half)"
-        },
-        "vcp": {
-          "score": 4,
-          "max": 10,
-          "detail": "Slightly tight (84.2% of avg)"
-        },
-        "liquidity": {
-          "score": 10,
-          "max": 15,
-          "detail": "Good ($16M/day)"
         },
         "stage": {
           "score": 20,
@@ -35306,7 +35306,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 81.7,
+      "rs_percentile": 81.6,
       "avg_dollar_volume": 173.9,
       "details": {
         "52wk_high": {
@@ -35763,7 +35763,7 @@
         "rel_strength": {
           "score": 10,
           "max": 15,
-          "detail": "RS Percentile: 77%"
+          "detail": "RS Percentile: 76%"
         },
         "price_action": {
           "score": 7,
@@ -35943,7 +35943,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 89.6,
+      "rs_percentile": 89.5,
       "avg_dollar_volume": 3.0,
       "details": {
         "52wk_high": {
@@ -36139,7 +36139,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 76.5,
+      "rs_percentile": 76.4,
       "avg_dollar_volume": 34.6,
       "details": {
         "52wk_high": {
@@ -36335,7 +36335,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 54.5,
+      "rs_percentile": 54.4,
       "avg_dollar_volume": 54.7,
       "details": {
         "52wk_high": {
@@ -36776,7 +36776,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 64.1,
+      "rs_percentile": 64.0,
       "avg_dollar_volume": 68.5,
       "details": {
         "52wk_high": {
@@ -36825,7 +36825,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 67.4,
+      "rs_percentile": 67.3,
       "avg_dollar_volume": 88.5,
       "details": {
         "52wk_high": {
@@ -37021,7 +37021,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 77.2,
+      "rs_percentile": 77.1,
       "avg_dollar_volume": 14.5,
       "details": {
         "52wk_high": {
@@ -37168,7 +37168,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 69.0,
+      "rs_percentile": 68.9,
       "avg_dollar_volume": 24.9,
       "details": {
         "52wk_high": {
@@ -37919,7 +37919,7 @@
         "rel_strength": {
           "score": 10,
           "max": 15,
-          "detail": "RS Percentile: 74%"
+          "detail": "RS Percentile: 73%"
         },
         "price_action": {
           "score": 0,
@@ -38197,7 +38197,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 73.0,
+      "rs_percentile": 72.9,
       "avg_dollar_volume": 6.5,
       "details": {
         "52wk_high": {
@@ -38246,7 +38246,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 70.2,
+      "rs_percentile": 70.1,
       "avg_dollar_volume": 14.1,
       "details": {
         "52wk_high": {
@@ -38932,7 +38932,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 80.0,
+      "rs_percentile": 79.9,
       "avg_dollar_volume": 221.0,
       "details": {
         "52wk_high": {
@@ -39079,7 +39079,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 78.3,
+      "rs_percentile": 78.2,
       "avg_dollar_volume": 50.8,
       "details": {
         "52wk_high": {
@@ -39226,7 +39226,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 66.1,
+      "rs_percentile": 66.0,
       "avg_dollar_volume": 16.6,
       "details": {
         "52wk_high": {
@@ -39373,7 +39373,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 60.0,
+      "rs_percentile": 59.9,
       "avg_dollar_volume": 50.2,
       "details": {
         "52wk_high": {
@@ -39667,7 +39667,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 78.6,
+      "rs_percentile": 78.5,
       "avg_dollar_volume": 195.5,
       "details": {
         "52wk_high": {
@@ -39765,7 +39765,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 77.7,
+      "rs_percentile": 77.6,
       "avg_dollar_volume": 199.1,
       "details": {
         "52wk_high": {
@@ -39928,7 +39928,7 @@
         "rel_strength": {
           "score": 15,
           "max": 15,
-          "detail": "RS Percentile: 85%"
+          "detail": "RS Percentile: 84%"
         },
         "price_action": {
           "score": 0,
@@ -40059,7 +40059,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 71.7,
+      "rs_percentile": 71.6,
       "avg_dollar_volume": 80.4,
       "details": {
         "52wk_high": {
@@ -40206,7 +40206,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 62.7,
+      "rs_percentile": 62.6,
       "avg_dollar_volume": 44.7,
       "details": {
         "52wk_high": {
@@ -40500,7 +40500,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 72.4,
+      "rs_percentile": 72.3,
       "avg_dollar_volume": 132.1,
       "details": {
         "52wk_high": {
@@ -40549,7 +40549,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 79.1,
+      "rs_percentile": 79.0,
       "avg_dollar_volume": 835.1,
       "details": {
         "52wk_high": {
@@ -40696,7 +40696,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 75.1,
+      "rs_percentile": 75.0,
       "avg_dollar_volume": 1128.5,
       "details": {
         "52wk_high": {
@@ -41039,7 +41039,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 56.6,
+      "rs_percentile": 56.5,
       "avg_dollar_volume": 345.0,
       "details": {
         "52wk_high": {
@@ -41088,7 +41088,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 77.8,
+      "rs_percentile": 77.7,
       "avg_dollar_volume": 42.3,
       "details": {
         "52wk_high": {
@@ -41169,6 +41169,55 @@
           "score": 15,
           "max": 15,
           "detail": "Excellent \u2014 institutional ($263M/day)"
+        },
+        "stage": {
+          "score": 20,
+          "max": 20,
+          "detail": "Uptrend \u2014 price > rising 150 SMA"
+        }
+      }
+    },
+    {
+      "ticker": "VIV",
+      "price": 16.03,
+      "change_pct": -0.93,
+      "score": 64,
+      "verdict": "WATCHLIST \u2014 WAIT FOR SETUP",
+      "verdict_class": "badge-yellow",
+      "criteria_passed": "6/7",
+      "stage": "Stage 2",
+      "rs_percentile": 80.0,
+      "avg_dollar_volume": 12.4,
+      "details": {
+        "52wk_high": {
+          "score": 10,
+          "max": 15,
+          "detail": "5.1% below 52WH"
+        },
+        "52wk_low": {
+          "score": 10,
+          "max": 15,
+          "detail": "97% above 52WL"
+        },
+        "rel_strength": {
+          "score": 10,
+          "max": 15,
+          "detail": "RS Percentile: 80%"
+        },
+        "price_action": {
+          "score": 0,
+          "max": 10,
+          "detail": "Weak close (lower half)"
+        },
+        "vcp": {
+          "score": 4,
+          "max": 10,
+          "detail": "Slightly tight (84.2% of avg)"
+        },
+        "liquidity": {
+          "score": 10,
+          "max": 15,
+          "detail": "Good ($16M/day)"
         },
         "stage": {
           "score": 20,
@@ -41480,7 +41529,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Unknown",
-      "rs_percentile": 70.8,
+      "rs_percentile": 70.7,
       "avg_dollar_volume": 15.7,
       "details": {
         "52wk_high": {
@@ -41578,7 +41627,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 67.6,
+      "rs_percentile": 67.5,
       "avg_dollar_volume": 8.5,
       "details": {
         "52wk_high": {
@@ -41725,7 +41774,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 65.4,
+      "rs_percentile": 65.3,
       "avg_dollar_volume": 116.8,
       "details": {
         "52wk_high": {
@@ -42558,7 +42607,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 71.5,
+      "rs_percentile": 71.4,
       "avg_dollar_volume": 900.7,
       "details": {
         "52wk_high": {
@@ -43244,7 +43293,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 75.6,
+      "rs_percentile": 75.5,
       "avg_dollar_volume": 491.3,
       "details": {
         "52wk_high": {
@@ -43293,7 +43342,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 84.6,
+      "rs_percentile": 84.5,
       "avg_dollar_volume": 9.1,
       "details": {
         "52wk_high": {
@@ -43832,7 +43881,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 79.8,
+      "rs_percentile": 79.7,
       "avg_dollar_volume": 172.3,
       "details": {
         "52wk_high": {
@@ -43979,7 +44028,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 2",
-      "rs_percentile": 55.2,
+      "rs_percentile": 55.1,
       "avg_dollar_volume": 26.3,
       "details": {
         "52wk_high": {
@@ -44077,7 +44126,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "4/7",
       "stage": "Stage 2",
-      "rs_percentile": 35.3,
+      "rs_percentile": 35.4,
       "avg_dollar_volume": 74.4,
       "details": {
         "52wk_high": {
@@ -44910,7 +44959,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 3",
-      "rs_percentile": 66.9,
+      "rs_percentile": 66.8,
       "avg_dollar_volume": 16.8,
       "details": {
         "52wk_high": {
@@ -46282,7 +46331,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 1",
-      "rs_percentile": 65.5,
+      "rs_percentile": 65.4,
       "avg_dollar_volume": 71.6,
       "details": {
         "52wk_high": {
@@ -46331,7 +46380,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 53.8,
+      "rs_percentile": 53.7,
       "avg_dollar_volume": 26.3,
       "details": {
         "52wk_high": {
@@ -47115,7 +47164,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 57.2,
+      "rs_percentile": 57.1,
       "avg_dollar_volume": 374.5,
       "details": {
         "52wk_high": {
@@ -47311,7 +47360,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 62.1,
+      "rs_percentile": 62.0,
       "avg_dollar_volume": 48.1,
       "details": {
         "52wk_high": {
@@ -47899,7 +47948,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Unknown",
-      "rs_percentile": 77.9,
+      "rs_percentile": 77.8,
       "avg_dollar_volume": 162.0,
       "details": {
         "52wk_high": {
@@ -48062,7 +48111,7 @@
         "rel_strength": {
           "score": 10,
           "max": 15,
-          "detail": "RS Percentile: 68%"
+          "detail": "RS Percentile: 67%"
         },
         "price_action": {
           "score": 7,
@@ -48193,7 +48242,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 1",
-      "rs_percentile": 85.9,
+      "rs_percentile": 85.8,
       "avg_dollar_volume": 34.1,
       "details": {
         "52wk_high": {
@@ -48879,7 +48928,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 1",
-      "rs_percentile": 44.1,
+      "rs_percentile": 44.2,
       "avg_dollar_volume": 3093.4,
       "details": {
         "52wk_high": {
@@ -49663,7 +49712,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "6/7",
       "stage": "Stage 1",
-      "rs_percentile": 45.5,
+      "rs_percentile": 45.6,
       "avg_dollar_volume": 64.9,
       "details": {
         "52wk_high": {
@@ -49850,7 +49899,7 @@
   ],
   "scan_stats": {
     "total_actionable": 455,
-    "total_watchlist": 537,
-    "total_avoid": 1153
+    "total_watchlist": 538,
+    "total_avoid": 1154
   }
 }
