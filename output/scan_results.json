@@ -1,7 +1,7 @@
 {
-  "scan_date": "2026-05-24",
-  "scan_time": "21:40:35 ET",
-  "elapsed_minutes": 10.5,
+  "scan_date": "2026-05-25",
+  "scan_time": "22:01:49 ET",
+  "elapsed_minutes": 16.0,
   "universe_size": 6522,
   "prefiltered_size": 2218,
   "scanned_size": 2197,
@@ -27,8 +27,8 @@
     {
       "ticker": "^VIX",
       "name": "VIX",
-      "value": 16.7,
-      "change_pct": -0.36
+      "value": 16.59,
+      "change_pct": -0.66
     },
     {
       "ticker": "^TNX",
@@ -39,8 +39,8 @@
     {
       "ticker": "DX-Y.NYB",
       "name": "US DOLLAR",
-      "value": 99.32,
-      "change_pct": 0.13
+      "value": 99.24,
+      "change_pct": -0.08
     },
     {
       "ticker": "GLD",
@@ -58,13 +58,13 @@
     "spy_vs_21ema": 2.21,
     "spy_vs_50ema": 5.03,
     "spy_vs_200ema": 10.69,
-    "ema21": 729.4988502548349,
-    "ema50": 709.9563936005601,
-    "ema200": 673.6075023686858,
-    "vix": 16.7,
+    "ema21": 729.4988502548347,
+    "ema50": 709.9563936031394,
+    "ema200": 673.6075028003108,
+    "vix": 16.59,
     "breadth_pct_20d": 50.0,
     "roc_10d": 1.09,
-    "thrust_days_ago": 2,
+    "thrust_days_ago": 3,
     "components": {
       "ema_alignment": {
         "score": 100,
@@ -89,8 +89,8 @@
     }
   },
   "breadth": {
-    "date": "2026-05-24",
-    "day_of_week": "Sunday",
+    "date": "2026-05-25",
+    "day_of_week": "Monday",
     "adv": 1282,
     "dec": 915,
     "ad_ratio": 1.4,
@@ -105,19 +105,6 @@
     "flags": []
   },
   "breadth_history": [
-    {
-      "date": "2026-05-07",
-      "day_of_week": "Thursday",
-      "adv": 766,
-      "dec": 1447,
-      "up4pct": 185,
-      "dn4pct": 332,
-      "pct_above_10d": 56.1,
-      "pct_above_20d": 54.2,
-      "pct_above_40d": 67.0,
-      "spy_close": 731.58,
-      "spy_chg_pct": -0.31
-    },
     {
       "date": "2026-05-08",
       "day_of_week": "Friday",
@@ -290,6 +277,19 @@
     {
       "date": "2026-05-24",
       "day_of_week": "Sunday",
+      "adv": 1282,
+      "dec": 915,
+      "up4pct": 195,
+      "dn4pct": 62,
+      "pct_above_10d": 64.1,
+      "pct_above_20d": 54.8,
+      "pct_above_40d": 57.0,
+      "spy_close": 745.64,
+      "spy_chg_pct": 0.39
+    },
+    {
+      "date": "2026-05-25",
+      "day_of_week": "Monday",
       "adv": 1282,
       "dec": 915,
       "up4pct": 195,
@@ -38932,7 +38932,7 @@
       "verdict_class": "badge-yellow",
       "criteria_passed": "5/7",
       "stage": "Stage 2",
-      "rs_percentile": 35.4,
+      "rs_percentile": 35.3,
       "avg_dollar_volume": 10.6,
       "details": {
         "52wk_high": {
