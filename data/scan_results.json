@@ -1,7 +1,7 @@
 {
-  "scan_date": "2026-09-06",
-  "scan_time": "22:23:09 ET",
-  "elapsed_minutes": 9.1,
+  "scan_date": "2026-09-07",
+  "scan_time": "23:08:28 ET",
+  "elapsed_minutes": 11.3,
   "universe_size": 6604,
   "prefiltered_size": 2126,
   "scanned_size": 2113,
@@ -27,8 +27,8 @@
     {
       "ticker": "^VIX",
       "name": "VIX",
-      "value": 14.53,
-      "change_pct": 1.47
+      "value": 15.3,
+      "change_pct": 5.3
     },
     {
       "ticker": "^TNX",
@@ -39,8 +39,8 @@
     {
       "ticker": "DX-Y.NYB",
       "name": "US DOLLAR",
-      "value": 99.16,
-      "change_pct": 0.0
+      "value": 99.18,
+      "change_pct": 0.02
     },
     {
       "ticker": "GLD",
@@ -50,7 +50,7 @@
     }
   ],
   "regime": {
-    "regime_score": 68,
+    "regime_score": 64,
     "label": "SELECTIVE",
     "color": "#ffeb3b",
     "breakouts_likely": false,
@@ -58,10 +58,10 @@
     "spy_vs_21ema": 0.55,
     "spy_vs_50ema": 1.67,
     "spy_vs_200ema": 7.25,
-    "ema21": 765.995310232021,
-    "ema50": 757.5235285517202,
-    "ema200": 718.0946559532154,
-    "vix": 14.53,
+    "ema21": 765.9953102318511,
+    "ema50": 757.523528490964,
+    "ema200": 718.0946602515068,
+    "vix": 15.3,
     "breadth_pct_20d": 50.0,
     "roc_10d": 0.58,
     "thrust_days_ago": null,
@@ -79,7 +79,7 @@
         "weight": 0.2
       },
       "volatility": {
-        "score": 100,
+        "score": 75,
         "weight": 0.15
       },
       "breadth_thrust": {
@@ -89,8 +89,8 @@
     }
   },
   "breadth": {
-    "date": "2026-09-06",
-    "day_of_week": "Sunday",
+    "date": "2026-09-07",
+    "day_of_week": "Monday",
     "adv": 994,
     "dec": 1119,
     "ad_ratio": 0.89,
@@ -105,19 +105,6 @@
     "flags": []
   },
   "breadth_history": [
-    {
-      "date": "2026-08-20",
-      "day_of_week": "Thursday",
-      "adv": 651,
-      "dec": 1438,
-      "up4pct": 75,
-      "dn4pct": 228,
-      "pct_above_10d": 43.9,
-      "pct_above_20d": 51.6,
-      "pct_above_40d": 54.4,
-      "spy_close": 762.6,
-      "spy_chg_pct": -0.84
-    },
     {
       "date": "2026-08-21",
       "day_of_week": "Friday",
@@ -290,6 +277,19 @@
     {
       "date": "2026-09-06",
       "day_of_week": "Sunday",
+      "adv": 994,
+      "dec": 1119,
+      "up4pct": 118,
+      "dn4pct": 77,
+      "pct_above_10d": 47.2,
+      "pct_above_20d": 43.6,
+      "pct_above_40d": 51.2,
+      "spy_close": 770.19,
+      "spy_chg_pct": -0.39
+    },
+    {
+      "date": "2026-09-07",
+      "day_of_week": "Monday",
       "adv": 994,
       "dec": 1119,
       "up4pct": 118,
