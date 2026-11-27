@@ -1,7 +1,7 @@
 {
-  "scan_date": "2026-11-26",
-  "scan_time": "03:04:36 ET",
-  "elapsed_minutes": 5.4,
+  "scan_date": "2026-11-27",
+  "scan_time": "03:14:25 ET",
+  "elapsed_minutes": 7.5,
   "universe_size": 6564,
   "prefiltered_size": 2141,
   "scanned_size": 2137,
@@ -27,8 +27,8 @@
     {
       "ticker": "^VIX",
       "name": "VIX",
-      "value": 28.29,
-      "change_pct": 7.32
+      "value": 26.8,
+      "change_pct": -5.27
     },
     {
       "ticker": "^TNX",
@@ -39,8 +39,8 @@
     {
       "ticker": "DX-Y.NYB",
       "name": "US DOLLAR",
-      "value": 103.76,
-      "change_pct": -0.04
+      "value": 103.65,
+      "change_pct": -0.02
     },
     {
       "ticker": "GLD",
@@ -58,13 +58,13 @@
     "spy_vs_21ema": -2.8,
     "spy_vs_50ema": -4.4,
     "spy_vs_200ema": -2.55,
-    "ema21": 737.3468397824875,
-    "ema50": 749.6763009780416,
-    "ema200": 735.4844632177836,
-    "vix": 28.29,
+    "ema21": 737.3468397824984,
+    "ema50": 749.6763009831379,
+    "ema200": 735.4844678234684,
+    "vix": 26.8,
     "breadth_pct_20d": 50.0,
     "roc_10d": -5.67,
-    "thrust_days_ago": 1,
+    "thrust_days_ago": 2,
     "components": {
       "ema_alignment": {
         "score": 10,
@@ -89,8 +89,8 @@
     }
   },
   "breadth": {
-    "date": "2026-11-26",
-    "day_of_week": "Thursday",
+    "date": "2026-11-27",
+    "day_of_week": "Friday",
     "adv": 1564,
     "dec": 573,
     "ad_ratio": 2.73,
@@ -102,28 +102,9 @@
     "spy_close": 716.7,
     "spy_chg_pct": -0.29,
     "total_stocks": 2137,
-    "flags": [
-      {
-        "type": "THRUST",
-        "msg": "BREADTH THRUST \u2014 %> 20D crossed above 30%",
-        "color": "#00e676"
-      }
-    ]
+    "flags": []
   },
   "breadth_history": [
-    {
-      "date": "2026-11-10",
-      "day_of_week": "Tuesday",
-      "adv": 1967,
-      "dec": 373,
-      "up4pct": 776,
-      "dn4pct": 43,
-      "pct_above_10d": 63.7,
-      "pct_above_20d": 64.3,
-      "pct_above_40d": 61.0,
-      "spy_close": 752.69,
-      "spy_chg_pct": 2.37
-    },
     {
       "date": "2026-11-11",
       "day_of_week": "Wednesday",
@@ -296,6 +277,19 @@
     {
       "date": "2026-11-26",
       "day_of_week": "Thursday",
+      "adv": 1564,
+      "dec": 573,
+      "up4pct": 199,
+      "dn4pct": 33,
+      "pct_above_10d": 51.7,
+      "pct_above_20d": 40.5,
+      "pct_above_40d": 46.1,
+      "spy_close": 716.7,
+      "spy_chg_pct": -0.29
+    },
+    {
+      "date": "2026-11-27",
+      "day_of_week": "Friday",
       "adv": 1564,
       "dec": 573,
       "up4pct": 199,
@@ -2138,7 +2132,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 99.3,
-      "avg_dollar_volume": 200.1,
+      "avg_dollar_volume": 200.2,
       "details": {
         "52wk_high": {
           "score": 15,
@@ -2971,7 +2965,7 @@
       "criteria_passed": "7/7",
       "stage": "Stage 2",
       "rs_percentile": 95.4,
-      "avg_dollar_volume": 140.3,
+      "avg_dollar_volume": 140.4,
       "details": {
         "52wk_high": {
           "score": 10,
@@ -8459,7 +8453,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 89.1,
-      "avg_dollar_volume": 224.5,
+      "avg_dollar_volume": 224.8,
       "details": {
         "52wk_high": {
           "score": 0,
@@ -8508,7 +8502,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 94.8,
-      "avg_dollar_volume": 490.0,
+      "avg_dollar_volume": 490.1,
       "details": {
         "52wk_high": {
           "score": 10,
@@ -8538,7 +8532,7 @@
         "liquidity": {
           "score": 15,
           "max": 15,
-          "detail": "Excellent \u2014 institutional ($562M/day)"
+          "detail": "Excellent \u2014 institutional ($563M/day)"
         },
         "stage": {
           "score": 20,
@@ -9831,7 +9825,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 81.5,
-      "avg_dollar_volume": 1633.1,
+      "avg_dollar_volume": 1633.3,
       "details": {
         "52wk_high": {
           "score": 15,
@@ -10272,7 +10266,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 81.1,
-      "avg_dollar_volume": 215.8,
+      "avg_dollar_volume": 215.9,
       "details": {
         "52wk_high": {
           "score": 10,
@@ -10664,7 +10658,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 82.9,
-      "avg_dollar_volume": 3884.7,
+      "avg_dollar_volume": 3887.1,
       "details": {
         "52wk_high": {
           "score": 5,
@@ -10694,7 +10688,7 @@
         "liquidity": {
           "score": 15,
           "max": 15,
-          "detail": "Excellent \u2014 institutional ($2379M/day)"
+          "detail": "Excellent \u2014 institutional ($2380M/day)"
         },
         "stage": {
           "score": 20,
@@ -11987,7 +11981,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 90.2,
-      "avg_dollar_volume": 178.5,
+      "avg_dollar_volume": 178.6,
       "details": {
         "52wk_high": {
           "score": 5,
@@ -13261,7 +13255,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 83.5,
-      "avg_dollar_volume": 261.6,
+      "avg_dollar_volume": 261.7,
       "details": {
         "52wk_high": {
           "score": 15,
@@ -14241,7 +14235,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 82.1,
-      "avg_dollar_volume": 2453.7,
+      "avg_dollar_volume": 2454.1,
       "details": {
         "52wk_high": {
           "score": 15,
@@ -15711,7 +15705,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 72.5,
-      "avg_dollar_volume": 19606.6,
+      "avg_dollar_volume": 19609.8,
       "details": {
         "52wk_high": {
           "score": 15,
@@ -15741,7 +15735,7 @@
         "liquidity": {
           "score": 15,
           "max": 15,
-          "detail": "Excellent \u2014 institutional ($15680M/day)"
+          "detail": "Excellent \u2014 institutional ($15681M/day)"
         },
         "stage": {
           "score": 20,
@@ -16642,7 +16636,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 73.0,
-      "avg_dollar_volume": 4147.9,
+      "avg_dollar_volume": 4150.2,
       "details": {
         "52wk_high": {
           "score": 5,
@@ -18406,7 +18400,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 84.8,
-      "avg_dollar_volume": 291.1,
+      "avg_dollar_volume": 292.2,
       "details": {
         "52wk_high": {
           "score": 10,
@@ -20858,7 +20852,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 100.0,
-      "avg_dollar_volume": 1868.6,
+      "avg_dollar_volume": 1869.3,
       "details": {
         "52wk_high": {
           "score": 5,
@@ -21936,7 +21930,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 75.8,
-      "avg_dollar_volume": 675.1,
+      "avg_dollar_volume": 675.3,
       "details": {
         "52wk_high": {
           "score": 10,
@@ -25023,7 +25017,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 81.8,
-      "avg_dollar_volume": 22.5,
+      "avg_dollar_volume": 22.6,
       "details": {
         "52wk_high": {
           "score": 10,
@@ -25219,7 +25213,7 @@
       "criteria_passed": "5/7",
       "stage": "Stage 2",
       "rs_percentile": 69.8,
-      "avg_dollar_volume": 252.3,
+      "avg_dollar_volume": 256.4,
       "details": {
         "52wk_high": {
           "score": 15,
@@ -25758,7 +25752,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 66.9,
-      "avg_dollar_volume": 15363.5,
+      "avg_dollar_volume": 15366.1,
       "details": {
         "52wk_high": {
           "score": 10,
@@ -29678,7 +29672,7 @@
       "criteria_passed": "5/7",
       "stage": "Stage 2",
       "rs_percentile": 72.8,
-      "avg_dollar_volume": 3887.1,
+      "avg_dollar_volume": 3887.5,
       "details": {
         "52wk_high": {
           "score": 15,
@@ -31589,7 +31583,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 59.8,
-      "avg_dollar_volume": 4325.1,
+      "avg_dollar_volume": 4327.7,
       "details": {
         "52wk_high": {
           "score": 5,
@@ -33843,7 +33837,7 @@
       "criteria_passed": "6/7",
       "stage": "Stage 2",
       "rs_percentile": 70.4,
-      "avg_dollar_volume": 915.8,
+      "avg_dollar_volume": 916.0,
       "details": {
         "52wk_high": {
           "score": 10,
@@ -34554,7 +34548,7 @@
         "vcp": {
           "score": 0,
           "max": 10,
-          "detail": "Expanding range (258.5% of avg)"
+          "detail": "Expanding range (261.4% of avg)"
         },
         "liquidity": {
           "score": 5,
@@ -36024,7 +36018,7 @@
         "vcp": {
           "score": 0,
           "max": 10,
-          "detail": "Expanding range (388.2% of avg)"
+          "detail": "Expanding range (389.3% of avg)"
         },
         "liquidity": {
           "score": 0,
@@ -40017,7 +40011,7 @@
       "criteria_passed": "5/7",
       "stage": "Stage 1",
       "rs_percentile": 42.7,
-      "avg_dollar_volume": 93.2,
+      "avg_dollar_volume": 93.3,
       "details": {
         "52wk_high": {
           "score": 0,
@@ -41585,7 +41579,7 @@
       "criteria_passed": "4/7",
       "stage": "Stage 2",
       "rs_percentile": 33.6,
-      "avg_dollar_volume": 13948.5,
+      "avg_dollar_volume": 13958.1,
       "details": {
         "52wk_high": {
           "score": 5,
@@ -41615,7 +41609,7 @@
         "liquidity": {
           "score": 15,
           "max": 15,
-          "detail": "Excellent \u2014 institutional ($13927M/day)"
+          "detail": "Excellent \u2014 institutional ($13928M/day)"
         },
         "stage": {
           "score": 20,
@@ -41777,7 +41771,7 @@
       "ticker": "FCUV",
       "price": 5.65,
       "change_pct": 53.12,
-      "volume": 2675998,
+      "volume": 2676852,
       "dollar_volume": 15.1
     },
     {
@@ -41798,14 +41792,14 @@
       "ticker": "BNAI",
       "price": 8.15,
       "change_pct": 22.56,
-      "volume": 1778632,
+      "volume": 1780610,
       "dollar_volume": 14.5
     },
     {
       "ticker": "AGLT",
       "price": 6.49,
       "change_pct": 20.41,
-      "volume": 3390274,
+      "volume": 3390782,
       "dollar_volume": 22.0
     },
     {
@@ -41833,14 +41827,14 @@
       "ticker": "HPQ",
       "price": 31.15,
       "change_pct": 11.49,
-      "volume": 14193220,
+      "volume": 14193946,
       "dollar_volume": 442.1
     },
     {
       "ticker": "LI",
       "price": 11.88,
       "change_pct": 11.03,
-      "volume": 3090054,
+      "volume": 3090330,
       "dollar_volume": 36.7
     }
   ],
@@ -41849,7 +41843,7 @@
       "ticker": "AMBA",
       "price": 35.68,
       "change_pct": -19.77,
-      "volume": 1826024,
+      "volume": 1826480,
       "dollar_volume": 65.2
     },
     {
@@ -41884,7 +41878,7 @@
       "ticker": "BLZE",
       "price": 6.77,
       "change_pct": -6.49,
-      "volume": 2277828,
+      "volume": 2278060,
       "dollar_volume": 15.4
     },
     {
@@ -41898,15 +41892,15 @@
       "ticker": "IBRX",
       "price": 5.64,
       "change_pct": -5.92,
-      "volume": 14472874,
+      "volume": 14474252,
       "dollar_volume": 81.7
     },
     {
       "ticker": "LRCX",
       "price": 185.01,
       "change_pct": -5.68,
-      "volume": 11963094,
-      "dollar_volume": 2213.3
+      "volume": 11963756,
+      "dollar_volume": 2213.4
     },
     {
       "ticker": "GLUE",
